@@ -42,8 +42,6 @@ project
 │   ├── services                            // 服务目录
 │   ├── views                               // 页面目录
 │   |   └── market
-├── static                                  // 静态资源目录
-|   ├── images
 ├── tools                                   // node命令工具目录
 |   ├── common.tool.js
 |   ├── fs.tool.js
@@ -52,11 +50,9 @@ project
 ├── .babelrc                                // babel 配置文件
 ├── .editorconfig                           // 代码格式文件
 ├── .gitignore                              // 忽略文件
-├── old_tree.json                           // 老壳子tree
 ├── package.json
 ├── package-lock.json
 ├── README.md
-├── tree.json                               // 新壳子tree
 
 ```
 
