@@ -4,7 +4,6 @@
   "description": "webpack building multiple page projects",
   "main": "index.js",
   "scripts": {
-    "dev1": "webpack-dev-server --hot --inline  --watch --config ./build/webpack.config.js",
     "dev": "node cmd -r BD&&node cmd -c&&webpack --watch --config ./build/webpack.config.js",
     "test": "node cmd -r CS&&node cmd -c&&webpack --watch --config ./build/webpack.config.js",
     "build": "node cmd -r SC&&node cmd -c&&webpack --watch --config ./build/webpack.config.js",
