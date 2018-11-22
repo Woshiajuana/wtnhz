@@ -3,12 +3,20 @@ import Path                             from 'path'
 import fs                               from 'fs'
 import config                           from '../config'
 
+const stat = fs.stat;
 const { copyArr } = config;
 
 class Copy {
-    constructor () {
-        this.readable = null;
-        this.writable = null;
+    start (src, dst) {
+        fs.exists(dst, (exists) => {
+            if (exists) {
+                this.copy(src, dst);
+            } else {//存在
+                this.mkDirsSync(dst);
+                this.copy(src, dst)
+            }
+        });
+        return this;
     }
 
     mkDirsSync (dirpath, mode) {
@@ -35,35 +43,27 @@ class Copy {
         }
     }
 
-    copy (from, to) {
-        let from_arr_file = fs.readdirSync(from);
-        this.mkDirsSync(to);
-        from_arr_file.forEach((file) => {
-            let from_full_path = Path.join(from, file);
-            let to_full_path = Path.join(to, file);
-            let from_ext_name = Path.extname(from_full_path);
-            let from_file_stat = fs.statSync(from_full_path);
-            if (from_file_stat.isFile() && ['.scss'].indexOf(from_ext_name) === -1) {
-                this.readable = fs.createReadStream(from_full_path);       // 创建读取流
-                this.writable = fs.createWriteStream(to_full_path);      // 创建写入流
-                this.readable.pipe(this.writable);
-            } else if (from_file_stat.isDirectory()) {
-                let to_exists = fs.existsSync(to_full_path);
-                !to_exists && this.mkDirsSync(to_full_path);
-                this.copy(from_full_path, to_full_path)
-            }
+    copy (src, dst) {
+        //读取目录
+        fs.readdir(src, (err,paths) => {
+            if (err) throw err;
+            paths.forEach((path) => {
+                let _src = src + '/' + path;
+                let _dst = dst + '/' + path;
+                let readable;
+                let writable;
+                stat(_src, (err,st) =>{
+                    if (err) throw err;
+                    if (st.isFile()) {
+                        readable = fs.createReadStream(_src);//创建读取流
+                        writable = fs.createWriteStream(_dst);//创建写入流
+                        readable.pipe(writable);
+                    } else if (st.isDirectory()){
+                        this.copy(_src, _dst);
+                    }
+                });
+            });
         });
-        // this.close();
-    }
-
-    close () {
-        this.readable && this.readable.close();
-        this.writable && this.writable.close();
-    }
-
-
-    start (from, to) {
-        this.copy(from, to)
     }
 }
 export default((arr_parameter) => new Promise((resolve, reject) => {
@@ -80,7 +80,6 @@ export default((arr_parameter) => new Promise((resolve, reject) => {
     return resolve();
 }));
 
-export const copy =  new Copy();
 
 
 

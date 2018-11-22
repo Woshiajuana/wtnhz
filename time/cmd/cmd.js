@@ -1,17 +1,11 @@
 
-import copy             from './copy.cmd'
-import page             from './page.cmd'
-import ip               from './ip.cmd'
-import release          from './release.cmd'
-import deletes          from './delete.cmd'
-
+import copy          from './copy.cmd'
+import release       from './release.cmd'
 const parameters = process.argv.splice(2);
+
 const arr = [
-    page,
     copy,
-    ip,
     release,
-    deletes,
 ];
 
 (function fireFun(index) {
