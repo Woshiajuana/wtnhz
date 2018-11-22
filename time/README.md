@@ -28,7 +28,10 @@ project
 |   ├── tree.config.js
 ├── dist                                    // 打包出来的js目录（用户部署生产）
 |   ├── assets                              // 静态文件目录
-│   |   └── market
+│   |   └── css                             // 样式资源
+│   |   └── js                              // js资源
+│   |   └── image                           // 图片资源
+|   ├── [xx].html                           // 页面
 ├── node_modules                            // 依赖
 ├── src                                     // 项目目录
 |   ├── api                                 // 接口目录
