@@ -14,7 +14,7 @@ export default {
             exclude,
         } = options;
         try {
-            let files = fs.readdirSync(path);
+            let files = fs.readdirSync(cmdPath);
             files.forEach((file) => {
                 let filePath = path.join(cmdPath, '/' + file);
                 let fileStat = fs.statSync(filePath);
