@@ -1,7 +1,7 @@
 
 import path from 'path'
 import walk from './utils/walk.util'
-import cool from './utils/cool.util'
+import task from './utils/task.util'
 
 const parameters = process.argv.splice(2);
 
@@ -11,8 +11,6 @@ export default () => {
         include: ['cmd.js'],
         exclude: [],
     });
-    console.log(parameters);
-    console.log(result);
     if (!parameters.length)
         return;
     let fireFunArr = [];
@@ -20,9 +18,11 @@ export default () => {
         result.forEach((fireFun) => {
             if (fireFun.default)
                 fireFun = fireFun.default;
-            if (typeof fireFun !== 'function'|| !fireFun.cmd)
+            if (typeof fireFun !== 'function'
+                || !fireFun.options
+                || !fireFun.options.cmd)
                 return null;
-            let cmd = fireFun.cmd;
+            let cmd = fireFun.options.cmd;
             let type = false;
             cmd.forEach((c) => {
                 if (item === c)
@@ -30,16 +30,15 @@ export default () => {
             });
             if (!type)
                 return null;
-            let params = parameters[index + 1];
-            fireFunArr.push({fireFun, params});
+            let options = {
+                params: parameters[index + 1],
+                parameters,
+            };
+            fireFunArr.push({fireFun, options});
         })
     });
-    (function fireFun(index) {
-        fireFunArr[index]
-        && fireFunArr[index].fireFun
-        && fireFunArr[index].fireFun(fireFunArr[index].params).then(() => {
-            return fireFun(++index);
-        })
-    })(0);
+    if (!fireFunArr.length)
+        return null;
+    task.run(...fireFunArr);
     return null;
 };
