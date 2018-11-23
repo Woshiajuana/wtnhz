@@ -6,7 +6,7 @@ import cmd from 'wow-cmd'
 cmd({
     cmdPath: path.join(__dirname),
     options: {
-        include: ['cmd.js'],
+        include: ['.cmd.js'],
         exclude: [],
     }
 });
