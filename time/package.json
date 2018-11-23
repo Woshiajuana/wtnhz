@@ -4,10 +4,7 @@
   "description": "time.wtnhz.com web page、 wap page",
   "main": "index.js",
   "scripts": {
-    "dev": "node cmd -d&&node cmd -r BD&&node cmd -c&&webpack --watch --config ./build/webpack.config.js",
-    "dev1": "node cmd -r BD&&node cmd -c&&webpack --watch --config ./build/webpack.config.js",
-    "test": "node cmd -r CS&&node cmd -c&&webpack --watch --config ./build/webpack.config.js",
-    "build": "node cmd -r SC&&node cmd -c&&webpack --watch --config ./build/webpack.config.js",
+    "dev": "node cmd -d dist&&node cmd -r BD&&webpack --watch --config ./build/webpack.config.js",
     "serve": "serve -p 42580"
   },
   "repository": {
