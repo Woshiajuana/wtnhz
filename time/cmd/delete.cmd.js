@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import {
     log
-} from '../../wow-cmd'
+} from 'wow-cmd'
 
 const Handle = (options, data) => new Promise((resolve, reject) => {
     let {
