@@ -22,5 +22,5 @@ Handle.error = (err, next) => {
     next(err);
 };
 
-export default Handle;
+module.exports = Handle;
 

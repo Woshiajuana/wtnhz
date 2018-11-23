@@ -1,5 +1,5 @@
 
-export default (str, stage) => {
+module.exports = function (str, stage) {
     switch (stage) {
         case '000':
             return console.log(`成功=> ===== ${str}`);

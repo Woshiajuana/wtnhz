@@ -1,5 +1,5 @@
 
-export default {
+module.exports = {
     run (oldData = [], newData = []) {
         let result = [...oldData];
         newData.forEach((n) => {
@@ -20,4 +20,4 @@ export default {
         });
         return result;
     }
-}
+};

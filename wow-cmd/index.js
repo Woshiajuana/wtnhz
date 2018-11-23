@@ -1,13 +1,14 @@
 
-import path from 'path'
-import walk from './utils/walk.util'
-import task from './utils/task.util'
-import dupl from './utils/dupl.util'
-import logs from './utils/log.util'
+const path = require('path');
+const walk = require('./utils/walk.util');
+const task = require('./utils/task.util');
+const dupl = require('./utils/dupl.util');
+const logs = require('./utils/log.util');
 
 const parameters = process.argv.splice(2);
 
-export default (opt = { cmdPath: '', options: { include: ['cmd.js'], exclude: [], }}) => {
+
+module.exports = function (opt = { cmdPath: '', options: { include: ['.cmd.js'], exclude: [], }}) {
     const libPath = path.join(__dirname, '/lib');
     let result = walk.run(libPath, {
         include: ['cmd.js'],
@@ -54,4 +55,4 @@ export default (opt = { cmdPath: '', options: { include: ['cmd.js'], exclude: []
     return null;
 };
 
-export let log = logs;
+module.exports.log = logs;

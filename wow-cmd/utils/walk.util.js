@@ -1,7 +1,8 @@
-import fs from 'fs'
-import path from 'path'
 
-export default {
+const fs = require('fs');
+const path = require('path');
+
+module.exports = {
     /**
      * @param cmdPath [String] 路径
      * @param options [Object] 参数
@@ -37,7 +38,7 @@ export default {
         }
         return result;
     }
-}
+};
 
 
 function indexOf (arr = [], text = '') {

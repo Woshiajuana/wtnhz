@@ -1,6 +1,7 @@
 
 import path from 'path'
-import cmd from '../../wow-cmd/index'
+import cmd from 'wow-cmd'
+// import cmd from '../../wow-cmd'
 
 cmd({
     cmdPath: path.join(__dirname),

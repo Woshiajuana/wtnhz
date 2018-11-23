@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     run () {
         let taskArr = Array.prototype.slice.apply(arguments);
         let index = 0;
@@ -20,4 +20,4 @@ export default {
         };
         next();
     },
-}
+};
