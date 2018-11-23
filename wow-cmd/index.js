@@ -12,23 +12,34 @@ export default () => {
         exclude: [],
     });
     console.log(parameters);
-    result.forEach((fireFun = '') => {
-        if (fireFun.default)
-            fireFun = fireFun.default;
-        if (typeof fireFun !== 'function'|| !fireFun.cmd)
-            return null;
-        let index = cool.findFirstIndexForArr(parameters, (item) => {
-            let type = false;
+    console.log(result);
+    if (!parameters.length)
+        return;
+    let fireFunArr = [];
+    parameters.forEach((item, index) => {
+        result.forEach((fireFun) => {
+            if (fireFun.default)
+                fireFun = fireFun.default;
+            if (typeof fireFun !== 'function'|| !fireFun.cmd)
+                return null;
             let cmd = fireFun.cmd;
+            let type = false;
             cmd.forEach((c) => {
                 if (item === c)
                     type = true;
             });
-            return type;
-        });
-        if (index === -1) return null;
-        let params = parameters[index + 1];
-        fireFun(params);
+            if (!type)
+                return null;
+            let params = parameters[index + 1];
+            fireFunArr.push({fireFun, params});
+        })
     });
+    (function fireFun(index) {
+        fireFunArr[index]
+        && fireFunArr[index].fireFun
+        && fireFunArr[index].fireFun(fireFunArr[index].params).then(() => {
+            return fireFun(++index);
+        })
+    })(0);
     return null;
 };
