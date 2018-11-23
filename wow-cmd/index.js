@@ -3,6 +3,7 @@ import path from 'path'
 import walk from './utils/walk.util'
 import task from './utils/task.util'
 import dupl from './utils/dupl.util'
+import logs from './utils/log.util'
 
 const parameters = process.argv.splice(2);
 
@@ -20,7 +21,6 @@ export default (opt = { cmdPath: '', options: { include: ['cmd.js'], exclude: []
         let cmdTask = walk.run(cmdPath, options);
         result = dupl.run(cmdTask, result);
     }
-    console.log(result);
     if (!parameters.length)
         return;
     let fireFunArr = [];
@@ -53,3 +53,5 @@ export default (opt = { cmdPath: '', options: { include: ['cmd.js'], exclude: []
     task.run(...fireFunArr);
     return null;
 };
+
+export let log = logs;

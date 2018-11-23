@@ -1,5 +1,13 @@
 
+import fs from 'fs-extra'
+import log from '../utils/log.util'
+
 const Handle = (options, data) => new Promise((resolve, reject) => {
+    let {
+        params,
+        parameters,
+    } = options;
+    console.log(__dirname);
     console.log('执行删除代码, 配置参数', options);
     console.log('执行删除代码, 上一个任务传递的数据参数', data);
     resolve('传递的参数：哈哈哈');
