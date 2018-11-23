@@ -20,11 +20,15 @@ export default {
                 let fileStat = fs.statSync(filePath);
                 if (fileStat.isFile() && indexOf(include, file)) {
                     try {
-                        result.push(require(filePath))
+                        let fireFun = require(filePath);
+                        if (typeof fireFun !== 'function')
+                            fireFun = fireFun.default;
+                        if (typeof fireFun === 'function')
+                            result.push(fireFun);
                     } catch (e) {
                         console.error('导入' + filePath +'文件错误',e);
                     }
-                } else if (filePath.isDirectory() && indexOf(exclude, file)) {
+                } else if (fileStat.isDirectory() && indexOf(exclude, file)) {
                     this.run(filePath);
                 }
             })

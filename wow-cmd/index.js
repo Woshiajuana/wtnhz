@@ -2,22 +2,30 @@
 import path from 'path'
 import walk from './utils/walk.util'
 import task from './utils/task.util'
+import dupl from './utils/dupl.util'
 
 const parameters = process.argv.splice(2);
 
-export default () => {
+export default (opt = { cmdPath: '', options: { include: ['cmd.js'], exclude: [], }}) => {
     const libPath = path.join(__dirname, '/lib');
-    const result = walk.run(libPath, {
+    let result = walk.run(libPath, {
         include: ['cmd.js'],
         exclude: [],
     });
+    let {
+        cmdPath,
+        options,
+    } = opt;
+    if (cmdPath) {
+        let cmdTask = walk.run(cmdPath, options);
+        result = dupl.run(cmdTask, result);
+    }
+    console.log(result);
     if (!parameters.length)
         return;
     let fireFunArr = [];
     parameters.forEach((item, index) => {
         result.forEach((fireFun) => {
-            if (fireFun.default)
-                fireFun = fireFun.default;
             if (typeof fireFun !== 'function'
                 || !fireFun.options
                 || !fireFun.options.cmd)
