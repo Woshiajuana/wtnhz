@@ -5,18 +5,18 @@ module.exports = {
         newData.forEach((n) => {
             let nCmd = n.options ? n.options.cmd : '';
             if (!nCmd) return null;
+            let type = true;
             oldData.forEach((o) => {
                 let oCmd = o.options.cmd;
-                let type = true;
                 nCmd.forEach((nc) => {
                     oCmd.forEach((oc) => {
                         if (nc === oc)
                             return type = false;
                     })
                 });
-                if (type)
-                    result.push(n);
-            })
+            });
+            if (type)
+                result.push(n);
         });
         return result;
     }
