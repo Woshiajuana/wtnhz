@@ -34,7 +34,10 @@ export default () => {
                 params: parameters[index + 1],
                 parameters,
             };
-            fireFunArr.push({fireFun, options});
+            fireFunArr.push({
+                fireFun,
+                options,
+            });
         })
     });
     if (!fireFunArr.length)
