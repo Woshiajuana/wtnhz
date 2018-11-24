@@ -3,23 +3,15 @@
 const path = require('path');
 const fs = require('fs');
 const config = require('./config');
+const walk = require('./walk.util');
 
 let {
     viewDir,
 } = config;
 
 // 遍历目录结构
-let walkFun;
-(walkFun = (dir) => {
-    dir = dir || '.';
-    let directory = path.join(viewDir, dir);
-    console.log(directory)
-    fs.readdirSync(directory).forEach((file) => {
-        
-    })
-})();
-
-const entry = {};
+const entry = walk.run(viewDir);
+console.log(entry);
 return;
 module.exports = {
 
