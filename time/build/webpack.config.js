@@ -8,10 +8,9 @@ const walk = require('./walk.util');
 let {
     viewDir,
 } = config;
-console.log(111)
 // 遍历目录结构
 const entry = walk.run(viewDir);
-// console.log(entry);
+console.log(entry);
 return;
 module.exports = {
 
