@@ -33,6 +33,7 @@ let walkFun = '';
         }
     })
 })();
+console.log(entry)
 
 const config = {
     entry: entry,
