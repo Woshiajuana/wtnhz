@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "node cmd -d dist&&node cmd -r BD&&webpack --watch --config ./build/webpack.config.js",
-    "serve": "serve -p 42580"
+    "test": "node build/webpack.config.js",
+      "serve": "serve -p 42580"
   },
   "repository": {
     "type": "git",
