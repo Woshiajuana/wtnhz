@@ -37,6 +37,10 @@ module.exports = {
         chunksSortMode: "auto", //引入模块的排序方式
         excludeChunks: ['a', 'b'], //排除的模块,引入的除a,b模块以外的模块，与chunks相反
         xhtml: false //生成的模板文档中标签是否自动关闭，针对xhtml的语法，会要求标签都关闭，默认false
-    }
+    },
 
+    // extract-text-webpack-plugin
+    extractTextPlugin: {
+        filename: 'assets/css/[name].css',
+    }
 };

@@ -5,13 +5,14 @@ const fs = require('fs');
 const config = require('./config');
 const walk = require('./walk.util');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 let {
     entryDirName,
     output,
     resolve,
-    htmlWebpackPluginOptions
+    htmlWebpackPluginOptions,
+    extractTextPlugin,
 } = config;
 // 遍历目录结构
 const entry = walk.run(entryDirName);
@@ -28,15 +29,33 @@ let webpackConfig = {
                 test: /\.html$/,
                 loader: 'html-loader',
                 exclude: /node_modules/,
-                options: {
-                    // 除了img的src,还可以继续配置处理更多html引入的资源
-                    attrs: ['img:src', 'img:data-src', 'audio:src']
-                }
+            },
+            //处理css文件
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
+                }),
+            },
+            {
+                test: /.scss$/,
+                exclude: /node_modules/,
+                use: ExtractTextPlugin.extract({
+                    use: [{
+                        loader: "css-loader"
+                    }, {
+                        loader: "sass-loader"
+                    }],
+                    // 在开发环境使用 style-loader
+                    fallback: "style-loader"
+                })
             },
         ]
     },
     plugins: [
-        // new ExtractTextPlugin('static/css/[name].css'),
+        new ExtractTextPlugin(extractTextPlugin),
     ],
 };
 for (let key in entry) {
