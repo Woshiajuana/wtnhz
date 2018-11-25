@@ -18,6 +18,12 @@ let {
 const entry = walk.run(entryDirName);
 console.log(entry);
 
+const urlLoader = {
+    limit: '1024',
+    outputPath: '/assets/',
+    publicPath: '../',
+    name: 'images/[name].[ext]'
+};
 
 let webpackConfig = {
     entry,
@@ -64,15 +70,19 @@ let webpackConfig = {
             {
                 test: /\.(png|jpeg|jpg|gif|svg)$/,
                 exclude: /node_modules/,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: '1024',
-                        outputPath: '/assets/',
-                        publicPath: '../',
-                        name: 'images/[name].[ext]'
-                    }
-                }],
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: urlLoader
+                    },
+                    {
+                        loader: './build/assist.url.loader.js',
+                        options: {
+                            urlLoader,
+
+                        }
+                    },
+                ],
             },
         ]
     },
