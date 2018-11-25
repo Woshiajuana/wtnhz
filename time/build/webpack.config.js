@@ -20,7 +20,7 @@ console.log(entry);
 
 const urlLoader = {
     limit: '1024',
-    outputPath: '/assets/',
+    outputPath: 'assets/',
     publicPath: '../',
     name: 'images/[name].[ext]'
 };
@@ -72,14 +72,21 @@ let webpackConfig = {
                 exclude: /node_modules/,
                 use: [
                     {
+                        // loader: './build/test.loader.js',
+                        // loader: './build/assist.url.loader.js',
                         loader: 'url-loader',
-                        options: urlLoader
+                        options: urlLoader,
                     },
                     {
                         loader: './build/assist.url.loader.js',
                         options: {
                             urlLoader,
-
+                            html: {
+                                publicPath: '',
+                            },
+                            css: {
+                                publicPath: '../',
+                            },
                         }
                     },
                 ],

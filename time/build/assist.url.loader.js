@@ -4,8 +4,14 @@ let _loaderUtils = require('loader-utils');
 
 module.exports = function (content) {
     let options = (0, _loaderUtils.getOptions)(this) || {};
-
-    console.log(this.resource)
-    console.log(content)
+    // console.log(this.resource.indexOf('\\html\\') > 0)
+    let {
+        urlLoader,
+        html,
+        css,
+    } = options;
+    let type = this.resource.indexOf('\\html\\') > 0;
+    urlLoader.publicPath = type ? html.publicPath : css.publicPath;
     return content;
 };
+module.exports.raw = true;
