@@ -25,12 +25,13 @@ let webpackConfig = {
     resolve,
     module: {
         rules: [
+            // 处理 html 文件
             {
                 test: /\.html$/,
                 loader: 'html-loader',
                 exclude: /node_modules/,
             },
-            //处理css文件
+            // 处理 css 文件
             {
                 test: /\.css$/,
                 exclude: /node_modules/,
@@ -39,6 +40,7 @@ let webpackConfig = {
                     use: 'css-loader'
                 }),
             },
+            // 处理 scss 文件
             {
                 test: /.scss$/,
                 exclude: /node_modules/,
@@ -48,9 +50,29 @@ let webpackConfig = {
                     }, {
                         loader: "sass-loader"
                     }],
-                    // 在开发环境使用 style-loader
+                    //   在开发环境使用 style-loader
                     fallback: "style-loader"
                 })
+            },
+            // 处理 js 文件
+            {
+                test: /\.js(\?[^?]+)?$/,
+                loaders: ['babel-loader'],
+                exclude: /node_modules/
+            },
+            // 处理url文件
+            {
+                test: /\.(png|jpeg|jpg|gif|svg)$/,
+                exclude: /node_modules/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: '1024',
+                        outputPath: '/assets/',
+                        publicPath: '../',
+                        name: 'images/[name].[ext]'
+                    }
+                }],
             },
         ]
     },
