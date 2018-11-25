@@ -72,8 +72,6 @@ let webpackConfig = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        // loader: './build/test.loader.js',
-                        // loader: './build/assist.url.loader.js',
                         loader: 'url-loader',
                         options: urlLoader,
                     },
