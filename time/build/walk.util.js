@@ -4,7 +4,7 @@ const path = require('path');
 
 
 module.exports = {
-    run (dirPath) {
+    run (dirPath, cut = '') {
         let result = {};
         let loop;
         (loop = (dir) => {
@@ -12,8 +12,9 @@ module.exports = {
                 let filePath = path.join(dir, '/' + file);
                 let fileStat = fs.statSync(filePath);
                 if (fileStat.isFile() && file === 'entry.js') {
-                    let fileDirArr = filePath.replace(/\\/g, '/').split('\/');
-                    let key = fileDirArr[fileDirArr.length - 2];
+                    let fileDirArr = filePath.substring(filePath.indexOf(cut) + cut.length + 1).replace(/\\/g, '/').split('\/');
+                    fileDirArr = unique(fileDirArr);
+                    let key = fileDirArr.join('_');
                     result[key] = filePath;
                 } else if (fileStat.isDirectory()) {
                     loop(filePath);
@@ -23,3 +24,10 @@ module.exports = {
         return result;
     }
 };
+function unique(array){
+    let n = [];
+    for(let i = 0; i < array.length; i++){
+        if (n.indexOf(array[i]) === -1 && array[i] !== 'entry.js') n.push(array[i]);
+    }
+    return n;
+}

@@ -7,7 +7,7 @@ module.exports = {
 
     // 输出文件目录
     output: {
-        filename: 'assets/js/[name].js',
+        filename: 'assets/js/[name].[chunkhash].js',
         path: path.join(__dirname, '../dist')
     },
 
@@ -16,6 +16,7 @@ module.exports = {
         alias: {
             'config': path.resolve(__dirname, '../src/config/'),
             'assets': path.resolve(__dirname, '../src/assets/'),
+            'utils': path.resolve(__dirname, '../src/utils/'),
         }
     },
 
@@ -42,6 +43,6 @@ module.exports = {
 
     // extract-text-webpack-plugin
     extractTextPlugin: {
-        filename: 'assets/css/[name].css',
+        filename: 'assets/css/[name].[chunkhash].css',
     }
 };

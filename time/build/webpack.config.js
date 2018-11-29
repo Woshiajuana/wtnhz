@@ -14,9 +14,9 @@ let {
     htmlWebpackPluginOptions,
     extractTextPlugin,
 } = config;
+
 // 遍历目录结构
-const entry = walk.run(entryDirName);
-console.log(entry);
+const entry = walk.run(entryDirName, 'views');
 
 const urlLoader = {
     limit: '1024',
@@ -40,7 +40,7 @@ let webpackConfig = {
             // 处理 css 文件
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
+                // exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: 'css-loader'
@@ -57,7 +57,7 @@ let webpackConfig = {
                         loader: "sass-loader"
                     }],
                     //   在开发环境使用 style-loader
-                    fallback: "style-loader"
+                    // fallback: "style-loader"
                 })
             },
             // 处理 js 文件
@@ -100,7 +100,7 @@ for (let key in entry) {
         filename: `${key}.html`,
         template: entry[key].replace('entry.js', 'index.html'),
         minify: { removeAttributeQuotes: true },
-        chunks: [key, 'list'],
+        chunks: [key],
         inject: 'body',
     });
     webpackConfig.plugins.push(htmlPlugin);
