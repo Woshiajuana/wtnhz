@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 Promise.prototype.finally = function (callback) {
     let P = this.constructor;
     return this.then(
