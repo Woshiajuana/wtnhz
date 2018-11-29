@@ -23,21 +23,3 @@ body {
 .session-item{
     background: url("http://dummyimage.com/1920x1080/79d2f2") no-repeat center;
 }
-
-
-.div{
-    margin: 100px auto;
-    width: 100px;
-    height: 100px;
-    background-color: #333333;
-}
-
-.matrix-1{
-    transform: matrix(1, 0, 0, 1, 30, 30);
-}
-.matrix-2{
-    transform: matrix(1, 0, 0, 1, 0, 0);
-}
-.matrix-3{
-    transform: matrix(0.866025, 0.500000, -0.500000, 0.866025, 0, 0);
-}
