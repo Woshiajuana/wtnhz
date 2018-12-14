@@ -7,7 +7,6 @@ const {
     MONGO_DB
 } = config;
 
-console.log(MONGO_DB);
 // 连接数据库
 const connect = () => new Promise(async (resolve, reject) => {
     try {

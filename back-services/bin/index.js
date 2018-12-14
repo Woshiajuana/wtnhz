@@ -11,7 +11,7 @@ import app                      from './../src/app'
         await mongodbUtil.connect();
     } catch (err) {
         loggerUtil.system().error(`链接数据库失败，原因=> ${ err }`);
-        process.exit(1);
+        return null;
     }
 
     // 启动web服务
@@ -40,7 +40,8 @@ import app                      from './../src/app'
             loggerUtil.system().info('服务启动=> ' + bind);
         });
     } catch (err) {
-        loggerUtil.system().error(`启动web服务失败，原因=> ${ JSON.stringify(err) }`)
+        loggerUtil.system().error(`启动web服务失败，原因=> ${ err }`);
+        return null;
     }
 
 })();
