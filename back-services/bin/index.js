@@ -4,14 +4,13 @@ import loggerUtil               from './../src/utils/logger.util'
 import portUtil                 from './../src/utils/port.util'
 import mongodbUtil              from './../src/utils/mongodb.util'
 import app                      from './../src/app'
-
 (async () => {
 
     // 链接数据库
     try {
         await mongodbUtil.connect();
     } catch (err) {
-        loggerUtil.system().error(`启动失败，原因=> ${ JSON.stringify(err) }`);
+        loggerUtil.system().error(`链接数据库失败，原因=> ${ err }`);
         process.exit(1);
     }
 
@@ -41,7 +40,7 @@ import app                      from './../src/app'
             loggerUtil.system().info('服务启动=> ' + bind);
         });
     } catch (err) {
-        loggerUtil.system().error(`启动失败，原因=> ${ JSON.stringify(err) }`)
+        loggerUtil.system().error(`启动web服务失败，原因=> ${ JSON.stringify(err) }`)
     }
 
 })();
