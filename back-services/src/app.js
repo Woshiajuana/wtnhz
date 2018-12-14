@@ -1,4 +1,9 @@
 
-import Config from './config/env.config'
+import PortUtil from './utils/port.util'
 
-console.log(Config);
+try {
+    let port = PortUtil.get();
+    console.log(port);
+} catch (e) {
+    console.log(e);
+}

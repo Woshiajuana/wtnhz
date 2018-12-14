@@ -5,7 +5,9 @@ const task = require('./utils/task.util');
 const dupl = require('./utils/dupl.util');
 const logs = require('./utils/log.util');
 
-const parameters = process.argv.splice(2);
+
+const argv = [...process.argv];
+const parameters = argv.splice(2);
 
 
 module.exports = function (opt = { cmdPath: '', options: { include: ['.cmd.js'], exclude: [], }}) {
