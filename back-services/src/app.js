@@ -1,17 +1,8 @@
 
 import Koa from 'koa'
-import KoaLogger from 'koa-logger'
-import KoaSession from 'koa-session'
+import koaLogger from 'koa-logger'
+import koaSession from 'koa-session'
 
+const app = new Koa();
 
-
-
-
-import PortUtil from './utils/port.util'
-
-try {
-    let port = PortUtil.get();
-    console.log(port);
-} catch (e) {
-    console.log(e);
-}
+export default app;
