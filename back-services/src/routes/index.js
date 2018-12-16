@@ -1,7 +1,22 @@
 
+import path                     from 'path'
+import requireAll               from 'require-all'
 
-import UserAppRoute             from './user.app.route'
+const controllers = requireAll({
+    dirname: path.join(__dirname, '../controllers/'),
+    filter: /(.+)\.controller\.js$/,
+});
 
-export default {
-    ...UserAppRoute,
-}
+const routers = requireAll({
+    dirname: path.join(__dirname, './'),
+    filter: /(.+)\.route\.js$/,
+});
+
+console.log(controllers);
+console.log(routers);
+
+// import UserAppRoute             from './user.app.route'
+//
+// export default {
+//     ...UserAppRoute,
+// }
