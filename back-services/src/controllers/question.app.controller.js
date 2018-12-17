@@ -1,13 +1,11 @@
 
 class Controller {
     async hello (ctx, next) {
-        console.log(2)
-        ctx.pipeDone()
+        console.log('hello')
+    }
+    async test (ctx, next) {
+        console.log('test')
     }
 }
-
-export const routes = {
-    
-};
 
 export default new Controller();
