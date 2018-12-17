@@ -3,7 +3,6 @@ import _                        from 'lodash'
 import path                     from 'path'
 import requireAll               from 'require-all'
 import Router                   from 'koa-router'
-
 import routes                   from './routes'
 
 const router = new Router();
@@ -19,10 +18,10 @@ let loop = null;
         let {
             path,
             children,
-            requests,
+            request,
         } = route;
         routePath = routePath + path;
-        _.forEach(requests, (ctrs, key) => {
+        _.forEach(request, (ctrs, key) => {
             if (key === 'del')
                 key = 'delete';
             let funs = [];
@@ -31,14 +30,10 @@ let loop = null;
                     controller,
                     method,
                 } = ctr;
-                console.log(method)
                 let fun = controllers[controller];
-                console.log(fun.default.hello)
-                console.log(fun.default[method])
                 fun = fun.default
                     ? fun.default[method]
                     : fun[method];
-                console.log(fun)
                 funs.push(fun);
             });
             router[key](routePath, ...funs)
@@ -47,9 +42,5 @@ let loop = null;
             loop(children, routePath);
     })
 })(routes);
-
-
-
-
 
 export default router;

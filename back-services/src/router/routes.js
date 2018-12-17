@@ -1,10 +1,10 @@
 
 
 export default [
-    // app
+    // /app
     {
         path: '/app',
-        requests: {
+        request: {
             get: [
                 {
                     controller: 'question.app',
