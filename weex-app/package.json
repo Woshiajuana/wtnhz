@@ -4,11 +4,11 @@
   "description": "a weex app",
   "main": "index.js",
   "scripts": {
-    "dev": "node cmd -i -r BD&&node cmd -a wow -v 0.0.1 -e wow_app&&node cmd -t&&webpack --watch --config build/webpack.config.js",
-    "test": "node cmd -r CS&&node cmd -a wow -v 0.0.1 -e wow_app -b&&node cmd -t&&webpack --watch --config build/webpack.config.js",
-    "build": "node cmd -r SC&&node cmd -a wow -v 0.0.1 -e wow_app -b&&node cmd -t&&webpack --config build/webpack.config.js&&node cmd -m",
+    "dev": "node cmd -d dist -i -r BD -t&&webpack --watch --config build/webpack.config.js",
+    "test": "node cmd -d dist -i -r CS -t&&webpack --watch --config build/webpack.config.js",
+    "build": "node cmd -d dist -i -r SC -t&&webpack --watch --config build/webpack.config.js",
     "md5": "node cmd -m",
-    "clean": "rm -vrf dist/*",
+    "clean": "node cmd -d dist",
     "serve": "serve -p 32580"
   },
   "repository": {
