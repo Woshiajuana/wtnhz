@@ -5,7 +5,7 @@ import {
     log
 } from 'wow-cmd'
 import ipConfig from '../config/ip.config'
-import envConfig from '../config/release.config'
+// import envConfig from '../config/release.config'
 import appConfig from '../config/app.config'
 
 
@@ -17,7 +17,7 @@ const Handle = (options, data) => new Promise((resolve, reject) => {
     let env = params ? params.toLocaleLowerCase() : '';
     let regular = ['bd', 'cs', 'zsc', 'sc'];
     if (!env || regular.indexOf(env) === -1)
-        env = envConfig;
+        env = require('../config/release.config');
     let outTree = Object.assign({
         app: 'app',
         base: `http://${ipConfig}:32580/dist/${env}`,
@@ -50,7 +50,7 @@ const Handle = (options, data) => new Promise((resolve, reject) => {
                 file_path_arr = unique(file_path_arr);
                 let name = file_path_arr.join('_');
                 if (ext_name === '.vue') {
-                    oldOutTree.resource[name] ? oldOutTree.resource[name].src = name + '.js' : oldOutTree.resource[name] = { src: name + '.js' };
+                    outTree.resource[name] ? outTree.resource[name].src = name + '.js' : outTree.resource[name] = { src: name + '.js' };
                     oldOutTree.resource[name] = name + '.js';
                 } else if (file_path.indexOf('.meta.json') > -1) {
                     let json = require( path.join(__dirname, './../src/views', file_path + '.js')).default;
@@ -58,7 +58,7 @@ const Handle = (options, data) => new Promise((resolve, reject) => {
                     name = name.split('_');
                     name = unique(name);
                     name = name.join('_');
-                    oldOutTree.resource[name] ? oldOutTree.resource[name].meta = json : oldOutTree.resource[name] = { meta: json };
+                    outTree.resource[name] ? outTree.resource[name].meta = json : outTree.resource[name] = { meta: json };
                 }
             } else if (['components'].indexOf(last_dir) === -1 && stat.isDirectory()) {
                 let sub_dir = path.join(dir, file);
@@ -69,10 +69,10 @@ const Handle = (options, data) => new Promise((resolve, reject) => {
     log(`即将生成tree.json`);
     fs_extra.createWriteStream('tree.json',{defaultEncoding:'utf8'});
     fs_extra.createWriteStream('old_tree.json',{defaultEncoding:'utf8'});
-    fs_extra.writeFileSync('./tree.json', JSON.stringify(oldOutTree, null, 4));
+    fs_extra.writeFileSync('./tree.json', JSON.stringify(outTree, null, 4));
     fs_extra.writeFileSync('./old_tree.json', JSON.stringify(oldOutTree, null, 4));
     fs_extra.ensureDirSync(`./dist/${env}`);
-    fs_extra.writeFileSync(`./dist/${env}/tree.json`, JSON.stringify(oldOutTree, null, 4));
+    fs_extra.writeFileSync(`./dist/${env}/tree.json`, JSON.stringify(outTree, null, 4));
     fs_extra.writeFileSync(`./dist/${env}/old_tree.json`, JSON.stringify(oldOutTree, null, 4));
     return resolve(env);
 });
