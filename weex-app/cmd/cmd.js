@@ -1,22 +1,12 @@
 
-import app          from './app.cmd'
-import ip           from './ip.cmd'
-import release      from './release.cmd'
-import tree         from './tree.cmd'
-import md5          from './md5.cmd'
+import path from 'path'
+import cmd from 'wow-cmd'
+// import cmd from '../../wow-cmd'
 
-const parameters = process.argv.splice(2);
-
-const arr = [
-    app,
-    ip,
-    release,
-    tree,
-    md5,
-];
-
-(function fireFun(index) {
-    arr[index] && arr[index](parameters).then(() => {
-        return fireFun(++index);
-    })
-})(0);
+cmd({
+    cmdPath: path.join(__dirname),
+    options: {
+        include: ['.cmd.js'],
+        exclude: [],
+    }
+});
