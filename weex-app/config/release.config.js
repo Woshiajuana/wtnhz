@@ -1,1 +1,1 @@
-module.exports = "CS";
+import env from './CS';export default env;

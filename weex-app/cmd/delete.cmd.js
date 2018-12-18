@@ -6,6 +6,8 @@ import {
 } from 'wow-cmd'
 
 const Handle = (options, data) => new Promise((resolve, reject) => {
+    console.log('delete-release',require('../config/release.config'))
+    console.log('delete-env',require('../src/config/env.config'))
     let {
         params,
         parameters,

@@ -46,7 +46,8 @@ function setRelease(env, reject) {
         log(`${env}环境内容如下：\n${content_env}`);
         content_env = `import env from './env.${env}.config';\nexport default env;`;
         fs.writeFileSync(path.join(__dirname, './../src/config/env.config.js'), content_env);
-        const str_content = `module.exports = "${env.toUpperCase()}";`;
+        // const str_content = `export default { env: "${env.toUpperCase()}"};`;
+        const str_content = `import env from './${env.toUpperCase()}';export default env;`;
         fs.writeFileSync(path.join(__dirname, './../config/release.config.js'), str_content);
     } catch (e) {
         return reject(`设置错误：${e}`, '004');
