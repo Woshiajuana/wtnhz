@@ -5,7 +5,6 @@ import _ from 'lodash'
 import {
     log
 } from 'wow-cmd'
-import envConfig from '../config/release.config'
 
 const Handle = (options, data) => new Promise((resolve, reject) => {
     let {
@@ -15,7 +14,7 @@ const Handle = (options, data) => new Promise((resolve, reject) => {
     let env = params ? params.toLocaleLowerCase() : '';
     let regular = ['bd', 'cs', 'zsc', 'sc'];
     if (!env || regular.indexOf(env) === -1)
-        env = envConfig;
+        env = require('./config/release.config');
     let tree = fs.readFileSync(path.join(__dirname, `./../dist/${env}/tree.json`));
     tree = JSON.parse(tree);
     _.forEach(tree.resource, (source, key) => {

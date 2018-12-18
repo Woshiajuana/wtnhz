@@ -4,10 +4,6 @@ import path from 'path'
 import {
     log
 } from 'wow-cmd'
-import ipConfig from '../config/ip.config'
-// import envConfig from '../config/release.config'
-import appConfig from '../config/app.config'
-
 
 const Handle = (options, data) => new Promise((resolve, reject) => {
     let {
@@ -17,10 +13,9 @@ const Handle = (options, data) => new Promise((resolve, reject) => {
     let env = params ? params.toLocaleLowerCase() : '';
     let regular = ['bd', 'cs', 'zsc', 'sc'];
     if (!env || regular.indexOf(env) === -1)
-        env = require('../config/release.config');
-    setTimeout(() => {
-        console.log('演示',require('../config/release.config'))
-    }, 200)
+        env = require('./config/release.config');
+    let ipConfig = require('./config/ip.config');
+    let appConfig = require('./config/ip.config');
     let outTree = Object.assign({
         app: 'app',
         base: `http://${ipConfig}:32580/dist/${env}`,
