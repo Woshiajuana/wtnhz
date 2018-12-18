@@ -4,7 +4,7 @@ let webpack = require('webpack');
 let env = require('../config/release.config');
 let entry = {};
 let bannerExcludeFiles = [];
-let log = require('../tools/log.tool');
+let log = require('wow-cmd').log;
 
 switch (env) {
     case 'BD':
