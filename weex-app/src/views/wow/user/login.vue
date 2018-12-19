@@ -3,13 +3,6 @@
         view_use_header="">
         <div class="wrap"
              :style="computedStyle">
-            <!--<image-->
-                <!--class="background"-->
-                <!--:src="src$.banner"-->
-                <!--:style="computedStyle"-->
-            <!--&gt;</image>-->
-
-
             <div class="inner">
                 <image class="mask" autoBitmapRecycle="false" :src="srcMask"></image>
                 <div class="form">
@@ -43,9 +36,9 @@
                     </div>
                 </div>
 
-                <!--<div class="portrait-box">-->
-                    <!--<image class="portrait" :src="src$.banner"></image>-->
-                <!--</div>-->
+                <div class="portrait-box">
+                    <image class="portrait" :src="src$.banner"></image>
+                </div>
 
             </div>
         </div>
@@ -85,7 +78,7 @@
                 return {
                     height,
                 };
-            }
+            },
         },
         created () {
             this.weexGet(srcArr);
@@ -108,27 +101,26 @@
     .wrap{
         width: 750px;
         flex: 1;
-        background-color: #333333;
-    }
-    .background{
-        position: absolute;
-        top: 0;
-        left: 0;
+        background-color: #fc5366;
     }
     .portrait-box{
         position: absolute;
-        bottom: 0;
+        top: 0;
         margin-left: 275px;
-        width: 200px;
-        height: 200px;
-        background-color: red;
+        width: 220px;
+        height: 220px;
+        border-radius: 220px;
+        border-width: 5px;
+        border-color: #fff;
+        justify-content: center;
+        align-items: center;
+        background-color: #fc5366;
     }
     .portrait{
         width: 200px;
         height: 200px;
+        border-radius: 200px;
     }
-
-
     .inner{
         position: absolute;
         bottom: 0;
@@ -136,9 +128,9 @@
         width: 750px;
         flex-direction: column;
         justify-content: flex-end;
-        /*background-color: #fff;*/
     }
     .form{
+        padding-top: 200px;
         background-color: #fff;
         padding-left: 55px;
         padding-right: 55px;
