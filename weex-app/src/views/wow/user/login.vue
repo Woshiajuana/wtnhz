@@ -2,8 +2,8 @@
     <wow-view
         view_use_header="">
         <div class="wrap"
-             :style="computedStyle">
-            <div class="inner" ref="inner">
+             :style="computedWrapStyle">
+            <div class="inner" ref="inner" :style="computedInnerStyle">
                 <image
                     class="mask"
                     autoBitmapRecycle="false"
@@ -54,6 +54,7 @@
     import WeexMixin                    from 'mixins/weex.mixin'
     import InputMixin                   from 'mixins/input.mixin'
     import Animation                    from 'plugins/animation.plugin'
+    import Router                       from 'plugins/router.plugin'
     import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
 
@@ -71,13 +72,24 @@
             }
         },
         computed: {
-            computedStyle () {
+            computedWrapStyle () {
                 let {
                     deviceWidth,
                     deviceHeight,
                 } = this.weex$;
                 let width = 750;
                 let height = width / deviceWidth * deviceHeight;
+                return {
+                    height,
+                };
+            },
+            computedInnerStyle () {
+                let {
+                    deviceWidth,
+                    deviceHeight,
+                } = this.weex$;
+                let width = 750;
+                let height = width / deviceWidth * deviceHeight * 0.8;
                 return {
                     height,
                 };
@@ -93,6 +105,7 @@
         methods: {
             handleClear (callback) {
                 callback();
+                Router.push('wow_user_login');
             },
             animationRun () {
                 Animation.run(this.$refs.inner, {
@@ -152,10 +165,11 @@
         opacity: 0;
     }
     .form{
-        padding-top: 200px;
+        flex: 1;
         background-color: #fff;
         padding-left: 55px;
         padding-right: 55px;
+        justify-content: flex-end;
     }
     .mask{
         width: 750px;
