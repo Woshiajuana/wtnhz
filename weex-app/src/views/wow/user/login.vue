@@ -3,7 +3,7 @@
         view_use_header="">
         <div class="wrap"
              :style="computedStyle">
-            <div class="inner">
+            <div class="inner" ref="inner">
                 <image
                     class="mask"
                     autoBitmapRecycle="false"
@@ -53,6 +53,7 @@
     import SourceMixin                  from 'mixins/source.mixin'
     import WeexMixin                    from 'mixins/weex.mixin'
     import InputMixin                   from 'mixins/input.mixin'
+    import Animation                    from 'plugins/animation.plugin'
     import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
 
@@ -86,10 +87,27 @@
             this.weexGet(srcArr);
             this.sourceGet(srcArr);
         },
+        mounted () {
+            this.animationRun();
+        },
         methods: {
             handleClear (callback) {
                 callback();
-            }
+            },
+            animationRun () {
+                Animation.run(this.$refs.inner, {
+                    styles: {
+                        opacity: '1',
+                        transform: 'translate(0,0)',
+                        transformOrigin: 'center center'
+                    },
+                    duration: 300,
+                    timingFunction: 'ease-out',
+                    delay: 0
+                }).then(() => {
+                    console.log('成功')
+                });
+            },
         },
         components: {
             WowView,
@@ -130,6 +148,8 @@
         width: 750px;
         flex-direction: column;
         justify-content: flex-end;
+        transform: translate(0, 600px);
+        opacity: 0;
     }
     .form{
         padding-top: 200px;
