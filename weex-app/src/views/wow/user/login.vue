@@ -11,14 +11,14 @@
 
 
             <div class="inner">
-                <image class="mask" :src="srcMask"></image>
+                <image class="mask" autoBitmapRecycle="false" :src="srcMask"></image>
                 <div class="form">
                     <input-box
                         class="input-box"
                         input_label="EMAIL"
                         :input_value="email"
                         @input="handleInput('email', $event)"
-                        input_placeholder="PLEASE ENTER EMAIL"
+                        input_placeholder="Please Enter Email"
                     ></input-box>
                     <input-box
                         v-model="password"
@@ -27,15 +27,18 @@
                         input_label="PASSWORD"
                         :input_value="password"
                         @input="handleInput('password', $event)"
-                        input_placeholder="PLEASE ENTER PASSWORD"
+                        input_placeholder="Please Enter Password"
                     ></input-box>
+                    <div class="prompt get-password">
+                        <text class="prompt-link prompt-text">Forgot Password ?</text>
+                    </div>
                     <wow-button
                         @click="handleClear"
                         class="button"
                         button_txt="SIGN IN"
                     ></wow-button>
                     <div class="prompt">
-                        <text class="prompt-text">DON'T HAVE AN ACCOUNT?</text>
+                        <text class="prompt-link prompt-text">DON'T HAVE AN ACCOUNT ?</text>
                         <text class="prompt-link">SIGN UP</text>
                     </div>
                 </div>
@@ -67,8 +70,8 @@
         mixins: [Mixin, SourceMixin, WeexMixin, InputMixin],
         data () {
             return {
-                email: '1',
-                password: '2',
+                email: '',
+                password: '',
             }
         },
         computed: {
@@ -138,6 +141,7 @@
     .form{
         background-color: #fff;
         padding-left: 55px;
+        padding-right: 55px;
     }
     .mask{
         width: 750px;
@@ -164,5 +168,13 @@
         color: #333;
         font-size: 26px;
         margin-left: 20px;
+    }
+    .prompt-link:active{
+        color: #000;
+    }
+    .get-password{
+        height: 60px;
+        line-height: 60px;
+        justify-content: flex-end;
     }
 </style>
