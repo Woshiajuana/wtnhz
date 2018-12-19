@@ -34,7 +34,7 @@
                         class="button"
                         button_txt="SIGN IN"
                     ></wow-button>
-                    <div class="prompt">
+                    <div class="prompt" @click="routerPush('wow_user_register')">
                         <text class="prompt-link prompt-text">DON'T HAVE AN ACCOUNT ?</text>
                         <text class="prompt-link">SIGN UP</text>
                     </div>
@@ -53,8 +53,8 @@
     import SourceMixin                  from 'mixins/source.mixin'
     import WeexMixin                    from 'mixins/weex.mixin'
     import InputMixin                   from 'mixins/input.mixin'
+    import RouterMixin                  from 'mixins/router.mixin'
     import Animation                    from 'plugins/animation.plugin'
-    import Router                       from 'plugins/router.plugin'
     import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
 
@@ -64,7 +64,13 @@
     ];
 
     export default {
-        mixins: [Mixin, SourceMixin, WeexMixin, InputMixin],
+        mixins: [
+            Mixin,
+            SourceMixin,
+            WeexMixin,
+            InputMixin,
+            RouterMixin,
+        ],
         data () {
             return {
                 email: '',
@@ -105,7 +111,6 @@
         methods: {
             handleClear (callback) {
                 callback();
-                Router.push('wow_user_login');
             },
             animationRun () {
                 Animation.run(this.$refs.inner, {
