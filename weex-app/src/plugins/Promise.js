@@ -32,11 +32,10 @@ Promise.prototype.handle = function() {
 //     });
 // };
 
-// Promise.prototype.finally = function (callback) {
-//     console.log(1)
-//   let P = this.constructor;
-//   return this.then(
-//     value  => P.resolve(callback()).then(() => value),
-//     reason => P.resolve(callback()).then(() => { throw reason })
-//   );
-// };
+Promise.prototype.finally = function (callback) {
+  let P = this.constructor;
+  return this.then(
+    value  => P.resolve(callback()).then(() => value),
+    reason => P.resolve(callback()).then(() => { throw reason })
+  );
+};

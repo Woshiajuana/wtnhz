@@ -23,7 +23,7 @@ export default {
         })
     }),
     /**禁用*/
-    setTouchPop: (type = 'true') => new Promise((resolve, reject) => {
+    setTouchPop: (type = 'false') => new Promise((resolve, reject) => {
         system.setTouchPop(type, e => {
             e.code === '0000' ? resolve(e.data) : reject(e);
         })

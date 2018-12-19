@@ -15,6 +15,7 @@
     import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
 
+
     const srcArr = [
         { key: 'banner', value: 'login-banner-2.png', },
         { key: 'mask', value: 'triangle-block.png', },

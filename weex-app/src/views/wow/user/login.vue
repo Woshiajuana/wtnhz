@@ -110,7 +110,7 @@
         },
         methods: {
             handleClear (callback) {
-                callback();
+
             },
             animationRun () {
                 Animation.run(this.$refs.inner, {
@@ -201,9 +201,6 @@
         color: #333;
         font-size: 26px;
         margin-left: 20px;
-    }
-    .prompt-link:active{
-        color: #000;
     }
     .get-password{
         height: 60px;
