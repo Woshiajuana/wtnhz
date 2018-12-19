@@ -16,12 +16,14 @@
                     <input-box
                         class="input-box"
                         input_label="EMAIL"
-                        input_placeholder="请输入"
+                        v-model="email"
+                        input_placeholder="PLEASE ENTER EMAIL"
                     ></input-box>
                     <input-box
+                        v-model="password"
                         class="input-box"
                         input_label="PASSWORD"
-                        input_placeholder="请输入"
+                        input_placeholder="PLEASE ENTER PASSWORD"
                     ></input-box>
                     <wow-button
                         class="button"
@@ -31,10 +33,14 @@
                         <text class="prompt-text">DON'T HAVE AN ACCOUNT?</text>
                         <text class="prompt-link">SIGN UP</text>
                     </div>
+                    <text>{{email}}</text>
+                    <text>{{password}}</text>
                 </div>
+
                 <!--<div class="portrait-box">-->
                     <!--<image class="portrait" :src="src$.banner"></image>-->
                 <!--</div>-->
+
             </div>
         </div>
     </wow-view>
@@ -55,6 +61,12 @@
 
     export default {
         mixins: [Mixin, SourceMixin, WeexMixin],
+        data () {
+            return {
+                email: '',
+                password: '',
+            }
+        },
         computed: {
             computedStyle () {
                 let {
