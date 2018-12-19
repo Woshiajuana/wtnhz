@@ -8,14 +8,13 @@
                 :placeholder="input_placeholder"
                 :maxlength="input_max"
                 @input="handleInput"
-                v-model="input_value"
+                :value="input_value"
                 placeholder-color="#dedede"/>
             <div class="clear"
                  @click="handleClear"
                  :style="{visibility: input_value ? 'visible' : 'hidden'}">
                 <image class="clear-icon" :src="src$.clear"></image>
             </div>
-            <text>{{input_value}}</text>
         </div>
     </div>
 </template>
@@ -46,11 +45,13 @@
         },
         methods: {
             handleInput (event) {
-                this.$emit('input', event.value)
+                this.$emit('input', event.value);
             },
             handleClear () {
-                this.input_value = 'x';
-                this.$emit('input', '')
+                this.$emit('input', ' ');
+                setTimeout(() => {
+                    this.$emit('input', '');
+                })
             },
         }
     }

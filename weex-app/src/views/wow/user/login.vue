@@ -16,16 +16,21 @@
                     <input-box
                         class="input-box"
                         input_label="EMAIL"
-                        v-model="email"
+                        :input_value="email"
+                        @input="handleInput('email', $event)"
                         input_placeholder="PLEASE ENTER EMAIL"
                     ></input-box>
                     <input-box
                         v-model="password"
                         class="input-box"
+                        input_type="password"
                         input_label="PASSWORD"
+                        :input_value="password"
+                        @input="handleInput('password', $event)"
                         input_placeholder="PLEASE ENTER PASSWORD"
                     ></input-box>
                     <wow-button
+                        @click="handleClear"
                         class="button"
                         button_txt="SIGN IN"
                     ></wow-button>
@@ -33,8 +38,6 @@
                         <text class="prompt-text">DON'T HAVE AN ACCOUNT?</text>
                         <text class="prompt-link">SIGN UP</text>
                     </div>
-                    <text>{{email}}</text>
-                    <text>{{password}}</text>
                 </div>
 
                 <!--<div class="portrait-box">-->
@@ -51,6 +54,7 @@
     import WowButton                    from 'wow-weex-ui/lib/wow-button'
     import SourceMixin                  from 'mixins/source.mixin'
     import WeexMixin                    from 'mixins/weex.mixin'
+    import InputMixin                   from 'mixins/input.mixin'
     import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
 
@@ -60,11 +64,11 @@
     ];
 
     export default {
-        mixins: [Mixin, SourceMixin, WeexMixin],
+        mixins: [Mixin, SourceMixin, WeexMixin, InputMixin],
         data () {
             return {
-                email: '',
-                password: '',
+                email: '1',
+                password: '2',
             }
         },
         computed: {
@@ -83,6 +87,11 @@
         created () {
             this.weexGet(srcArr);
             this.sourceGet(srcArr);
+        },
+        methods: {
+            handleClear (callback) {
+                callback();
+            }
         },
         components: {
             WowView,
