@@ -13,14 +13,16 @@
             <div class="inner">
                 <image class="mask" :src="srcMask"></image>
                 <div class="form">
-                    <div class="input-box">
-                        <text class="label">EMAIL</text>
-                        <input class="input" type="text" placeholder="请输入" placeholder-color="#dedede"/>
-                    </div>
-                    <div class="input-box">
-                        <text class="label">PASSWORD</text>
-                        <input class="input" type="text" placeholder="请输入" placeholder-color="#dedede"/>
-                    </div>
+                    <input-box
+                        class="input-box"
+                        input_label="EMAIL"
+                        input_placeholder="请输入"
+                    ></input-box>
+                    <input-box
+                        class="input-box"
+                        input_label="PASSWORD"
+                        input_placeholder="请输入"
+                    ></input-box>
                     <wow-button
                         class="button"
                         button_txt="SIGN IN"
@@ -44,6 +46,7 @@
     import SourceMixin                  from 'mixins/source.mixin'
     import WeexMixin                    from 'mixins/weex.mixin'
     import Mixin                        from './login.mixin'
+    import InputBox                     from './components/input-box.vue'
 
     const srcArr = [
         { key: 'banner', value: 'login-banner-2.png', },
@@ -72,6 +75,7 @@
         components: {
             WowView,
             WowButton,
+            InputBox,
         },
     }
 </script>
@@ -120,19 +124,6 @@
     }
     .input-box{
         margin-top: 30px;
-        height: 120px;
-        width: 640px;
-        border-bottom-color: #ddd;
-        border-bottom-width: 1px;
-    }
-    .label{
-        height: 40px;
-        font-size: 24px;
-        color: #999;
-        line-height: 40px;
-    }
-    .input{
-        height: 80px;
     }
     .button{
         margin-top: 100px;
