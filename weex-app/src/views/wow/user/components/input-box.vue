@@ -88,6 +88,9 @@
         align-items: center;
         justify-content: center;
     }
+    .clear:active{
+        background-color: #dedede;
+    }
     .clear-icon{
         width: 25px;
         height: 25px;
