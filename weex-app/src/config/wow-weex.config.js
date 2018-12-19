@@ -6,13 +6,17 @@ export default {
         color: '#fff',
     },
     view_header_style: {
-        backgroundColor: '#5cc8ff',
+        backgroundColor: '#fc5366',
         borderBottomWidth: 0,
     },
     view_style: {
-        backgroundColor: '#f2f2f2'
+        backgroundColor: '#fff'
     },
     view_header_right_txt_style: {
         color: '#fff',
+    },
+    button_style: {
+        borderRadius: 0,
+        backgroundColor: '#fc5366'
     }
 }
