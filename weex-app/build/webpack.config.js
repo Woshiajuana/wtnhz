@@ -81,6 +81,7 @@ module.exports = {
             'appConfig': path.resolve(__dirname, '../config/'),
             'text': path.resolve(__dirname, '../src/text/'),
             'url': path.resolve(__dirname, '../src/url/'),
+            'mixins': path.resolve(__dirname, '../src/mixins/'),
         }
     },
     module: {

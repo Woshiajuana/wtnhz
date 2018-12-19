@@ -16,7 +16,7 @@ const Handle = (options, data) => new Promise((resolve, reject) => {
         ip = getIp();
     log(`设置IP地址 => ${ ip }`);
     const content = `export default "${ip}";`;
-    fs.writeFileSync(path.join(__dirname, `./../config/ip.config.js`), content);
+    fs.writeFileSync(path.join(__dirname, `./config/ip.config.js`), content);
     log(`设置本地IP地址配置成功`);
     return resolve();
 });
