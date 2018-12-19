@@ -11,11 +11,9 @@ const Handle = (options, data) => new Promise((resolve, reject) => {
         parameters,
     } = options;
     let ip = params || '';
-    if (!ip)
-        ip = getIp();
     let regular = /^\d+\.\d+\.\d+\.\d+$/;
-    if (!regular.test(ip))
-        return reject(`IP设置错误，环境为：${ip}`,);
+    if (!ip || !regular.test(ip))
+        ip = getIp();
     log(`设置IP地址 => ${ ip }`);
     const content = `export default "${ip}";`;
     fs.writeFileSync(path.join(__dirname, `./../config/ip.config.js`), content);
