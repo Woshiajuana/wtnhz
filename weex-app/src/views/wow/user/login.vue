@@ -4,7 +4,11 @@
         <div class="wrap"
              :style="computedStyle">
             <div class="inner">
-                <image class="mask" autoBitmapRecycle="false" :src="srcMask"></image>
+                <image
+                    class="mask"
+                    autoBitmapRecycle="false"
+                    :src="srcMask"
+                ></image>
                 <div class="form">
                     <input-box
                         class="input-box"
@@ -35,11 +39,9 @@
                         <text class="prompt-link">SIGN UP</text>
                     </div>
                 </div>
-
                 <div class="portrait-box">
                     <image class="portrait" :src="src$.banner"></image>
                 </div>
-
             </div>
         </div>
     </wow-view>
@@ -110,11 +112,11 @@
         width: 220px;
         height: 220px;
         border-radius: 220px;
-        border-width: 5px;
+        border-width: 10px;
         border-color: #fff;
         justify-content: center;
         align-items: center;
-        background-color: #fc5366;
+        background-color: #dedede;
     }
     .portrait{
         width: 200px;
