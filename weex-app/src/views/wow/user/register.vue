@@ -41,7 +41,13 @@
             ></input-box>
 
             <div class="prompt">
-                <text class="prompt-text">Forgot Password ?</text>
+                <wow-switch
+                    :switch_value="false"
+                    :switch_style="{ width: 50, height: 32 }"
+                    :switch_inner_style="{ width: 28, height: 28 }"
+                ></wow-switch>
+                <text class="prompt-text">I have read and agreed</text>
+                <text class="prompt-link">《Service Agreement》</text>
             </div>
 
             <wow-button
@@ -58,6 +64,7 @@
 <script>
     import WowView                      from 'wow-weex-ui/lib/wow-view'
     import WowButton                    from 'wow-weex-ui/lib/wow-button'
+    import WowSwitch                    from 'wow-weex-ui/lib/wow-switch'
     import SourceMixin                  from 'mixins/source.mixin'
     import WeexMixin                    from 'mixins/weex.mixin'
     import InputMixin                   from 'mixins/input.mixin'
@@ -135,6 +142,7 @@
             WowView,
             WowButton,
             InputBox,
+            WowSwitch,
         },
     }
 </script>
@@ -153,13 +161,20 @@
         margin-left: 0;
     }
     .prompt{
-        height: 120px;
+        width: 640px;
+        margin-top: 20px;
         align-items: center;
-        justify-content: center;
         flex-direction: row;
     }
     .prompt-text{
         color: #999;
         font-size: 26px;
+        margin-left: 10px;
+    }
+
+    .prompt-link{
+        color: #333;
+        font-size: 26px;
+        margin-left: 20px;
     }
 </style>

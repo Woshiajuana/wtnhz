@@ -18,5 +18,8 @@ export default {
     button_style: {
         borderRadius: 0,
         backgroundColor: '#fc5366'
-    }
+    },
+    switch_active_style: {
+        backgroundColor: '#fc5366',
+    },
 }
