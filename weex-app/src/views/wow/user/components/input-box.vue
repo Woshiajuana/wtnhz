@@ -15,6 +15,7 @@
                  :style="{visibility: input_value ? 'visible' : 'hidden'}">
                 <image class="clear-icon" :src="src$.clear"></image>
             </div>
+            <slot></slot>
         </div>
     </div>
 </template>

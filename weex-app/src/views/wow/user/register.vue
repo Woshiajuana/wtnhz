@@ -17,8 +17,9 @@
                 input_label="VERIFICATION CODE"
                 :input_value="email"
                 @input="handleInput('email', $event)"
-                input_placeholder="Please Enter Verification Code"
-            ></input-box>
+                input_placeholder="Please Enter Verification Code">
+                <wow-count-down></wow-count-down>
+            </input-box>
 
             <input-box
                 v-model="password"
@@ -42,11 +43,12 @@
 
             <div class="prompt">
                 <wow-switch
-                    :switch_value="false"
+                    @click="switch_value = !switch_value"
+                    :switch_value="switch_value"
                     :switch_style="{ width: 50, height: 32 }"
                     :switch_inner_style="{ width: 28, height: 28 }"
                 ></wow-switch>
-                <text class="prompt-text">I have read and agreed</text>
+                <text class="prompt-text" @click="switch_value = !switch_value">I have read and agreed</text>
                 <text class="prompt-link">《Service Agreement》</text>
             </div>
 
@@ -65,6 +67,7 @@
     import WowView                      from 'wow-weex-ui/lib/wow-view'
     import WowButton                    from 'wow-weex-ui/lib/wow-button'
     import WowSwitch                    from 'wow-weex-ui/lib/wow-switch'
+    import WowCountDown                 from 'wow-weex-ui/lib/wow-count-down'
     import SourceMixin                  from 'mixins/source.mixin'
     import WeexMixin                    from 'mixins/weex.mixin'
     import InputMixin                   from 'mixins/input.mixin'
@@ -85,6 +88,7 @@
             return {
                 email: '',
                 password: '',
+                switch_value: true,
             }
         },
         computed: {
@@ -143,6 +147,7 @@
             WowButton,
             InputBox,
             WowSwitch,
+            WowCountDown,
         },
     }
 </script>
@@ -169,10 +174,12 @@
     .prompt-text{
         color: #999;
         font-size: 26px;
-        margin-left: 10px;
+        padding-left: 10px;
+        line-height: 30px;
     }
 
     .prompt-link{
+        line-height: 30px;
         color: #333;
         font-size: 26px;
         margin-left: 20px;
