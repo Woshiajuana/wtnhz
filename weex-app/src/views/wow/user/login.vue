@@ -102,7 +102,7 @@
             },
         },
         created () {
-            this.weexGet(srcArr);
+            this.weexGet();
             this.sourceGet(srcArr);
         },
         mounted () {

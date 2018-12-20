@@ -17,8 +17,15 @@
                 input_label="VERIFICATION CODE"
                 :input_value="email"
                 @input="handleInput('email', $event)"
-                input_placeholder="Please Enter Verification Code">
-                <wow-count-down></wow-count-down>
+                input_placeholder="Please Enter Code">
+                <wow-count-down
+                    :count_style="{
+                    borderColor: '#dedede',
+                    borderLeftWidth: 1,
+                    height: 40,
+                    width: 200,}"
+                    @click="handleSend"
+                ></wow-count-down>
             </input-box>
 
             <input-box
@@ -69,13 +76,8 @@
     import WowSwitch                    from 'wow-weex-ui/lib/wow-switch'
     import WowCountDown                 from 'wow-weex-ui/lib/wow-count-down'
     import SourceMixin                  from 'mixins/source.mixin'
-    import WeexMixin                    from 'mixins/weex.mixin'
     import InputMixin                   from 'mixins/input.mixin'
-    import Animation                    from 'plugins/animation.plugin'
-    import Router                       from 'plugins/router.plugin'
-    import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
-
 
     const srcArr = [
         { key: 'banner', value: 'login-banner-2.png', },
@@ -83,7 +85,10 @@
     ];
 
     export default {
-        mixins: [Mixin, SourceMixin, WeexMixin, InputMixin],
+        mixins: [
+            SourceMixin,
+            InputMixin,
+        ],
         data () {
             return {
                 email: '',
@@ -91,55 +96,15 @@
                 switch_value: true,
             }
         },
-        computed: {
-            computedWrapStyle () {
-                let {
-                    deviceWidth,
-                    deviceHeight,
-                } = this.weex$;
-                let width = 750;
-                let height = width / deviceWidth * deviceHeight;
-                return {
-                    height,
-                };
-            },
-            computedInnerStyle () {
-                let {
-                    deviceWidth,
-                    deviceHeight,
-                } = this.weex$;
-                let width = 750;
-                let height = width / deviceWidth * deviceHeight * 0.8;
-                return {
-                    height,
-                };
-            },
-        },
         created () {
-            this.weexGet(srcArr);
             this.sourceGet(srcArr);
         },
-        mounted () {
-            this.animationRun();
-        },
         methods: {
+            handleSend (callback) {
+                callback();
+            },
             handleClear (callback) {
                 callback();
-                Router.push('wow_user_login');
-            },
-            animationRun () {
-                Animation.run(this.$refs.inner, {
-                    styles: {
-                        opacity: '1',
-                        transform: 'translate(0,0)',
-                        transformOrigin: 'center center'
-                    },
-                    duration: 300,
-                    timingFunction: 'ease-out',
-                    delay: 0
-                }).then(() => {
-                    console.log('成功')
-                });
             },
         },
         components: {
@@ -155,7 +120,7 @@
 <style>
 
     .wrap{
-        justify-content: center;
+        flex: 1;
         align-items: center;
     }
     .input-box{

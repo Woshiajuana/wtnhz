@@ -22,4 +22,7 @@ export default {
     switch_active_style: {
         backgroundColor: '#fc5366',
     },
+    count_txt_style: {
+        color: '#fc5366',
+    },
 }
