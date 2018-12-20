@@ -1,12 +1,12 @@
 import source from 'utils/source.util'
 
 export default {
-    // view_header_left_src: source('view_return_icon_029BDD.png'),
+    view_header_left_src: source('view_return_icon_fc5366.png'),
     view_header_center_txt_style: {
         color: '#fff',
     },
     view_header_style: {
-        backgroundColor: '#fc5366',
+        // backgroundColor: '#fc5366',
         borderBottomWidth: 0,
     },
     view_style: {

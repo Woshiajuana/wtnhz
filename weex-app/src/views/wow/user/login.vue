@@ -26,8 +26,8 @@
                         @input="handleInput('password', $event)"
                         input_placeholder="Please Enter Password"
                     ></input-box>
-                    <div class="prompt get-password">
-                        <text class="prompt-link prompt-text">Forgot Password ?</text>
+                    <div class="prompt prompt-left">
+                        <text class="prompt-text">Forgot Password ?</text>
                     </div>
                     <wow-button
                         @click="handleClear"
@@ -35,7 +35,7 @@
                         button_txt="SIGN IN"
                     ></wow-button>
                     <div class="prompt" @click="routerPush('wow_user_register')">
-                        <text class="prompt-link prompt-text">DON'T HAVE AN ACCOUNT ?</text>
+                        <text class="prompt-text">DON'T HAVE AN ACCOUNT ?</text>
                         <text class="prompt-link">SIGN UP</text>
                     </div>
                 </div>
@@ -202,7 +202,7 @@
         font-size: 26px;
         margin-left: 20px;
     }
-    .get-password{
+    .prompt-left{
         height: 60px;
         line-height: 60px;
         justify-content: flex-end;

@@ -1,5 +1,56 @@
 <template>
-    <wow-view view_header_center_txt="Sign Up">
+    <wow-view
+        view_header_center_txt="Sign Up">
+
+        <div class="wrap">
+
+            <input-box
+                class="input-box"
+                input_label="EMAIL"
+                :input_value="email"
+                @input="handleInput('email', $event)"
+                input_placeholder="Please Enter Email"
+            ></input-box>
+
+            <input-box
+                class="input-box"
+                input_label="VERIFICATION CODE"
+                :input_value="email"
+                @input="handleInput('email', $event)"
+                input_placeholder="Please Enter Verification Code"
+            ></input-box>
+
+            <input-box
+                v-model="password"
+                class="input-box"
+                input_type="password"
+                input_label="PASSWORD"
+                :input_value="password"
+                @input="handleInput('password', $event)"
+                input_placeholder="Please Enter Password"
+            ></input-box>
+
+            <input-box
+                v-model="password"
+                class="input-box"
+                input_type="password"
+                input_label="PASSWORD"
+                :input_value="password"
+                @input="handleInput('password', $event)"
+                input_placeholder="Please Enter The Password Again"
+            ></input-box>
+
+            <div class="prompt">
+                <text class="prompt-text">Forgot Password ?</text>
+            </div>
+
+            <wow-button
+                @click="handleClear"
+                class="button"
+                button_txt="SIGN UP"
+            ></wow-button>
+
+        </div>
 
     </wow-view>
 </template>
@@ -90,8 +141,25 @@
 
 <style>
 
+    .wrap{
+        justify-content: center;
+        align-items: center;
+    }
     .input-box{
         margin-top: 30px;
     }
-
+    .button{
+        margin-top: 100px;
+        margin-left: 0;
+    }
+    .prompt{
+        height: 120px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .prompt-text{
+        color: #999;
+        font-size: 26px;
+    }
 </style>
