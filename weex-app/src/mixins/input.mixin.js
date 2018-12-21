@@ -1,7 +1,12 @@
 
 const methods = {
     handleInput (key, event) {
-        this[key] = typeof event === 'object' ? event.value : event;
+        let value = typeof event === 'object'
+            ? event.value
+            : event;
+        typeof key === 'object'
+            ? key.value = value
+            : this[key] = value;
     },
 };
 

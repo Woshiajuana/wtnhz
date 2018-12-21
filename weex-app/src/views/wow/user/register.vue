@@ -1,26 +1,19 @@
 <template>
     <wow-view
         view_header_center_txt="Sign Up">
-
         <div class="wrap">
-
             <image class="logo" :src="src$.logo"></image>
-
             <input-box
+                v-for="(item, key) in objInput$"
+                :key="key"
                 class="input-box"
-                input_label="EMAIL"
-                :input_value="email"
-                @input="handleInput('email', $event)"
-                input_placeholder="Please Enter Email"
-            ></input-box>
-
-            <input-box
-                class="input-box"
-                input_label="VERIFICATION CODE"
-                :input_value="email"
-                @input="handleInput('email', $event)"
-                input_placeholder="Please Enter Code">
+                :input_label="item.label"
+                :input_value="item.value"
+                :input_type="item.type"
+                :input_placeholder="item.placeholder"
+                @input="handleInput(item, $event)">
                 <wow-count-down
+                    v-if="key === 'code'"
                     :count_style="{
                     borderColor: '#dedede',
                     borderLeftWidth: 1,
@@ -29,27 +22,6 @@
                     @click="handleSend"
                 ></wow-count-down>
             </input-box>
-
-            <input-box
-                v-model="password"
-                class="input-box"
-                input_type="password"
-                input_label="PASSWORD"
-                :input_value="password"
-                @input="handleInput('password', $event)"
-                input_placeholder="Please Enter Password"
-            ></input-box>
-
-            <input-box
-                v-model="password"
-                class="input-box"
-                input_type="password"
-                input_label="PASSWORD"
-                :input_value="password"
-                @input="handleInput('password', $event)"
-                input_placeholder="Please Enter The Password Again"
-            ></input-box>
-
             <div class="prompt">
                 <wow-switch
                     @click="switch_value = !switch_value"
@@ -57,18 +29,15 @@
                     :switch_style="{ width: 50, height: 32 }"
                     :switch_inner_style="{ width: 28, height: 28 }"
                 ></wow-switch>
-                <text class="prompt-text" @click="switch_value = !switch_value">I have read and agreed</text>
-                <text class="prompt-link">《Service Agreement》</text>
+                <text class="prompt-text" @click="switch_value = !switch_value">我已阅读并同意</text>
+                <text class="prompt-link">《SO注意服务协议》</text>
             </div>
-
             <wow-button
-                @click="handleClear"
+                @click="handleSubmit"
                 class="button"
-                button_txt="SIGN UP"
+                button_txt="注 册"
             ></wow-button>
-
         </div>
-
     </wow-view>
 </template>
 
@@ -79,6 +48,8 @@
     import WowCountDown                 from 'wow-weex-ui/lib/wow-count-down'
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
+    import SuperUtil                    from 'utils/super.util'
+    import Mixin                        from './register.mixin'
     import InputBox                     from './components/input-box.vue'
 
     const srcArr = [
@@ -89,6 +60,7 @@
         mixins: [
             SourceMixin,
             InputMixin,
+            Mixin,
         ],
         data () {
             return {
@@ -104,7 +76,12 @@
             handleSend (callback) {
                 callback();
             },
-            handleClear (callback) {
+            // 提交注册
+            handleSubmit (callback) {
+                if (SuperUtil.verifyMultiple(this.objInput$))
+                    return callback();
+                if (SuperUtil.verifySingle(this.objAgree))
+                    return callback();
                 callback();
             },
         },
@@ -119,7 +96,6 @@
 </script>
 
 <style>
-
     .wrap{
         flex: 1;
         align-items: center;
@@ -149,7 +125,6 @@
         padding-left: 10px;
         line-height: 30px;
     }
-
     .prompt-link{
         line-height: 30px;
         color: #333;
