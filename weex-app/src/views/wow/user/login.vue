@@ -11,27 +11,23 @@
                 ></image>
                 <div class="form">
                     <input-box
+                        v-for="(item, key) in objInput$"
+                        :key="key"
                         class="input-box"
-                        input_label="EMAIL"
-                        :input_value="email"
-                        @input="handleInput('email', $event)"
-                        input_placeholder="Please Enter Email"
-                    ></input-box>
-                    <input-box
-                        v-model="password"
-                        class="input-box"
-                        input_type="password"
-                        input_label="PASSWORD"
-                        :input_value="password"
-                        @input="handleInput('password', $event)"
-                        input_placeholder="Please Enter Password"
+                        :input_label="item.label"
+                        :input_value="item.value"
+                        :input_type="item.type"
+                        :input_placeholder="item.placeholder"
+                        @input="handleInput(item, $event)"
                     ></input-box>
                     <div class="prompt prompt-left">
                         <text class="prompt-text">Forgot Password ?</text>
                     </div>
                     <wow-button
-                        @click="handleClear"
+                        @click="handleSubmit"
+                        :button_disabled="computedDisabled"
                         class="button"
+                        :button_style="{marginLeft: 0, marginTop: 100}"
                         button_txt="SIGN IN"
                     ></wow-button>
                     <div class="prompt" @click="routerPush('wow_user_register')">
@@ -55,6 +51,7 @@
     import InputMixin                   from 'mixins/input.mixin'
     import RouterMixin                  from 'mixins/router.mixin'
     import Animation                    from 'plugins/animation.plugin'
+    import VerifyUtil                   from 'utils/verify.util'
     import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
 
@@ -78,6 +75,10 @@
             }
         },
         computed: {
+            computedDisabled () {
+                let result = VerifyUtil.multiple(this.objInput$, 'nonempty');
+                return result;
+            },
             computedWrapStyle () {
                 let {
                     deviceWidth,
@@ -109,8 +110,11 @@
             this.animationRun();
         },
         methods: {
-            handleClear (callback) {
-
+            // 提交
+            handleSubmit (callback) {
+                if (VerifyUtil.multiple(this.objInput$))
+                    return callback();
+                callback();
             },
             animationRun () {
                 Animation.run(this.$refs.inner, {
@@ -182,10 +186,6 @@
     }
     .input-box{
         margin-top: 30px;
-    }
-    .button{
-        margin-top: 100px;
-        margin-left: 0;
     }
     .prompt{
         height: 120px;

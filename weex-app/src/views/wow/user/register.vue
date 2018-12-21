@@ -35,8 +35,7 @@
             <wow-button
                 @click="handleSubmit"
                 :button_disabled="computedDisabled"
-                class="button"
-                :button_style="{marginLeft: 0}"
+                :button_style="{marginLeft: 0, marginTop: 100}"
                 button_txt="注 册"
             ></wow-button>
         </div>
@@ -86,7 +85,7 @@
                     return null;
                 callback();
             },
-            // 提交注册
+            // 提交
             handleSubmit (callback) {
                 if (VerifyUtil.multiple(this.objInput$))
                     return callback();
@@ -118,10 +117,6 @@
     }
     .input-box{
         margin-top: 30px;
-    }
-    .button{
-        margin-top: 100px;
-        margin-left: 0;
     }
     .prompt{
         width: 640px;
