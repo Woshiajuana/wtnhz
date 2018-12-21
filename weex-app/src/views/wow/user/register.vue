@@ -34,7 +34,9 @@
             </div>
             <wow-button
                 @click="handleSubmit"
+                :button_disabled="computedDisabled"
                 class="button"
+                :button_style="{marginLeft: 0}"
                 button_txt="注 册"
             ></wow-button>
         </div>
@@ -67,6 +69,12 @@
                 email: '',
                 password: '',
                 switch_value: true,
+            }
+        },
+        computed: {
+            computedDisabled () {
+                let result = VerifyUtil.multiple(this.objInput$, 'nonempty');
+                return result || !this.objAgree$.value;
             }
         },
         created () {

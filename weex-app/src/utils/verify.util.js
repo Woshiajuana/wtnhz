@@ -3,31 +3,31 @@ import Dialogs                  from 'plugins/dialogs.plugin'
 
 export default {
 
-    multiple (data) {
+    multiple (data, mode) {
         let result = false;
         try {
             this.forEach(data, (prop, key) => {
-                this._verify(prop, data)
+                this._verify(prop, data, mode)
             })
         } catch (error) {
             result = true;
-            Dialogs.toast({message: error});
+            !mode && Dialogs.toast({message: error});
         }
         return result;
     },
 
-    single (data) {
+    single (data, mode) {
         let result = false;
         try {
-            this._verify(data, data)
+            this._verify(data, data, mode)
         } catch (error) {
             result = true;
-            Dialogs.toast({message: error});
+            !mode && Dialogs.toast({message: error});
         }
         return result;
     },
 
-    _verify (prop, data) {
+    _verify (prop, data, mode) {
         let {
             use,
             value,
@@ -45,6 +45,7 @@ export default {
                 callback && callback(prop, data);
                 throw prompt;
             }
+            if (mode === 'nonempty') return null;
             if (typeof rule === 'function' && !rule(value, data)) {
                 callback && callback(prop, data);
                 throw prompt;
