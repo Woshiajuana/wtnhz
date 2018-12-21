@@ -4,6 +4,8 @@
 
         <div class="wrap">
 
+            <image class="logo" :src="src$.logo"></image>
+
             <input-box
                 class="input-box"
                 input_label="EMAIL"
@@ -80,8 +82,7 @@
     import InputBox                     from './components/input-box.vue'
 
     const srcArr = [
-        { key: 'banner', value: 'login-banner-2.png', },
-        { key: 'mask', value: 'triangle-block.png', },
+        { key: 'logo', value: 'logo-icon-fc5366.png', },
     ];
 
     export default {
@@ -122,6 +123,12 @@
     .wrap{
         flex: 1;
         align-items: center;
+    }
+    .logo{
+        width: 150px;
+        height: 150px;
+        margin-top: 20px;
+        margin-bottom: 50px;
     }
     .input-box{
         margin-top: 30px;
