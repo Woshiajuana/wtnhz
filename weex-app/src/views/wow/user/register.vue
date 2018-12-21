@@ -24,12 +24,12 @@
             </input-box>
             <div class="prompt">
                 <wow-switch
-                    @click="switch_value = !switch_value"
-                    :switch_value="switch_value"
+                    @click="objAgree$.value = !objAgree$.value"
+                    :switch_value="objAgree$.value"
                     :switch_style="{ width: 50, height: 32 }"
                     :switch_inner_style="{ width: 28, height: 28 }"
                 ></wow-switch>
-                <text class="prompt-text" @click="switch_value = !switch_value">我已阅读并同意</text>
+                <text class="prompt-text" @click="objAgree$.value = !objAgree$.value">我已阅读并同意</text>
                 <text class="prompt-link">《SO注意服务协议》</text>
             </div>
             <wow-button
@@ -48,7 +48,7 @@
     import WowCountDown                 from 'wow-weex-ui/lib/wow-count-down'
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
-    import SuperUtil                    from 'utils/super.util'
+    import VerifyUtil                   from 'utils/verify.util'
     import Mixin                        from './register.mixin'
     import InputBox                     from './components/input-box.vue'
 
@@ -74,13 +74,15 @@
         },
         methods: {
             handleSend (callback) {
+                if (VerifyUtil.single(this.objInput$.email))
+                    return null;
                 callback();
             },
             // 提交注册
             handleSubmit (callback) {
-                if (SuperUtil.verifyMultiple(this.objInput$))
+                if (VerifyUtil.multiple(this.objInput$))
                     return callback();
-                if (SuperUtil.verifySingle(this.objAgree))
+                if (VerifyUtil.single(this.objAgree$))
                     return callback();
                 callback();
             },

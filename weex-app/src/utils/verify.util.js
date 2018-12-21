@@ -3,7 +3,7 @@ import Dialogs                  from 'plugins/dialogs.plugin'
 
 export default {
 
-    verifyMultiple (data) {
+    multiple (data) {
         let result = false;
         try {
             this.forEach(data, (prop, key) => {
@@ -16,7 +16,7 @@ export default {
         return result;
     },
 
-    verifySingle (data) {
+    single (data) {
         let result = false;
         try {
             this._verify(data, data)

@@ -5,7 +5,7 @@ const data = () => {
         objInput$: {
             // 邮箱
             email: {
-                value: '',
+                value: '9@qq.com',
                 label: '邮箱',
                 type: 'text',
                 placeholder: '请输入邮箱',
@@ -22,7 +22,7 @@ const data = () => {
             },
             // 验证码
             code: {
-                value: '',
+                value: '123',
                 label: '验证码',
                 type: 'tel',
                 placeholder: '请输入验证码',
@@ -35,7 +35,7 @@ const data = () => {
             },
             // 密码
             password: {
-                value: '',
+                value: '111111',
                 label: '密码',
                 type: 'password',
                 placeholder: '请输入密码',
@@ -48,7 +48,7 @@ const data = () => {
             },
             // 确认密码
             rePassword: {
-                value: '',
+                value: '111111',
                 label: '确认密码',
                 type: 'password',
                 placeholder: '请确认密码',
@@ -66,7 +66,7 @@ const data = () => {
                 ],
             },
         },
-        objAgree: {
+        objAgree$: {
             value: true,
             use: [
                 {
