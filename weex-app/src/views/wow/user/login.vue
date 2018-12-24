@@ -51,7 +51,9 @@
     import InputMixin                   from 'mixins/input.mixin'
     import RouterMixin                  from 'mixins/router.mixin'
     import Animation                    from 'plugins/animation.plugin'
+    import Api                          from 'api/login.api'
     import VerifyUtil                   from 'utils/verify.util'
+    import ExtractUtil                  from 'utils/extract.util'
     import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
 
@@ -114,7 +116,14 @@
             handleSubmit (callback) {
                 if (VerifyUtil.multiple(this.objInput$))
                     return callback();
-                callback();
+                let options = ExtractUtil.input(this.objInput$);
+                Api.doUserLogin(options).then((res) => {
+                    console.log(res)
+                }).catch((err) => {
+                    console.log(err)
+                }).finally(() => {
+                    callback();
+                });
             },
             animationRun () {
                 Animation.run(this.$refs.inner, {
