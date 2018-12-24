@@ -2,8 +2,10 @@
     <wow-view
         view_use_header="">
         <div class="wrap"
-             :style="computedWrapStyle">
-            <div class="inner" ref="inner" :style="computedInnerStyle">
+             :style="{ height: height$ }">
+            <div class="inner"
+                 ref="inner"
+                 :style="{ height: height$ * 0.8 }">
                 <image
                     class="mask"
                     autoBitmapRecycle="false"
@@ -80,28 +82,6 @@
             computedDisabled () {
                 let result = VerifyUtil.multiple(this.objInput$, 'nonempty');
                 return result;
-            },
-            computedWrapStyle () {
-                let {
-                    deviceWidth,
-                    deviceHeight,
-                } = this.weex$;
-                let width = 750;
-                let height = width / deviceWidth * deviceHeight;
-                return {
-                    height,
-                };
-            },
-            computedInnerStyle () {
-                let {
-                    deviceWidth,
-                    deviceHeight,
-                } = this.weex$;
-                let width = 750;
-                let height = width / deviceWidth * deviceHeight * 0.8;
-                return {
-                    height,
-                };
             },
         },
         created () {

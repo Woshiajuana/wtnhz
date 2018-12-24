@@ -1,13 +1,19 @@
 
 const data = () => {
     return {
-        weex$: {}
+        weex$: {},
+        height$: 0,
     }
 };
 
 const methods = {
     weexGet () {
         this.weex$ = weex.config.env;
+        let {
+            deviceWidth,
+            deviceHeight,
+        } = this.weex$;
+        this.height$ = 750 / deviceWidth * deviceHeight;
     }
 };
 
