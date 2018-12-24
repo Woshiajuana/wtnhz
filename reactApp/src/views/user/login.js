@@ -30,74 +30,6 @@ export default class Login extends Component<Props> {
         }
     }
 
-    _submit () {
-        let phoneNumber = this.state.phoneNumber;
-        let verifyCode = this.state.verifyCode;
-        if (!phoneNumber || !verifyCode) {
-            return Alert.alert('手机号或验证码不能为空');
-        }
-        let body = {
-            phoneNumber,
-            verifyCode,
-        };
-        let url = config.api.base + config.api.verify;
-        request.post(url, body).then((responseJson) => {
-            if (!responseJson.success)
-                throw responseJson;
-            let {
-                data,
-            } = responseJson;
-            console.log(data)
-            this.props.onLoginEd(data);
-        }).catch(error => {
-            console.error(error);
-            Alert.alert('登录失败，请稍后重试')
-        });
-    }
-
-    _sendVerifyCode () {
-        let phoneNumber = this.state.phoneNumber;
-        if (!phoneNumber) {
-            return Alert.alert('手机号不能为空');
-        }
-        let body = {
-            phoneNumber,
-        };
-        let url = config.api.base + config.api.signup;
-        request.post(url, body).then((responseJson) => {
-            if (!responseJson.success)
-                throw responseJson;
-            let {
-                data,
-            } = responseJson;
-            this._showVerifyCode();
-        }).catch(error => {
-            console.error(error);
-            Alert.alert('获取验证码失败，请稍后重试')
-        });
-    }
-
-    _showVerifyCode () {
-        this.setState({
-            codeSent: true,
-        });
-        this._countingDone();
-    }
-
-    _countingDone () {
-        let number = this.state.number;
-        number--;
-        if (number <= 0)
-            number = 10;
-        this.setState({
-            number,
-        });
-        if (number === 10) return;
-        setTimeout(() => {
-            this._countingDone();
-        }, 1000)
-    }
-
     render () {
         return (
             <View style={ styles.container }>
@@ -106,55 +38,7 @@ export default class Login extends Component<Props> {
                     centerTxt="哈哈"
                     rightTxt="右边"
                 />
-                <View style={ styles.signUpBoxStyle }>
-                    <Text style={styles.titleStyle}>快速登录</Text>
-                    <TextInput
-                        placeholder="输入手机号"
-                        autoCapitalize={'none'}
-                        autoCorrect={false}
-                        keyboardType={'number-pad'}
-                        style={styles.inputStyle}
-                        onChangeText={(text) => {
-                            this.setState({
-                                phoneNumber: text,
-                            })
-                        }}
-                    />
-                    {
-                        this.state.codeSent
-                            ? <View style={styles.verifyCodeBoxStyle}>
-                                <TextInput
-                                    placeholder="手机验证码"
-                                    autoCapitalize={'none'}
-                                    autoCorrect={false}
-                                    keyboardType={'number-pad'}
-                                    style={[styles.inputStyle, styles.inputCodeStyle]}
-                                    onChangeText={(text) => {
-                                        this.setState({
-                                            verifyCode: text,
-                                        })
-                                    }}
-                                  />
-                            {
-                                this.state.number === 10
-                                ? <Button
-                                    onPress={this._sendVerifyCode.bind(this)}>获取验证码</Button>
-                                : <Text>{this.state.number} 秒后重新获取</Text>
-                            }
-                              </View>
-                            : null
-                    }
-                    {
-                        this.state.codeSent
-                            ? <Button
-                                title="on"
-                                style={styles.btnStyle}
-                                onPress={this._submit.bind(this)}>登录</Button>
-                            : <Button title="on"
-                                      style={styles.btnStyle}
-                                      onPress={this._sendVerifyCode.bind(this)}>获取验证码</Button>
-                    }
-                </View>
+
             </View>
         )
     }
