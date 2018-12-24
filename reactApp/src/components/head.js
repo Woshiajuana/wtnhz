@@ -80,10 +80,12 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     leftTxtSty: {
-
+        color: '#fff',
+        fontSize: 14,
     },
     centerTxtSty: {
         fontSize: 18,
+        color: '#fff',
     },
     rightSty: {
         position: 'absolute',
@@ -92,8 +94,10 @@ const styles = StyleSheet.create({
         bottom: 0,
         flexDirection: 'row',
         alignItems: 'center',
+        paddingRight: 16,
     },
     rightTxtSty: {
-
+        fontSize: 14,
+        color: '#fff',
     },
 });
