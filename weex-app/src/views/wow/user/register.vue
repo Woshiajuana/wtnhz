@@ -49,7 +49,9 @@
     import WowCountDown                 from 'wow-weex-ui/lib/wow-count-down'
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
+    import Api                          from 'api/register.api'
     import VerifyUtil                   from 'utils/verify.util'
+    import ExtractUtil                  from 'utils/extract.util'
     import Mixin                        from './register.mixin'
     import InputBox                     from './components/input-box.vue'
 
@@ -83,7 +85,15 @@
             handleSend (callback) {
                 if (VerifyUtil.single(this.objInput$.email))
                     return null;
-                callback();
+                let options = {
+                    email: this.objInput$.email.value,
+                };
+                Api.doFetchVerifyCode(options).then((res) => {
+                    console.log(res);
+                    callback();
+                }).catch((err) => {
+                    console.log(err);
+                });
             },
             // 提交
             handleSubmit (callback) {
@@ -91,7 +101,15 @@
                     return callback();
                 if (VerifyUtil.single(this.objAgree$))
                     return callback();
-                callback();
+                let options = ExtractUtil.input(this.objInput$);
+                Api.doUserRegister(options).then((res) => {
+                    console.log(res);
+                    callback();
+                }).catch((err) => {
+                    console.log(err);
+                }).finally(() => {
+                    callback();
+                });
             },
         },
         components: {
