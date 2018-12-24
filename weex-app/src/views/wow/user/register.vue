@@ -106,7 +106,7 @@
 
 <style>
     .wrap{
-        flex: 1;
+        width: 750px;
         align-items: center;
     }
     .logo{

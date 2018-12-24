@@ -2,3 +2,5 @@
 *node_modules/
 
 template/
+*android/
+*ios/
