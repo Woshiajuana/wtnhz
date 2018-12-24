@@ -5,10 +5,12 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Dimensions,
 }                                       from "react-native";
 import Icon                             from 'react-native-vector-icons/Ionicons'
-const width = Dimensions.get('window').width;
+import {
+    width,
+    j,
+}                                       from '../utils/dimensions.util'
 
 export default class Head extends Component {
     constructor (props) {
@@ -57,7 +59,7 @@ export default class Head extends Component {
 const styles = StyleSheet.create({
     wrapSty: {
         width,
-        height: 44,
+        height: j(90),
         backgroundColor: 'red',
         flexDirection: 'row',
         alignItems: 'center',
@@ -65,39 +67,39 @@ const styles = StyleSheet.create({
     },
     leftSty: {
         position: 'absolute',
-        height: 44,
+        height: j(90),
         left: 0,
         bottom: 0,
-        lineHeight: 44,
+        lineHeight: j(90),
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingLeft: 16,
+        paddingLeft: j(25),
     },
     leftIconSty: {
-        fontSize: 30,
+        fontSize: j(48),
         color: '#fff',
-        marginRight: 10,
+        marginRight: j(25),
     },
     leftTxtSty: {
         color: '#fff',
-        fontSize: 14,
+        fontSize: j(28),
     },
     centerTxtSty: {
-        fontSize: 18,
+        fontSize: j(34),
         color: '#fff',
     },
     rightSty: {
         position: 'absolute',
-        height: 44,
+        height: j(90),
         right: 0,
         bottom: 0,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingRight: 16,
+        paddingRight: j(25),
     },
     rightTxtSty: {
-        fontSize: 14,
+        fontSize: j(28),
         color: '#fff',
     },
 });

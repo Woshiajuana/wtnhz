@@ -1,0 +1,89 @@
+
+
+import React, { Component }             from 'react'
+import {
+    StyleSheet,
+    View,
+    Text,
+    TouchableOpacity,
+    TextInput,
+}                                       from "react-native";
+import Icon                             from 'react-native-vector-icons/Ionicons'
+import {
+    width,
+    j,
+}                                       from '../utils/dimensions.util'
+
+export default class InputBox extends Component {
+    constructor (props) {
+        super(props);
+
+    }
+
+    render () {
+        let {
+            labelTxt,
+        } = this.props;
+        return (
+            <View style={styles.wrapSty}>
+                <View style={styles.labelSty}>
+                    <Text style={styles.labelTxtSty}>{labelTxt}</Text>
+                </View>
+                <View style={styles.innerSty}>
+                    <TextInput style={styles.inputSty} />
+                    <TouchableOpacity
+                        style={styles.clearSty}>
+                        <Icon name="ios-arrow-back" style={styles.clearIconSty}/>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+}
+
+
+const styles = StyleSheet.create({
+    wrapSty: {
+        width,
+        height: j(120),
+        flexDirection: 'column',
+        paddingLeft: j(55),
+        paddingRight: j(55),
+        marginTop: j(30),
+    },
+    labelSty: {
+        height: j(40),
+        lineHeight: j(40),
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    labelTxtSty: {
+        fontSize: j(24),
+        color: '#999',
+    },
+    innerSty: {
+        height: j(80),
+        borderColor: '#dedede',
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    inputSty: {
+        flex: 1,
+        paddingLeft: 0,
+    },
+    clearSty: {
+        width: j(80),
+        height: j(80),
+        textAlign: 'center',
+        lineHeight: j(80),
+        backgroundColor: 'red'
+    },
+    clearIconSty: {
+        fontSize: j(60),
+        color: '#999',
+        textAlign: 'center',
+        lineHeight: j(80),
+    },
+});
+
