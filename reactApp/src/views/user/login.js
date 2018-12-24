@@ -101,7 +101,11 @@ export default class Login extends Component<Props> {
     render () {
         return (
             <View style={ styles.container }>
-                <Head centerTxt="哈哈"/>
+                <Head
+                    leftTxt="返回"
+                    centerTxt="哈哈"
+                    rightTxt="右边"
+                />
                 <View style={ styles.signUpBoxStyle }>
                     <Text style={styles.titleStyle}>快速登录</Text>
                     <TextInput
@@ -159,7 +163,6 @@ export default class Login extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10,
         backgroundColor: '#f9f9f9',
     },
     signUpBoxStyle: {

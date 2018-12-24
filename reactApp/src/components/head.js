@@ -55,23 +55,43 @@ export default class Head extends Component {
 
 
 const styles = StyleSheet.create({
-    wrapSty : {
-
+    wrapSty: {
+        width,
+        height: 44,
+        backgroundColor: 'red',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     leftSty: {
-
+        position: 'absolute',
+        height: 44,
+        left: 0,
+        bottom: 0,
+        lineHeight: 44,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingLeft: 16,
     },
     leftIconSty: {
-
+        fontSize: 30,
+        color: '#fff',
+        marginRight: 10,
     },
     leftTxtSty: {
 
     },
     centerTxtSty: {
-
+        fontSize: 18,
     },
     rightSty: {
-
+        position: 'absolute',
+        height: 44,
+        right: 0,
+        bottom: 0,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     rightTxtSty: {
 
