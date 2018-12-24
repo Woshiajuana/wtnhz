@@ -13,6 +13,7 @@ import {
 import Button from "react-native-button"
 import request from '../../common/request'
 import config from '../../common/config'
+import Head from '../../components/head'
 
 
 type Props = {};
@@ -100,6 +101,7 @@ export default class Login extends Component<Props> {
     render () {
         return (
             <View style={ styles.container }>
+                <Head centerTxt="哈哈"/>
                 <View style={ styles.signUpBoxStyle }>
                     <Text style={styles.titleStyle}>快速登录</Text>
                     <TextInput

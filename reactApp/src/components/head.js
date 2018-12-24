@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Dimensions,
 }                                       from "react-native";
-
+import Icon                             from 'react-native-vector-icons/Ionicons'
 const width = Dimensions.get('window').width;
 
 export default class Head extends Component {
@@ -28,8 +28,7 @@ export default class Head extends Component {
         return (
             <View style={styles.wrapSty}>
                 <TouchableOpacity
-                    style={styles.leftSty}
-                    onPress={this._pop.bind(this)}>
+                    style={styles.leftSty}>
                     {
                         leftSlot
                             ? leftSlot
@@ -56,5 +55,25 @@ export default class Head extends Component {
 
 
 const styles = StyleSheet.create({
+    wrapSty : {
 
+    },
+    leftSty: {
+
+    },
+    leftIconSty: {
+
+    },
+    leftTxtSty: {
+
+    },
+    centerTxtSty: {
+
+    },
+    rightSty: {
+
+    },
+    rightTxtSty: {
+
+    },
 });
