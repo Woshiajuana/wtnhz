@@ -6,6 +6,7 @@ import {
     Text,
     View,
     Image,
+    TouchableOpacity,
 } from 'react-native'
 import request from '../../common/request'
 import config from '../../common/config'
@@ -13,6 +14,7 @@ import Head                             from '../../components/head'
 import Button                           from '../../components/button'
 import InputBox                         from '../../components/input-box'
 import Code                             from '../../components/code'
+import Switch                           from '../../components/switch'
 import {
     width,
     height,
@@ -30,6 +32,8 @@ export default class Login extends Component<Props> {
             email: '',
 
             password: '',
+
+            agree: true,
 
 
         }
@@ -82,8 +86,26 @@ export default class Login extends Component<Props> {
                     }}
                     labelTxt="确认密码"
                 />
-                <View style={[styles.promptSty, styles.promptLeftSty]}>
-                    <Text style={styles.promptTextSty}>忘记密码?</Text>
+                <View style={styles.promptSty}>
+                    <Switch
+                        value={this.state.agree}
+                        onChangeText={() => {
+                            this.setState({
+                                agree: !this.state.agree
+                            })
+                        }}
+                    />
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.setState({
+                                agree: !this.state.agree
+                            })
+                        }}>
+                        <Text style={styles.promptTextSty}>你已阅读并同意</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Text style={styles.promptLinkTextSty}>《服务协议》</Text>
+                    </TouchableOpacity>
                 </View>
                 <Button
                     buttonTxt="注册"
@@ -113,7 +135,6 @@ const styles = StyleSheet.create({
         width,
         height: j(120),
         flexDirection: 'row',
-        justifyContent: 'center',
         alignItems: 'center',
         paddingLeft: j(55),
         paddingRight: j(55),
@@ -124,6 +145,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     promptTextSty: {
+        marginLeft: j(10),
         color: '#999',
         fontSize: j(26),
     },

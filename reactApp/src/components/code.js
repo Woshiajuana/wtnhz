@@ -10,7 +10,6 @@ import {
     j,
 }                                       from '../utils/dimensions.util'
 
-
 export default class Code extends Component {
     constructor (props) {
         super(props);
