@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     wrapSty: {
         width: j(640),
         height: j(100),
-        marginLeft: j(55),
         marginTop: j(100),
         flexDirection: 'row',
         alignItems: 'center',

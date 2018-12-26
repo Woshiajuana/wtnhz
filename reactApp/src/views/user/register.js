@@ -38,8 +38,10 @@ export default class Login extends Component<Props> {
         return (
             <View style={styles.wrapSty}>
                 <Head
-
+                    leftIconSty={styles.leftIconSty}
                 />
+                <Image style={styles.logoSty}
+                       source={{uri: 'http://20.0.18.93:32580/static/images/logo-icon-fc5366.png'}}/>
                 <InputBox
                     placeholder="请输入邮箱"
                     placeholderTextColor="#dedede"
@@ -50,6 +52,15 @@ export default class Login extends Component<Props> {
                     labelTxt="邮箱"
                 />
                 <InputBox
+                    placeholder="请输入验证码"
+                    placeholderTextColor="#dedede"
+                    value={this.state.password}
+                    onChangeText={(password) => {
+                        this.setState({password});
+                    }}
+                    labelTxt="验证码"
+                />
+                <InputBox
                     placeholder="请输入密码"
                     placeholderTextColor="#dedede"
                     value={this.state.password}
@@ -57,6 +68,15 @@ export default class Login extends Component<Props> {
                         this.setState({password});
                     }}
                     labelTxt="密码"
+                />
+                <InputBox
+                    placeholder="请确认密码"
+                    placeholderTextColor="#dedede"
+                    value={this.state.password}
+                    onChangeText={(password) => {
+                        this.setState({password});
+                    }}
+                    labelTxt="确认密码"
                 />
                 <View style={[styles.promptSty, styles.promptLeftSty]}>
                     <Text style={styles.promptTextSty}>忘记密码?</Text>
@@ -73,49 +93,20 @@ const styles = StyleSheet.create({
     wrapSty: {
         width,
         flex: 1,
-        // backgroundColor: '#fc5366',
+        alignItems: 'center',
         backgroundColor: '#fff',
     },
-    portraitSty: {
-        position: 'absolute',
-        top: 0,
-        left: width / 2,
-        marginLeft: j(-110),
-        width: j(220),
-        height: j(220),
-        borderRadius: j(220),
-        borderWidth: j(10),
-        borderColor: '#fff',
-        backgroundColor: '#dedede',
+    leftIconSty: {
+        color: '#fc5366',
     },
-    portraitImageSty: {
-        width: j(200),
-        height: j(200),
-        borderRadius: j(200),
-    },
-    maskSty: {
-        width: 0,
-        height: 0,
-        borderBottomWidth: j(200),
-        borderBottomColor: '#fff',
-        borderLeftWidth: width,
-        borderLeftColor: 'transparent',
-    },
-    innerSty: {
-        width,
-        height: height * 0.8,
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        justifyContent: 'flex-end',
-    },
-    formSty: {
-        width,
-        flex: 1,
-        backgroundColor: '#fff',
-        justifyContent: 'flex-end',
+    logoSty: {
+        width: j(150),
+        height: j(150),
+        marginTop: j(20),
+        marginBottom: j(50),
     },
     promptSty: {
+        width,
         height: j(120),
         flexDirection: 'row',
         justifyContent: 'center',

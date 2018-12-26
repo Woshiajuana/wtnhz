@@ -26,6 +26,7 @@ export default class Head extends Component {
             leftTxt,
             rightTxt,
             centerTxt,
+            leftIconSty,
         } = this.props;
         return (
             <View style={styles.wrapSty}>
@@ -34,7 +35,7 @@ export default class Head extends Component {
                     {
                         leftSlot
                             ? leftSlot
-                            : <Icon name="ios-arrow-back" style={styles.leftIconSty}/>
+                            : <Icon name="ios-arrow-back" style={[styles.leftIconSty, leftIconSty]}/>
                     }
                     <Text style={styles.leftTxtSty}>{leftTxt}</Text>
                 </TouchableOpacity>

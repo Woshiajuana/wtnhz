@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     wrapSty: {
         width,
         flex: 1,
+        alignItems: 'center',
         backgroundColor: '#fc5366',
     },
     portraitSty: {
@@ -127,6 +128,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     promptSty: {
+        width,
         height: j(120),
         flexDirection: 'row',
         justifyContent: 'center',
