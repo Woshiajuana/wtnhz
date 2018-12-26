@@ -2,13 +2,10 @@
 
 import React, { Component }             from 'react'
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
     Image,
-    TextInput,
-    Alert,
 } from 'react-native'
 import request from '../../common/request'
 import config from '../../common/config'
@@ -17,6 +14,7 @@ import Button                           from '../../components/button'
 import InputBox                         from '../../components/input-box'
 import {
     width,
+    height,
     j,
 }                                       from '../../utils/dimensions.util'
 
@@ -38,36 +36,44 @@ export default class Login extends Component<Props> {
 
     render () {
         return (
-            <View style={styles.container}>
-
+            <View style={styles.wrapSty}>
                 <View style={styles.innerSty}>
-                    <InputBox
-                        placeholder="请输入邮箱"
-                        placeholderTextColor="#dedede"
-                        value={this.state.email}
-                        onChangeText={(email) => {
-                            this.setState({email});
-                        }}
-                        labelTxt="邮箱"
-                    />
-                    <InputBox
-                        placeholder="请输入密码"
-                        placeholderTextColor="#dedede"
-                        value={this.state.password}
-                        onChangeText={(password) => {
-                            this.setState({password});
-                        }}
-                        labelTxt="密码"
-                    />
-                    <View style={[styles.promptSty, styles.promptLeftSty]}>
-                        <Text style={styles.promptTextSty}>忘记密码?</Text>
+                    <View style={styles.maskSty}></View>
+                    <View style={styles.formSty}>
+                        <InputBox
+                            placeholder="请输入邮箱"
+                            placeholderTextColor="#dedede"
+                            value={this.state.email}
+                            onChangeText={(email) => {
+                                this.setState({email});
+                            }}
+                            labelTxt="邮箱"
+                        />
+                        <InputBox
+                            placeholder="请输入密码"
+                            placeholderTextColor="#dedede"
+                            value={this.state.password}
+                            onChangeText={(password) => {
+                                this.setState({password});
+                            }}
+                            labelTxt="密码"
+                        />
+                        <View style={[styles.promptSty, styles.promptLeftSty]}>
+                            <Text style={styles.promptTextSty}>忘记密码?</Text>
+                        </View>
+                        <Button
+                            buttonTxt="登录"
+                        />
+                        <View style={styles.promptSty}>
+                            <Text style={styles.promptTextSty}>还没有帐号?</Text>
+                            <Text style={styles.promptLinkTextSty}>去注册</Text>
+                        </View>
                     </View>
-                    <Button
-                        buttonTxt="登录"
-                    />
-                    <View style={styles.promptSty}>
-                        <Text style={styles.promptTextSty}>还没有帐号?</Text>
-                        <Text style={styles.promptLinkTextSty}>去注册</Text>
+                    <View style={styles.portraitSty}>
+                        <Image
+                            style={styles.portraitImageSty}
+                            source={{uri: 'http://20.0.18.93:32580/static/images/login-banner-2.png'}}
+                        />
                     </View>
                 </View>
             </View>
@@ -76,12 +82,49 @@ export default class Login extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    wrapSty: {
+        width,
         flex: 1,
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#fc5366',
+    },
+    portraitSty: {
+        position: 'absolute',
+        top: 0,
+        left: width / 2,
+        marginLeft: j(-110),
+        width: j(220),
+        height: j(220),
+        borderRadius: j(220),
+        borderWidth: j(10),
+        borderColor: '#fff',
+        backgroundColor: '#dedede',
+    },
+    portraitImageSty: {
+        width: j(200),
+        height: j(200),
+        borderRadius: j(200),
+    },
+    maskSty: {
+        width: 0,
+        height: 0,
+        borderBottomWidth: j(200),
+        borderBottomColor: '#fff',
+        borderLeftWidth: width,
+        borderLeftColor: 'transparent',
     },
     innerSty: {
-
+        width,
+        height: height * 0.8,
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        justifyContent: 'flex-end',
+    },
+    formSty: {
+        width,
+        flex: 1,
+        backgroundColor: '#fff',
+        justifyContent: 'flex-end',
     },
     promptSty: {
         height: j(120),
