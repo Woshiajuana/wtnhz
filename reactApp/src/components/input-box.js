@@ -26,6 +26,10 @@ export default class InputBox extends Component {
             onChangeText,
             children,
         } = this.props;
+        let textInputProps = {
+            ...this.props,
+        };
+        delete textInputProps.children;
         return (
             <View style={styles.wrapSty}>
                 <View style={styles.labelSty}>
@@ -33,7 +37,7 @@ export default class InputBox extends Component {
                 </View>
                 <View style={styles.innerSty}>
                     <TextInput
-                        {...this.props}
+                        {...textInputProps}
                         style={styles.inputSty}
                     />
                     {

@@ -12,6 +12,7 @@ import config from '../../common/config'
 import Head                             from '../../components/head'
 import Button                           from '../../components/button'
 import InputBox                         from '../../components/input-box'
+import Code                             from '../../components/code'
 import {
     width,
     height,
@@ -59,7 +60,9 @@ export default class Login extends Component<Props> {
                         this.setState({password});
                     }}
                     labelTxt="验证码">
-                    <Text>获取验证码</Text>
+                    <Code onCode={(callback) => {
+                        callback();
+                    }}/>
                 </InputBox>
                 <InputBox
                     placeholder="请输入密码"

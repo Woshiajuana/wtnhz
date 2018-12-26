@@ -4,9 +4,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TextInput,
 }                                       from "react-native";
-import Icon                             from 'react-native-vector-icons/Ionicons'
 import {
     width,
     j,
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
     },
     innerTextSty: {
         color: '#fc5366',
-        fontSize: j(28),
+        fontSize: j(24),
     },
     innerDisabledTextSty: {
         color: '#dedede',
