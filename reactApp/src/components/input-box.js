@@ -23,6 +23,8 @@ export default class InputBox extends Component {
     render () {
         let {
             labelTxt,
+            value,
+            onChangeText,
         } = this.props;
         return (
             <View style={styles.wrapSty}>
@@ -30,11 +32,21 @@ export default class InputBox extends Component {
                     <Text style={styles.labelTxtSty}>{labelTxt}</Text>
                 </View>
                 <View style={styles.innerSty}>
-                    <TextInput style={styles.inputSty} />
-                    <TouchableOpacity
-                        style={styles.clearSty}>
-                        <Icon name="ios-close" style={styles.clearIconSty}/>
-                    </TouchableOpacity>
+                    <TextInput
+                        {...this.props}
+                        style={styles.inputSty}
+                    />
+                    {
+                        value ?
+                            <TouchableOpacity
+                                onPress={() => {
+                                    onChangeText && onChangeText('');
+                                }}
+                                style={styles.clearSty}>
+                                <Icon name="ios-close" style={styles.clearIconSty}/>
+                            </TouchableOpacity>
+                            : null
+                    }
                 </View>
             </View>
         )
@@ -71,9 +83,9 @@ const styles = StyleSheet.create({
     inputSty: {
         flex: 1,
         height: j(80),
-        fontSize: j(30),
+        fontSize: j(28),
         color: '#333',
-        paddingLeft: 0,
+        padding: 0,
     },
     clearSty: {
         width: j(80),

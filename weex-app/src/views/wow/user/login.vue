@@ -23,18 +23,18 @@
                         @input="handleInput(item, $event)"
                     ></input-box>
                     <div class="prompt prompt-left">
-                        <text class="prompt-text">Forgot Password ?</text>
+                        <text class="prompt-text">忘记密码?</text>
                     </div>
                     <wow-button
                         @click="handleSubmit"
                         :button_disabled="computedDisabled"
                         class="button"
                         :button_style="{marginLeft: 0, marginTop: 100}"
-                        button_txt="SIGN IN"
+                        button_txt="登录"
                     ></wow-button>
                     <div class="prompt" @click="routerPush('wow_user_register')">
-                        <text class="prompt-text">DON'T HAVE AN ACCOUNT ?</text>
-                        <text class="prompt-link">SIGN UP</text>
+                        <text class="prompt-text">还没有帐号 ?</text>
+                        <text class="prompt-link">去注册</text>
                     </div>
                 </div>
                 <div class="portrait-box">
