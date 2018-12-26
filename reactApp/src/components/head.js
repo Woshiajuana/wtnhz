@@ -46,7 +46,9 @@ export default class Head extends Component {
                 <TouchableOpacity
                     style={styles.rightSty}>
                     {
-                        rightSlot && rightSlot
+                        rightSlot
+                            ? rightSlot
+                            : null
                     }
                     <Text style={styles.rightTxtSty}>{rightTxt}</Text>
                 </TouchableOpacity>
@@ -60,7 +62,6 @@ const styles = StyleSheet.create({
     wrapSty: {
         width,
         height: j(90),
-        backgroundColor: 'red',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',

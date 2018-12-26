@@ -1,8 +1,9 @@
 
-import React, { Component } from 'react'
-import { AsyncStorage,} from 'react-native'
-import {createStackNavigator,} from 'react-navigation'
-import Login from './src/views/user/login'
+import React, { Component }             from 'react'
+import { AsyncStorage,}                 from 'react-native'
+import {createStackNavigator,}          from 'react-navigation'
+import Login                            from './src/views/user/login'
+import Register                         from './src/views/user/register'
 
 const Navigator = createStackNavigator(
     {
@@ -12,9 +13,15 @@ const Navigator = createStackNavigator(
                 header: null // 无标题栏
             },
         },
+        Register: {
+            screen: Register,
+            navigationOptions: {
+                header: null // 无标题栏
+            },
+        },
     },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'Register',
     },
 );
 
@@ -55,9 +62,9 @@ export default class App extends Component<Props> {
         })
     }
     render () {
-        if (!this.state.logined) {
-            return <Login onLoginEd={this._onLoginEd.bind(this)}/>
-        }
+        // if (!this.state.logined) {
+        //     return <Login onLoginEd={this._onLoginEd.bind(this)}/>
+        // }
         return (
             <Navigator />
         )
