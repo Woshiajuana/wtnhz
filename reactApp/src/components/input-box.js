@@ -17,7 +17,6 @@ import {
 export default class InputBox extends Component {
     constructor (props) {
         super(props);
-
     }
 
     render () {
@@ -25,6 +24,7 @@ export default class InputBox extends Component {
             labelTxt,
             value,
             onChangeText,
+            children,
         } = this.props;
         return (
             <View style={styles.wrapSty}>
@@ -47,6 +47,7 @@ export default class InputBox extends Component {
                             </TouchableOpacity>
                             : null
                     }
+                    { children }
                 </View>
             </View>
         )

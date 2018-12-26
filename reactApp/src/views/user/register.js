@@ -58,8 +58,9 @@ export default class Login extends Component<Props> {
                     onChangeText={(password) => {
                         this.setState({password});
                     }}
-                    labelTxt="验证码"
-                />
+                    labelTxt="验证码">
+                    <Text>获取验证码</Text>
+                </InputBox>
                 <InputBox
                     placeholder="请输入密码"
                     placeholderTextColor="#dedede"
