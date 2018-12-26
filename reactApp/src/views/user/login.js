@@ -10,10 +10,10 @@ import {
     TextInput,
     Alert,
 } from 'react-native'
-import Button from "react-native-button"
 import request from '../../common/request'
 import config from '../../common/config'
 import Head                     from '../../components/head'
+import Button                   from '../../components/button'
 import InputBox                 from '../../components/input-box'
 
 
@@ -44,6 +44,9 @@ export default class Login extends Component<Props> {
                 />
                 <InputBox
                     labelTxt="邮箱"
+                />
+                <Button
+                    buttonTxt="登录"
                 />
             </View>
         )

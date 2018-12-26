@@ -33,7 +33,7 @@ export default class InputBox extends Component {
                     <TextInput style={styles.inputSty} />
                     <TouchableOpacity
                         style={styles.clearSty}>
-                        <Icon name="ios-arrow-back" style={styles.clearIconSty}/>
+                        <Icon name="ios-close" style={styles.clearIconSty}/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -70,6 +70,9 @@ const styles = StyleSheet.create({
     },
     inputSty: {
         flex: 1,
+        height: j(80),
+        fontSize: j(30),
+        color: '#333',
         paddingLeft: 0,
     },
     clearSty: {
@@ -77,7 +80,6 @@ const styles = StyleSheet.create({
         height: j(80),
         textAlign: 'center',
         lineHeight: j(80),
-        backgroundColor: 'red'
     },
     clearIconSty: {
         fontSize: j(60),
