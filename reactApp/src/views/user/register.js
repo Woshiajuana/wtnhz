@@ -20,6 +20,7 @@ import {
     height,
     j,
 }                                       from '../../utils/dimensions.util'
+import RegularUtil                      from '../../utils/regular.util'
 
 
 type Props = {};
@@ -28,18 +29,92 @@ export default class Login extends Component<Props> {
     constructor (props) {
         super(props);
         this.state = {
-
-            email: '',
-
-            password: '',
-
-            agree: true,
-
-
+            arrInput$: [
+                // 邮箱
+                {
+                    key: 'email',
+                    value: '9@qq.com',
+                    label: '邮箱',
+                    type: 'text',
+                    placeholder: '请输入邮箱',
+                    use: [
+                        {
+                            nonempty: true,
+                            prompt: '请输入邮箱',
+                        },
+                        {
+                            rule: RegularUtil.isEmail,
+                            prompt: '邮箱输入错误',
+                        },
+                    ],
+                },
+                // 验证码
+                {
+                    code: 'email',
+                    value: '123',
+                    label: '验证码',
+                    type: 'tel',
+                    placeholder: '请输入验证码',
+                    use: [
+                        {
+                            nonempty: true,
+                            prompt: '请输入验证码',
+                        },
+                    ],
+                },
+                // 密码
+                {
+                    key: 'password',
+                    value: '111111',
+                    label: '密码',
+                    type: 'password',
+                    placeholder: '请输入密码',
+                    use: [
+                        {
+                            nonempty: true,
+                            prompt: '请输入密码',
+                        },
+                    ],
+                },
+                // 确认密码
+                {
+                    value: '111111',
+                    label: '确认密码',
+                    type: 'password',
+                    placeholder: '请确认密码',
+                    use: [
+                        {
+                            nonempty: true,
+                            prompt: '请确认密码',
+                        },
+                        {
+                            rule: (value, data) => {
+                                return value === data.password.value;
+                            },
+                            prompt: '两次密码不一致',
+                        }
+                    ],
+                },
+            ],
+            objAgree$: {
+                value: true,
+                use: [
+                    {
+                        rule: (value) => {
+                            return value === true;
+                        },
+                        prompt: '请阅读并同意服务协议',
+                    },
+                ],
+            },
         }
     }
 
     render () {
+        let {
+            arrInput$,
+            objAgree$,
+        } = this.state;
         return (
             <View style={styles.wrapSty}>
                 <Head
@@ -47,58 +122,49 @@ export default class Login extends Component<Props> {
                 />
                 <Image style={styles.logoSty}
                        source={{uri: 'http://20.0.18.93:32580/static/images/logo-icon-fc5366.png'}}/>
-                <InputBox
-                    placeholder="请输入邮箱"
-                    placeholderTextColor="#dedede"
-                    value={this.state.email}
-                    onChangeText={(email) => {
-                        this.setState({email});
-                    }}
-                    labelTxt="邮箱"
-                />
-                <InputBox
-                    placeholder="请输入验证码"
-                    placeholderTextColor="#dedede"
-                    value={this.state.password}
-                    onChangeText={(password) => {
-                        this.setState({password});
-                    }}
-                    labelTxt="验证码">
-                    <Code onCode={(callback) => {
-                        callback();
-                    }}/>
-                </InputBox>
-                <InputBox
-                    placeholder="请输入密码"
-                    placeholderTextColor="#dedede"
-                    value={this.state.password}
-                    onChangeText={(password) => {
-                        this.setState({password});
-                    }}
-                    labelTxt="密码"
-                />
-                <InputBox
-                    placeholder="请确认密码"
-                    placeholderTextColor="#dedede"
-                    value={this.state.password}
-                    onChangeText={(password) => {
-                        this.setState({password});
-                    }}
-                    labelTxt="确认密码"
-                />
+
+                {
+                    arrInput$.map((item, index) => {
+                        return (
+                            <InputBox
+                                key={item.label}
+                                placeholder={item.placeholder}
+                                placeholderTextColor="#dedede"
+                                value={item.value}
+                                onChangeText={(text) => {
+                                    item.value = text;
+                                    this.setState({arrInput$})
+                                }}
+                                labelTxt={item.label}>
+
+                                {
+                                    item.label === '验证码'
+                                        ?
+                                        <Code onCode={(callback) => {
+                                            callback();
+                                        }}/>
+                                        :
+                                        null
+                                }
+                            </InputBox>
+                        )
+                    })
+                }
                 <View style={styles.promptSty}>
                     <Switch
-                        value={this.state.agree}
+                        value={objAgree$.value}
                         onChangeText={() => {
+                            objAgree$.value = !objAgree$.value;
                             this.setState({
-                                agree: !this.state.agree
+                                objAgree$,
                             })
                         }}
                     />
                     <TouchableOpacity
                         onPress={() => {
+                            objAgree$.value = !objAgree$.value;
                             this.setState({
-                                agree: !this.state.agree
+                                objAgree$,
                             })
                         }}>
                         <Text style={styles.promptTextSty}>你已阅读并同意</Text>
