@@ -122,12 +122,13 @@ export default class Login extends Component<Props> {
     }
 
     _handleSubmit () {
-        console.log(0)
         let {
             arrInput$,
             objAgree$,
         } = this.state;
         if (VerifyUtil.multiple(arrInput$))
+            return null;
+        if (VerifyUtil.single(objAgree$))
             return null;
     }
 
