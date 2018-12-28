@@ -21,6 +21,7 @@ import {
     j,
 }                                       from '../../utils/dimensions.util'
 import RegularUtil                      from '../../utils/regular.util'
+import VerifyUtil                       from '../../utils/verify.util'
 
 
 type Props = {};
@@ -110,6 +111,25 @@ export default class Login extends Component<Props> {
         }
     }
 
+    _handleSwitch () {
+        let {
+            objAgree$,
+        } = this.state;
+        objAgree$.value = !objAgree$.value;
+        this.setState({
+            objAgree$,
+        })
+    }
+
+    _handleSubmit () {
+        let {
+            arrInput$,
+            objAgree$,
+        } = this.state;
+        if (VerifyUtil.multiple(arrInput$))
+            return null;
+    }
+
     render () {
         let {
             arrInput$,
@@ -122,7 +142,6 @@ export default class Login extends Component<Props> {
                 />
                 <Image style={styles.logoSty}
                        source={{uri: 'http://20.0.18.93:32580/static/images/logo-icon-fc5366.png'}}/>
-
                 {
                     arrInput$.map((item, index) => {
                         return (
@@ -153,20 +172,10 @@ export default class Login extends Component<Props> {
                 <View style={styles.promptSty}>
                     <Switch
                         value={objAgree$.value}
-                        onChangeText={() => {
-                            objAgree$.value = !objAgree$.value;
-                            this.setState({
-                                objAgree$,
-                            })
-                        }}
+                        onChangeText={this._handleSwitch.bind(this)}
                     />
                     <TouchableOpacity
-                        onPress={() => {
-                            objAgree$.value = !objAgree$.value;
-                            this.setState({
-                                objAgree$,
-                            })
-                        }}>
+                        onPress={this._handleSwitch.bind(this)}>
                         <Text style={styles.promptTextSty}>你已阅读并同意</Text>
                     </TouchableOpacity>
                     <TouchableOpacity>
@@ -174,6 +183,7 @@ export default class Login extends Component<Props> {
                     </TouchableOpacity>
                 </View>
                 <Button
+                    onPress={this._handleSubmit.bind(this)}
                     buttonTxt="注册"
                 />
             </View>

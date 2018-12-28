@@ -1,5 +1,7 @@
 
-import Dialogs                  from 'plugins/dialogs.plugin'
+import {
+    Alert,
+} from 'react-native'
 
 export default {
 
@@ -11,7 +13,7 @@ export default {
             })
         } catch (error) {
             result = true;
-            !mode && Dialogs.toast({message: error});
+            !mode && Alert.alert(error);
         }
         return result;
     },
@@ -22,8 +24,8 @@ export default {
             this._verify(data, data, mode)
         } catch (error) {
             result = true;
-            !mode && Dialogs.toast({message: error});
-        }
+            !mode && Alert.alert(error);
+    }
         return result;
     },
 
@@ -58,8 +60,13 @@ export default {
     },
 
     forEach (obj, callback) {
-        for(let key in obj){
-            callback && callback(obj[key], key);
+        if (Object.prototype.toString.call(obj) === '[object Array]') {
+            obj.forEach(callback)
+        } else {
+            for(let key in obj){
+                callback && callback(obj[key], key);
+            }
         }
+
     },
 }
