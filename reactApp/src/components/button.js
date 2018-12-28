@@ -3,10 +3,8 @@
 import React, { Component }             from 'react'
 import {
     StyleSheet,
-    View,
     Text,
     TouchableOpacity,
-    TextInput,
 }                                       from "react-native";
 import Icon                             from 'react-native-vector-icons/Ionicons'
 import {
@@ -25,6 +23,7 @@ export default class InputBox extends Component {
         } = this.props;
         return (
             <TouchableOpacity
+                {...this.props}
                 style={styles.wrapSty}>
                 <Text style={styles.txtSty}>{buttonTxt}</Text>
             </TouchableOpacity>

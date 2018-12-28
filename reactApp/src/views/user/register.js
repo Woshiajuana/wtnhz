@@ -90,7 +90,7 @@ export default class Login extends Component<Props> {
                         },
                         {
                             rule: (value, data) => {
-                                return value === data.password.value;
+                                return value === data[2].value;
                             },
                             prompt: '两次密码不一致',
                         }
@@ -122,6 +122,7 @@ export default class Login extends Component<Props> {
     }
 
     _handleSubmit () {
+        console.log(0)
         let {
             arrInput$,
             objAgree$,
