@@ -135,6 +135,15 @@ export default class Login extends Component<Props> {
 
     }
 
+    _handleSend (callback) {
+        let {
+            arrInput$,
+        } = this.state;
+        if (VerifyUtil.single(arrInput$[1]))
+            return null;
+        callback && callback();
+    }
+
     render () {
         let {
             arrInput$,
@@ -164,9 +173,7 @@ export default class Login extends Component<Props> {
                                 {
                                     item.label === '验证码'
                                         ?
-                                        <Code onCode={(callback) => {
-                                            callback();
-                                        }}/>
+                                        <Code onPress={this._handleSend.bind(this)}/>
                                         :
                                         null
                                 }

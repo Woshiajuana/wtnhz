@@ -65,8 +65,18 @@ export default class Login extends Component<Props> {
         }
     }
 
-    _jumpPage (page, data = {}) {
+    _handleJump (page, data = {}) {
         this.props.navigation.navigate(page, data);
+    }
+
+    _handleSubmit ()　{
+        let {
+            arrInput$,
+        } = this.state;
+        if (VerifyUtil.multiple(arrInput$))
+            return null;
+        let options = ExtractUtil.input(arrInput$);
+
     }
 
     render () {
@@ -99,10 +109,11 @@ export default class Login extends Component<Props> {
                             <Text style={styles.promptTextSty}>忘记密码?</Text>
                         </View>
                         <Button
+                            onPress={this._handleSubmit.bind(this)}
                             buttonTxt="登录"
                         />
                         <TouchableOpacity
-                            onPress={this._jumpPage.bind(this, 'Register')}
+                            onPress={this._handleJump.bind(this, 'Register')}
                             style={styles.promptSty}>
                             <Text style={styles.promptTextSty}>还没有帐号?</Text>
                             <Text style={styles.promptLinkTextSty}>去注册</Text>

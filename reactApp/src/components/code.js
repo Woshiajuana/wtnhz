@@ -21,10 +21,10 @@ export default class Code extends Component {
     }
     _handleCode () {
         let {
-            onCode
+            onPress
         } = this.props;
-        if (!onCode) return;
-        onCode(this._countDown.bind(this));
+        if (!onPress) return;
+        onPress(this._countDown.bind(this));
     }
     _countDown () {
         let {
