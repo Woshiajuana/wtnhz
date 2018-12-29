@@ -3,12 +3,16 @@ import http                     from 'http'
 import loggerUtil               from './../src/utils/logger.util'
 import portUtil                 from './../src/utils/port.util'
 import mongodbUtil              from './../src/utils/mongodb.util'
+import redisUtil                from './../src/utils/redis.util'
 import app                      from './../src/app'
+
+
 (async () => {
 
     // 链接数据库
     try {
         await mongodbUtil.connect();
+        await redisUtil.connect();
     } catch (err) {
         loggerUtil.system().error(`链接数据库失败，原因=> ${ err }`);
         return null;
