@@ -20,7 +20,9 @@ let loop = null;
             children,
             request,
         } = route;
-        routePath = routePath + path;
+        let newRoutePath = routePath + path;
+        if (children && children.length > 0)
+            loop(children, newRoutePath);
         _.forEach(request, (ctrs, key) => {
             if (key === 'del')
                 key = 'delete';
@@ -36,10 +38,8 @@ let loop = null;
                     : fun[method];
                 funs.push(fun);
             });
-            router[key](routePath, ...funs)
+            router[key](newRoutePath, ...funs)
         });
-        if (children && children.length > 0)
-            loop(children, routePath);
     })
 })(routes);
 

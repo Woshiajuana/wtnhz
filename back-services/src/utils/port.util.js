@@ -7,7 +7,6 @@ export default {
     get () {
         let result = Config.PORT;
         let argv = process.argv;
-        console.log(argv)
         let index = _.findIndex(argv, (arg) => {
             return arg === '--port' || arg === '-p';
         });
