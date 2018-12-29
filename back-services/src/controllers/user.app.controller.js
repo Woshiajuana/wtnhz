@@ -5,8 +5,20 @@ class Controller {
         next();
     }
     async send (ctx, next) {
-        console.log(ctx.checkBody)
-        console.log('send')
+        ctx.check$.testBody((check) => {
+            return {
+                email: [
+                    {
+                        nonempty: true,
+                        prompt: '请输入邮箱',
+                    },
+                    {
+                        rule: check.isEmail,
+                        prompt: '邮箱输入错误',
+                    },
+                ]
+            }
+        });
         next();
     }
     async register (ctx, next) {
