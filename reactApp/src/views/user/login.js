@@ -6,6 +6,7 @@ import {
     Text,
     View,
     Image,
+    TouchableOpacity,
 } from 'react-native'
 import request from '../../common/request'
 import config from '../../common/config'
@@ -64,6 +65,10 @@ export default class Login extends Component<Props> {
         }
     }
 
+    _jumpPage (page, data = {}) {
+        this.props.navigation.navigate(page, data);
+    }
+
     render () {
         let {
             arrInput$,
@@ -96,10 +101,12 @@ export default class Login extends Component<Props> {
                         <Button
                             buttonTxt="登录"
                         />
-                        <View style={styles.promptSty}>
+                        <TouchableOpacity
+                            onPress={this._jumpPage.bind(this, 'Register')}
+                            style={styles.promptSty}>
                             <Text style={styles.promptTextSty}>还没有帐号?</Text>
                             <Text style={styles.promptLinkTextSty}>去注册</Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.portraitSty}>
                         <Image
