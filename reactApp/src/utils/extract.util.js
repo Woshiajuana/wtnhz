@@ -10,7 +10,7 @@ export default {
         let params = Array.prototype.slice.apply(arguments);
         params.forEach((param) => {
             this.forEach(param, (item, key) => {
-                result[key] = item.value;
+                key && (result[key] = item.value);
             })
         });
         return result;
@@ -34,8 +34,14 @@ export default {
     },
 
     forEach (obj, callback) {
-        for(let key in obj){
-            callback && callback(obj[key], key);
+        if (Object.prototype.toString.call(obj) === '[object Array]') {
+            obj.forEach((item) => {
+                callback && callback(item, item.key);
+            })
+        } else {
+            for(let key in obj){
+                callback && callback(obj[key], key);
+            }
         }
     },
 

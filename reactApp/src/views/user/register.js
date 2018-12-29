@@ -22,6 +22,7 @@ import {
 }                                       from '../../utils/dimensions.util'
 import RegularUtil                      from '../../utils/regular.util'
 import VerifyUtil                       from '../../utils/verify.util'
+import ExtractUtil                      from '../../utils/extract.util'
 
 
 type Props = {};
@@ -51,7 +52,7 @@ export default class Login extends Component<Props> {
                 },
                 // 验证码
                 {
-                    code: 'email',
+                    key: 'code',
                     value: '123',
                     label: '验证码',
                     type: 'tel',
@@ -130,6 +131,8 @@ export default class Login extends Component<Props> {
             return null;
         if (VerifyUtil.single(objAgree$))
             return null;
+        let options = ExtractUtil.input(arrInput$);
+
     }
 
     render () {

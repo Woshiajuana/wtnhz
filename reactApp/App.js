@@ -21,7 +21,7 @@ const Navigator = createStackNavigator(
         },
     },
     {
-        initialRouteName: 'Register',
+        initialRouteName: 'Login',
     },
 );
 

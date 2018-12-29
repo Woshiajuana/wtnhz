@@ -9,7 +9,6 @@ import {
 } from 'react-native'
 import request from '../../common/request'
 import config from '../../common/config'
-import Head                             from '../../components/head'
 import Button                           from '../../components/button'
 import InputBox                         from '../../components/input-box'
 import {
@@ -17,6 +16,9 @@ import {
     height,
     j,
 }                                       from '../../utils/dimensions.util'
+import RegularUtil                      from '../../utils/regular.util'
+import VerifyUtil                       from '../../utils/verify.util'
+import ExtractUtil                      from '../../utils/extract.util'
 
 
 type Props = {};
@@ -25,39 +27,69 @@ export default class Login extends Component<Props> {
     constructor (props) {
         super(props);
         this.state = {
-
-            email: '',
-
-            password: '',
-
-
+            arrInput$: [
+                // 邮箱
+                {
+                    key: 'email',
+                    value: '9@qq.com',
+                    label: '邮箱',
+                    type: 'text',
+                    placeholder: '请输入邮箱',
+                    use: [
+                        {
+                            nonempty: true,
+                            prompt: '请输入邮箱',
+                        },
+                        {
+                            rule: RegularUtil.isEmail,
+                            prompt: '邮箱输入错误',
+                        },
+                    ],
+                },
+                // 密码
+                {
+                    key: 'password',
+                    value: '111111',
+                    label: '密码',
+                    type: 'password',
+                    placeholder: '请输入密码',
+                    use: [
+                        {
+                            nonempty: true,
+                            prompt: '请输入密码',
+                        },
+                    ],
+                },
+            ],
         }
     }
 
     render () {
+        let {
+            arrInput$,
+        } = this.state;
         return (
             <View style={styles.wrapSty}>
                 <View style={styles.innerSty}>
-                    <View style={styles.maskSty}></View>
+                    <View style={styles.maskSty}/>
                     <View style={styles.formSty}>
-                        <InputBox
-                            placeholder="请输入邮箱"
-                            placeholderTextColor="#dedede"
-                            value={this.state.email}
-                            onChangeText={(email) => {
-                                this.setState({email});
-                            }}
-                            labelTxt="邮箱"
-                        />
-                        <InputBox
-                            placeholder="请输入密码"
-                            placeholderTextColor="#dedede"
-                            value={this.state.password}
-                            onChangeText={(password) => {
-                                this.setState({password});
-                            }}
-                            labelTxt="密码"
-                        />
+                        {
+                            arrInput$.map((item, index) => {
+                                return (
+                                    <InputBox
+                                        key={item.label}
+                                        placeholder={item.placeholder}
+                                        placeholderTextColor="#dedede"
+                                        value={item.value}
+                                        onChangeText={(text) => {
+                                            item.value = text;
+                                            this.setState({arrInput$})
+                                        }}
+                                        labelTxt={item.label}
+                                    />
+                                )
+                            })
+                        }
                         <View style={[styles.promptSty, styles.promptLeftSty]}>
                             <Text style={styles.promptTextSty}>忘记密码?</Text>
                         </View>
@@ -126,6 +158,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         justifyContent: 'flex-end',
+        alignItems: 'center',
     },
     promptSty: {
         width,
