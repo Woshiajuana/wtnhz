@@ -139,7 +139,7 @@ export default class Login extends Component<Props> {
         let {
             arrInput$,
         } = this.state;
-        if (VerifyUtil.single(arrInput$[1]))
+        if (VerifyUtil.single(arrInput$[0]))
             return null;
         callback && callback();
     }
