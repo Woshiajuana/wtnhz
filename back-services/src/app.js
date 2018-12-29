@@ -1,11 +1,12 @@
 
 import Koa                  from 'koa'
-import koaSession           from 'koa-session'
 import koaConvert           from 'koa-convert'
 import koaBody              from 'koa-body'
 import router               from './router'
 import loggerUtil           from './utils/logger.util'
-import handleMid            from './middlewares/handle.middleware'
+import handleMiddle         from './middlewares/handle.middleware'
+import checkMiddle          from './middlewares/check.middleware'
+
 
 const app = new Koa();
 app.jsonSpaces = 0; // 压缩json返回中的空格
@@ -19,7 +20,8 @@ app.use(koaConvert(koaBody({
 
 // 中间件
 app.use(koaConvert.compose(
-    handleMid() // 处理者
+    checkMiddle(), // 验证者
+    handleMiddle(), // 处理者
 ));
 
 // 日志

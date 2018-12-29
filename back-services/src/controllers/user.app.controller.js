@@ -5,6 +5,7 @@ class Controller {
         next();
     }
     async send (ctx, next) {
+        console.log(ctx.checkBody)
         console.log('send')
         next();
     }
