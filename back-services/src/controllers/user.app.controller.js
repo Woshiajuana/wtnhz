@@ -5,7 +5,6 @@ class Controller {
         next();
     }
     async send (ctx, next) {
-        ctx.body = {}
         try {
             let result = ctx.check$.testBody((check) => {
                 return {
@@ -29,7 +28,6 @@ class Controller {
         }
     }
     async register (ctx, next) {
-        console.log('register')
         next();
     }
 }

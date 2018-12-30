@@ -5,11 +5,13 @@ export default () => async (ctx, next) => {
     try {
         let body = ctx.request.body;
         let check$ = {
-            ...RegularUtil,
+            regular: {
+                ...RegularUtil,
+            },
             _result: '',
             testBody: (options) => {
                 if (typeof options === 'function') {
-                    options = options(check$)
+                    options = options(check$.regular)
                 }
                 check(check$, body, options);
                 return check$._result;
