@@ -37,15 +37,24 @@ const check = (obj, source, expect) => {
                 let value = source[key];
                 if (nonempty && (typeof value === 'undefined' || value === '')) {
                     callback && callback(source);
-                    throw { prompt, key };
+                    throw {
+                        prompt: prompt || '缺少必要参数',
+                        key,
+                    };
                 }
                 if (typeof rule === 'function' && !rule(value, source)) {
                     callback && callback(source);
-                    throw { prompt, key };
+                    throw {
+                        prompt: prompt || '参数格式错误',
+                        key,
+                    };
                 }
                 if (typeof rule === 'object' && !rule.text(value)) {
                     callback && callback(source);
-                    throw { prompt, key };
+                    throw {
+                        prompt: prompt || '参数格式错误',
+                        key,
+                    };
                 }
             })
         })

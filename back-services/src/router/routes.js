@@ -35,7 +35,7 @@ export default [
                     {
                         path: '/send',
                         request: {
-                            get: [
+                            post: [
                                 {
                                     controller: 'user.app',
                                     method: 'send',

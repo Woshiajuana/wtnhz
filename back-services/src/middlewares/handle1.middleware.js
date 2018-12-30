@@ -31,12 +31,13 @@ export default () => async (ctx, next) => {
         ctx.handle$ = handle$;
         await next();
         // 拦截返回
+        console.log(handle$._errorData)
         if (!_.isEmpty(handle$._errorData)) {
-            ctx.body = handle$._errorData;
+            ctx.body = ctx._errorData;
             return null
         }
-        if (!_.isEmpty(handle$._successData)) {
-            ctx.body = handle$._successData;
+        if (!_.isEmpty(ctx._successData)) {
+            ctx.body = ctx._successData;
             return null
         }
     } catch (err) {

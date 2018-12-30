@@ -11,7 +11,7 @@ class Controller {
                     email: [
                         {
                             nonempty: true,
-                            prompt: '请输入邮箱',
+                            prompt: '缺少必要参数',
                         },
                         {
                             rule: check.isEmail,
@@ -20,14 +20,13 @@ class Controller {
                     ]
                 }
             });
-            if (result) {
-                console.log('哈哈', result)
-                ctx.pipeFail(result);
-            }
-        } catch (e) {
+            if (result)
+                throw result;
+            ctx.handle$.success({}, '操作成功')
 
+        } catch (err) {
+            ctx.handle$.error(err);
         }
-        // next();
     }
     async register (ctx, next) {
         console.log('register')
