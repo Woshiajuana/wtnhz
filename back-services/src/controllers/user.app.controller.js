@@ -1,4 +1,6 @@
 
+import RedisUtil            from '../utils/redis.util'
+
 class Controller {
     async login (ctx, next) {
         console.log('login')
