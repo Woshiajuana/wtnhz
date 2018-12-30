@@ -10,12 +10,11 @@ export default () => async (ctx, next) => {
             },
             _errResult: '',
             filterParams: {},
-            testBody: (options) => {
+            testBody: (options) =>  {
                 if (typeof options === 'function') {
                     options = options(check$.regular)
                 }
-                check(check$, body, options);
-                return check$._errResult;
+                return check(check$, body, options);
             },
         };
         ctx.check$ = check$;
@@ -25,7 +24,7 @@ export default () => async (ctx, next) => {
     }
 }
 
-const check = (obj, source, expect) => {
+const check = (obj, source, expect) => new Promise((resolve, reject) =>  {
     try {
         _.forEach(expect, (uses, key) => {
             if (!uses || !uses.length)
@@ -61,7 +60,8 @@ const check = (obj, source, expect) => {
                 }
                 obj.filterParams[key] = value;
             })
-        })
+        });
+        resolve(obj.filterParams);
     } catch (e) {
         let {
             prompt,
@@ -72,5 +72,6 @@ const check = (obj, source, expect) => {
             : typeof e === 'object'
                 ? JSON.stringify(e)
                 : e;
+        reject(obj._errResult)
     }
-};
+});

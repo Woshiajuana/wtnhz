@@ -18,11 +18,11 @@ export default {
     }),
 
     // check code
-    check: (email, max) => new Promise(async (resolve, reject) =>  {
+    check: (email, code) => new Promise(async (resolve, reject) =>  {
         try {
             const redisClient = await RedisUtil.connect();
             redisClient.get(email, (err, data) => {
-                err ? reject(err) : resolve(data)
+                err ? reject(err) : code !== data ? reject(`验证码错误`) : resolve(data)
             });
         } catch (err) {
             reject(err);
