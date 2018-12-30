@@ -1,5 +1,5 @@
 
-import RedisUtil            from '../utils/redis.util'
+import CodeService          from '../services/code.service'
 
 class Controller {
     async login (ctx, next) {
@@ -8,7 +8,7 @@ class Controller {
     }
     async send (ctx, next) {
         try {
-            let result = ctx.check$.testBody((check) => {
+            let errResult = ctx.check$.testBody((check) => {
                 return {
                     email: [
                         {
@@ -17,14 +17,19 @@ class Controller {
                         },
                         {
                             rule: check.isEmail,
-                            prompt: '邮箱输入错误',
+                            prompt: '参数格式错误',
                         },
                     ]
                 }
             });
-            if (result)
-                throw result;
-            ctx.handle$.success({}, '操作成功');
+            if (errResult)
+                throw errResult;
+            let {
+                email
+            } = ctx.check$.filterParams;
+            let code = await CodeService.get(email);
+            console.log(code);
+            ctx.handle$.success({}, '发送验证码成功');
         } catch (err) {
             ctx.handle$.error(err);
         }

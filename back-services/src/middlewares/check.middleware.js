@@ -8,13 +8,14 @@ export default () => async (ctx, next) => {
             regular: {
                 ...RegularUtil,
             },
-            _result: '',
+            _errResult: '',
+            filterParams: {},
             testBody: (options) => {
                 if (typeof options === 'function') {
                     options = options(check$.regular)
                 }
                 check(check$, body, options);
-                return check$._result;
+                return check$._errResult;
             },
         };
         ctx.check$ = check$;
@@ -58,6 +59,7 @@ const check = (obj, source, expect) => {
                         key,
                     };
                 }
+                obj.filterParams[key] = value;
             })
         })
     } catch (e) {
@@ -65,7 +67,7 @@ const check = (obj, source, expect) => {
             prompt,
             key,
         } = e;
-        obj._result = prompt && key
+        obj._errResult = prompt && key
             ? `${prompt}:${key}`
             : typeof e === 'object'
                 ? JSON.stringify(e)
