@@ -5,34 +5,43 @@ export default () => async (ctx, next) => {
     let body = ctx.request.body;
     let check$ = {
         ...RegularUtil,
-        result: true,
+        result: [],
         testBody: (options) => {
             if (typeof options === 'function') {
                 options = options(check$)
             }
-            return check(ctx, body, options);
+            return check(check$, body, options);
         },
     };
     ctx.check$ = check$;
     next();
 }
 
-const check = (ctx, source, expect) => {
-    _.forEach(expect, (uses, key) => {
-        if (!uses || !uses.length)
-            return null;
-        uses.forEach((use) => {
-            let {
-                nonempty,
-                prompt,
-                rule,
-                callback,
-            } = use;
-            let value = source[key];
-            if (nonempty && (typeof value === 'undefined' || value === '')) {
-                callback && callback(source);
-                throw prompt;
-            }
+const check = (obj, source, expect) => {
+    try {
+        _.forEach(expect, (uses, key) => {
+            if (!uses || !uses.length)
+                return null;
+            uses.forEach((use) => {
+                let {
+                    nonempty,
+                    prompt,
+                    rule,
+                    callback,
+                } = use;
+                let value = source[key];
+                if (nonempty && (typeof value === 'undefined' || value === '')) {
+                    callback && callback(source);
+                    throw { prompt, key };
+                }
+
+            })
         })
-    })
+    } catch (e) {
+        let {
+            prompt,
+            key,
+        } = e;
+        obj.result.push(`${prompt}:${key}`)
+    }
 };

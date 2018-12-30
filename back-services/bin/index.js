@@ -11,8 +11,8 @@ import app                      from './../src/app'
 
     // 链接数据库
     try {
-        await mongodbUtil.connect();
-        await redisUtil.connect();
+        // await mongodbUtil.connect();
+        // await redisUtil.connect();
     } catch (err) {
         loggerUtil.system().error(`链接数据库失败，原因=> ${ err }`);
         return null;
