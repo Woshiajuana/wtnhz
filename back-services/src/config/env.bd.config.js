@@ -21,4 +21,16 @@ export default {
         family: 'IPv4',
         pass: 'zbDHVaWOgMdV4rPQ3wETRYfRFjlEos83',
     },
+
+    // mail邮箱配置
+    MAIL: {
+        // service: 'QQ',
+        host: 'smtp.mxhichina.com', // 主机
+        secureConnection: true, // 使用 SSL
+        port: 465, // SMTP 端口
+        auth: {
+            user: 'zhigang.chen@owulia.com',
+            pass: 'liujiaoyan1120/'
+        }
+    },
 }

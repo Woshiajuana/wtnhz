@@ -1,5 +1,6 @@
 
 import CodeService          from '../services/code.service'
+import MailService          from '../services/mail.service'
 
 class Controller {
     async login (ctx, next) {
@@ -25,6 +26,7 @@ class Controller {
                 }
             });
             let code = await CodeService.get(email);
+            await MailService.send(email, '注册验证码', `验证码为${code}`);
             ctx.handle$.success({}, '发送验证码成功');
         } catch (err) {
             ctx.handle$.error(err);

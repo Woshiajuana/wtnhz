@@ -36,6 +36,8 @@
     "koa-session": "^5.10.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.3.12",
+    "nodemailer": "^5.0.0",
+    "nodemailer-smtp-transport": "^2.7.4",
     "require-all": "^3.0.0",
     "sha1": "^1.1.1",
     "speakeasy": "^2.0.0",
