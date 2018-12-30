@@ -5,21 +5,29 @@ class Controller {
         next();
     }
     async send (ctx, next) {
-        ctx.check$.testBody((check) => {
-            return {
-                email: [
-                    {
-                        nonempty: true,
-                        prompt: '请输入邮箱',
-                    },
-                    {
-                        rule: check.isEmail,
-                        prompt: '邮箱输入错误',
-                    },
-                ]
+        try {
+            let result = ctx.check$.testBody((check) => {
+                return {
+                    email: [
+                        {
+                            nonempty: true,
+                            prompt: '请输入邮箱',
+                        },
+                        {
+                            rule: check.isEmail,
+                            prompt: '邮箱输入错误',
+                        },
+                    ]
+                }
+            });
+            if (result) {
+                console.log('哈哈', result)
+                ctx.pipeFail(result);
             }
-        });
-        next();
+        } catch (e) {
+
+        }
+        // next();
     }
     async register (ctx, next) {
         console.log('register')

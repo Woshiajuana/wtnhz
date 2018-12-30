@@ -17,9 +17,15 @@ export default () => async (ctx, next) => {
             const errorType = _.includes(loggerType, _.get(input, 'type')) ? input.type : 'system';
             logger[errorType]().error(__dirname, '失败原因: ', stack || message)
         };
+        console.log(0)
         await next();
+        console.log(1)
+
+        return  ctx.body = {}
         // 拦截返回
         if (!_.isEmpty(ctx._pipeFailData)) {
+            console.log(2)
+            console.log(ctx._pipeFailData)
             ctx.body = ctx._pipeFailData;
             return null
         }

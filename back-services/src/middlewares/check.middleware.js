@@ -5,12 +5,13 @@ export default () => async (ctx, next) => {
     let body = ctx.request.body;
     let check$ = {
         ...RegularUtil,
-        result: [],
+        result: '',
         testBody: (options) => {
             if (typeof options === 'function') {
                 options = options(check$)
             }
-            return check(check$, body, options);
+            check(check$, body, options);
+            return check$.result;
         },
     };
     ctx.check$ = check$;
@@ -34,7 +35,14 @@ const check = (obj, source, expect) => {
                     callback && callback(source);
                     throw { prompt, key };
                 }
-
+                if (typeof rule === 'function' && !rule(value, source)) {
+                    callback && callback(source);
+                    throw { prompt, key };
+                }
+                if (typeof rule === 'object' && !rule.text(value)) {
+                    callback && callback(source);
+                    throw { prompt, key };
+                }
             })
         })
     } catch (e) {
@@ -42,6 +50,10 @@ const check = (obj, source, expect) => {
             prompt,
             key,
         } = e;
-        obj.result.push(`${prompt}:${key}`)
+        obj.result = prompt && key
+            ? `${prompt}:${key}`
+            : typeof e === 'object'
+                ? JSON.stringify(e)
+                : e;
     }
 };
