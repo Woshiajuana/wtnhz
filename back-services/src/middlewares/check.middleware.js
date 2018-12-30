@@ -2,20 +2,24 @@ import _                        from 'lodash'
 import RegularUtil              from '../utils/regular.util'
 
 export default () => async (ctx, next) => {
-    let body = ctx.request.body;
-    let check$ = {
-        ...RegularUtil,
-        result: '',
-        testBody: (options) => {
-            if (typeof options === 'function') {
-                options = options(check$)
-            }
-            check(check$, body, options);
-            return check$.result;
-        },
-    };
-    ctx.check$ = check$;
-    next();
+    try {
+        let body = ctx.request.body;
+        let check$ = {
+            ...RegularUtil,
+            _result: '',
+            testBody: (options) => {
+                if (typeof options === 'function') {
+                    options = options(check$)
+                }
+                check(check$, body, options);
+                return check$._result;
+            },
+        };
+        ctx.check$ = check$;
+        await next();
+    } catch (err) {
+        ctx.app.emit('error', err, ctx);
+    }
 }
 
 const check = (obj, source, expect) => {
@@ -50,7 +54,7 @@ const check = (obj, source, expect) => {
             prompt,
             key,
         } = e;
-        obj.result = prompt && key
+        obj._result = prompt && key
             ? `${prompt}:${key}`
             : typeof e === 'object'
                 ? JSON.stringify(e)
