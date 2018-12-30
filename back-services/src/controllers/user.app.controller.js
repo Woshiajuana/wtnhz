@@ -5,6 +5,7 @@ class Controller {
         next();
     }
     async send (ctx, next) {
+        ctx.body = {}
         try {
             let result = ctx.check$.testBody((check) => {
                 return {
@@ -22,8 +23,7 @@ class Controller {
             });
             if (result)
                 throw result;
-            ctx.handle$.success({}, '操作成功')
-
+            ctx.handle$.success({}, '操作成功');
         } catch (err) {
             ctx.handle$.error(err);
         }

@@ -18,14 +18,15 @@ app.use(koaConvert(koaBody({
     formLimit: '5mb',
 })));
 
+// 日志
+app.use(loggerUtil.http());
+
 // 中间件
 app.use(koaConvert.compose(
     checkMiddle(), // 验证者
     handleMiddle(), // 处理者
 ));
 
-// 日志
-app.use(loggerUtil.http());
 // 日志
 app.use(async (ctx, next) => {
     const start = new Date();
