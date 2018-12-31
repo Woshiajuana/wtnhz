@@ -4,7 +4,7 @@ import RegularUtil              from '../utils/regular.util'
 export default () => async (ctx, next) => {
     try {
         let body = ctx.request.body;
-        let check$ = {
+        ctx.check$ = {
             regular: {
                 ...RegularUtil,
             },
@@ -12,12 +12,11 @@ export default () => async (ctx, next) => {
             filterParams: {},
             testBody: (options) =>  {
                 if (typeof options === 'function') {
-                    options = options(check$.regular)
+                    options = options(ctx.check$.regular)
                 }
-                return check(check$, body, options);
+                return check(ctx.check$, body, options);
             },
         };
-        ctx.check$ = check$;
         await next();
     } catch (err) {
         ctx.app.emit('error', err, ctx);

@@ -5,11 +5,11 @@ import { loggerType }       from './../config/logger.config'
 
 export default () => async (ctx, next) => {
     try {
-        let handle$ = {
+        ctx.handle$ = {
             _successData: {},
             _errorData: {},
             success: (data = {}, msg = 'success') => {
-                handle$._successData = {
+                ctx.handle$._successData = {
                     code: '0000',
                     msg,
                     data,
@@ -22,21 +22,20 @@ export default () => async (ctx, next) => {
                     ? input.type
                     : 'system';
                 logger[errorType]().error(__dirname, '失败原因: ', stack || msg);
-                handle$._errorData = {
+                ctx.handle$._errorData = {
                     msg,
                     code,
                 };
             },
         };
-        ctx.handle$ = handle$;
         await next();
         // 拦截返回
-        if (!_.isEmpty(handle$._errorData)) {
-            ctx.body = handle$._errorData;
+        if (!_.isEmpty(ctx.handle$._errorData)) {
+            ctx.body = ctx.handle$._errorData;
             return null
         }
-        if (!_.isEmpty(handle$._successData)) {
-            ctx.body = handle$._successData;
+        if (!_.isEmpty(ctx.handle$._successData)) {
+            ctx.body = ctx.handle$._successData;
             return null
         }
     } catch (err) {
