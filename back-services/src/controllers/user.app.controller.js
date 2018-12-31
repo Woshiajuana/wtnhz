@@ -35,10 +35,11 @@ class Controller {
     }
     async register (ctx, next) {
         try {
+            let filterParams;
             let {
                 email,
                 code,
-            } = await ctx.check$.testBody((check) => {
+            } = filterParams = await ctx.check$.testBody((check) => {
                 return {
                     email: [
                         {
@@ -55,10 +56,24 @@ class Controller {
                             nonempty: true,
                             prompt: '缺少必要参数',
                         }
+                    ],
+                    password: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                        {
+                            rule: (value) => {
+                                let len = value.length;
+                                return len >= 6 && len <= 32;
+                            },
+                            prompt: '密码长度为6~32位',
+                        }
                     ]
                 }
             });
             await CodeService.check(email, code);
+            await UserService.create(filterParams);
             ctx.handle$.success({}, '注册成功');
         } catch (err) {
             ctx.handle$.error(err);
