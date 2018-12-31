@@ -112,6 +112,7 @@ class Controller {
                 }
             });
             await CodeService.check(email, code);
+            delete filterParams.code;
             let user = await UserService.one(filterParams);
             if (user)
                 throw '该邮箱已注册';
