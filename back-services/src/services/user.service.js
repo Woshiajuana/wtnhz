@@ -17,7 +17,8 @@ export default {
 
     // 删除
     async remove (options) {
-        const user = await UserModel.findById(options._id);
+        const user = await UserModel
+            .findById(options._id);
         if (!user)
             throw Error('无此用户');
         await user.remove();
@@ -26,7 +27,9 @@ export default {
     // 查询单个
     async one (options) {
         const user = await UserModel
-            .findOne(options).select('email nickname avatar create').lean();
+            .findOne(options)
+            .select('email nickname avatar create')
+            .lean();
         return user;
     }
 }

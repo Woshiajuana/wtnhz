@@ -1,6 +1,7 @@
 
 import CodeService          from '../services/code.service'
 import MailService          from '../services/mail.service'
+import UserService          from '../services/user.service'
 
 class Controller {
     async login (ctx, next) {
