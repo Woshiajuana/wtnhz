@@ -1,6 +1,14 @@
 
 import RedisUtil            from '../utils/redis.util'
 
+function randomNum (len) {
+    let result = '';
+    while (len > 0) {
+        len--;
+        result += Math.floor(Math.random() * 10)
+    }
+    return result;
+}
 
 export default {
 
@@ -8,8 +16,9 @@ export default {
     get: (email, max) => new Promise(async (resolve, reject) =>  {
         try {
             const redisClient = await RedisUtil.connect();
-            let code = '112233';
+            let code = randomNum(6);
             redisClient.set(email, code, (err) => {
+                redisClient.expire(email, 10 * 60);
                 err ? reject(err) : resolve(code)
             });
         } catch (err) {
