@@ -21,7 +21,9 @@ class Controller {
                         },
                     ],
                 }
-            })
+            });
+            const _id = await redisUtil.getItem(filterParams.token);
+
         } catch (err) {
             ctx.handle$.error(err);
         }
