@@ -2,18 +2,19 @@
 import jwt                  from 'jsonwebtoken'
 import redisUtil            from '../utils/redis.util'
 
+const verify = (token, secret) => new Promise((resolve) => {
+    jwt.verify(token, secret, (err, decoded) => {
+        err ? resolve({}) : resolve(decoded)
+    })
+});
 
 class Controller {
     async check (ctx, next) {
         try {
-            let filterParams = await ctx.check$.testBody((regular) => {
+            let {
+                token
+            } = await ctx.check$.testBody((regular) => {
                 return {
-                    _id: [
-                        {
-                            nonempty: true,
-                            prompt: '缺少必要参数',
-                        },
-                    ],
                     token: [
                         {
                             nonempty: true,
@@ -22,8 +23,13 @@ class Controller {
                     ],
                 }
             });
-            const _id = await redisUtil.getItem(filterParams.token);
-
+            let user = await verify(token, 'user');
+            console.log('user', user);
+            const reply = await redisUtil.getItem(token);
+            console.log('reply', reply);
+            if (reply !== user._id)
+                throw '无效token，请重新登录';
+            await next();
         } catch (err) {
             ctx.handle$.error(err);
         }

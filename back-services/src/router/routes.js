@@ -54,6 +54,36 @@ export default [
                             ],
                         },
                     },
+                    {
+                        path: '/info',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'user.app',
+                                    method: 'info',
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        path: '/update',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'user.app',
+                                    method: 'update',
+                                }
+                            ]
+                        }
+                    },
                 ]
             }
         ]
