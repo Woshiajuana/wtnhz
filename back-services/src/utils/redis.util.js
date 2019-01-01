@@ -31,8 +31,41 @@ const connect = () => new Promise(async (resolve, reject) => {
     }
 });
 
+// 获取数据
+const getItem = (key) => new Promise(async (resolve, reject) => {
+    const client = await connect();
+    client.get(key, (err, data) => {
+        if (err)
+            return reject(err);
+        try {
+            resolve(JSON.parse(data));
+        } catch (e) {
+            resolve(data);
+        }
+    })
+});
+
+// 设置数据
+const setItem = (key, value, expire) => new Promise(async (resolve, reject) => {
+    try {
+        if (typeof value === 'object')
+            value = JSON.stringify(value);
+        const client = await connect();
+        if (expire) {
+            return client.set(key, value, 'EX', expire, (err) => {
+                return err ? reject(err) : resolve();
+            })
+        }
+        return client.set(key, value, (err) => {
+            return err ? reject(err) : resolve();
+        })
+    } catch (err) {
+        reject(err);
+    }
+});
+
 
 export default {
-    // 链接数据库
     connect,
+    get,
 }
