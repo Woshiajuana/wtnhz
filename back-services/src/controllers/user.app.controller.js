@@ -140,9 +140,6 @@ class Controller {
                 }
             });
             let user = await UserService.one(_id);
-            console.log(user);
-            if (!user)
-                throw '该用户不存在';
             ctx.handle$.success(user);
         } catch (err) {
             ctx.handle$.error(err);
@@ -172,11 +169,10 @@ class Controller {
                     avatar: [],
                 }
             });
-
-            let user = await UserService.one({_id: filterParams._id});
-            if (!user)
-                throw '该用户不存在';
+            let user = await UserService.one(filterParams._id);
+            console.log('user before', user);
             user = await UserService.update(filterParams);
+            console.log('user after', user);
             ctx.handle$.success(user);
         } catch (err) {
             ctx.handle$.error(err);
