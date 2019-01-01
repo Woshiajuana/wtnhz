@@ -1,6 +1,7 @@
 
 import jwt                  from 'jsonwebtoken'
 import redisUtil            from '../utils/redis.util'
+import userService          from '../services/user.service'
 
 const verify = (token, secret) => new Promise((resolve) => {
     jwt.verify(token, secret, (err, decoded) => {
@@ -23,17 +24,13 @@ class Controller {
                     ],
                 }
             });
-            console.log(1)
             let {
                 _id,
             } = await verify(token, 'user');
-            console.log(2)
             const reply = await redisUtil.getItem(token);
-            console.log(3)
-            if (reply !== _id)
+            const user = await userService.one(_id);
+            if (!reply || !_id || !user || reply !== _id)
                 throw '无效token，请重新登录';
-            console.log(4)
-            console.log(_id)
             ctx.request.body._id = _id;
             await next();
         } catch (err) {
