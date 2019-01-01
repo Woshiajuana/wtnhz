@@ -23,12 +23,13 @@ class Controller {
                     ],
                 }
             });
-            let user = await verify(token, 'user');
-            console.log('user', user);
+            let {
+                _id,
+            } = await verify(token, 'user');
             const reply = await redisUtil.getItem(token);
-            console.log('reply', reply);
-            if (reply !== user._id)
+            if (reply !== _id)
                 throw '无效token，请重新登录';
+            ctx.request.body._id = _id;
             await next();
         } catch (err) {
             ctx.handle$.error(err);

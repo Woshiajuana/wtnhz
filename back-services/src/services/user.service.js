@@ -29,18 +29,20 @@ export default {
 
     // 查询单个
     async one (options) {
-        const user = await UserModel
-            .findOne(options)
+        let key = typeof options === 'object'
+            ? 'findOne'
+            : 'findById';
+        const user = await UserModel[key](options)
             .select('email nickname avatar create')
             .lean();
         return user;
     },
 
     // 生成token
-    async token (_id, secret = 'user', expires = 10) {
+    async token (_id, secret = 'user', expires = 10 * 60) {
         if (typeof _id !== 'string')
             _id = _id.toString();
-        const token = jwt.sign({ data:_id }, secret, { expiresIn: expires });
+        const token = jwt.sign({ _id }, secret, { expiresIn: expires });
         await RedisUtil.setItem(token, _id, expires);
         return token;
     },

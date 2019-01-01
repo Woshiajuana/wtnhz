@@ -64,9 +64,16 @@ const setItem = (key, value, expire) => new Promise(async (resolve, reject) => {
     }
 });
 
+// 删除数据
+const delItem = key => new Promise(async (resolve, reject) => {
+    const client = await connect();
+    client.del(key, err => (err ? reject(err) : resolve()))
+});
+
 
 export default {
     connect,
     setItem,
     getItem,
+    delItem,
 }

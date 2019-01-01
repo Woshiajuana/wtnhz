@@ -127,7 +127,9 @@ class Controller {
     // 查询
     async info (ctx, next) {
         try {
-            let filterParams = await ctx.check$.testBody((regular) => {
+            let {
+                _id,
+            } = await ctx.check$.testBody((regular) => {
                 return {
                     _id: [
                         {
@@ -137,7 +139,8 @@ class Controller {
                     ],
                 }
             });
-            let user = await UserService.one(filterParams);
+            let user = await UserService.one(_id);
+            console.log(user);
             if (!user)
                 throw '该用户不存在';
             ctx.handle$.success(user);
