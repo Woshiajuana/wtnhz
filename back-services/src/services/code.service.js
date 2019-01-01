@@ -13,14 +13,11 @@ function randomNum (len) {
 export default {
 
     // get code
-    get: (email, max) => new Promise(async (resolve, reject) =>  {
+    get: (email, len = 6) => new Promise(async (resolve, reject) =>  {
         try {
-            const redisClient = await RedisUtil.connect();
-            let code = randomNum(6);
-            redisClient.set(email, code, (err) => {
-                redisClient.expire(email, 10 * 60);
-                err ? reject(err) : resolve(code)
-            });
+            let code = randomNum(len);
+            await RedisUtil.setItem(email, code, 10 * 60);
+            return resolve(code)
         } catch (err) {
             reject(err);
         }
@@ -29,10 +26,8 @@ export default {
     // check code
     check: (email, code) => new Promise(async (resolve, reject) =>  {
         try {
-            const redisClient = await RedisUtil.connect();
-            redisClient.get(email, (err, data) => {
-                err ? reject(err) : code !== data ? reject(`验证码错误`) : resolve(data)
-            });
+            let data = await RedisUtil.getItem(email);
+            return code !== data ? reject(`验证码错误`) : resolve(data);
         } catch (err) {
             reject(err);
         }

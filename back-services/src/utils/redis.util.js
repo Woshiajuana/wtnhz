@@ -67,5 +67,6 @@ const setItem = (key, value, expire) => new Promise(async (resolve, reject) => {
 
 export default {
     connect,
-    get,
+    setItem,
+    getItem,
 }
