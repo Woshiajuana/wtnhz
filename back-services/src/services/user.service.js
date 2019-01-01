@@ -1,5 +1,7 @@
 
+import jwt                  from 'jsonwebtoken'
 import UserModel            from '../models/user.model'
+import RedisUtil            from '../utils/redis.util'
 
 export default {
 
@@ -10,9 +12,10 @@ export default {
 
     // 更新
     async update (options) {
-        await UserModel.update({
+        const user = await UserModel.update({
             _id: options._id
         }, options, { runValidators: true });
+        return user;
     },
 
     // 删除
@@ -31,5 +34,14 @@ export default {
             .select('email nickname avatar create')
             .lean();
         return user;
-    }
+    },
+
+    // 生成token
+    async token (_id, secret = 'user', expires = 10) {
+        if (typeof _id !== 'string')
+            _id = _id.toString();
+        const token = jwt.sign({ data:_id }, secret, { expiresIn: expires });
+        await RedisUtil.setItem(token, _id, expires);
+        return token;
+    },
 }
