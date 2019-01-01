@@ -149,6 +149,7 @@ class Controller {
     // 更新
     async update (ctx, next) {
         try {
+            console.log(5)
             let filterParams = await ctx.check$.testBody((regular) => {
                 return {
                     _id: [
@@ -157,18 +158,19 @@ class Controller {
                             prompt: '缺少必要参数',
                         },
                     ],
-                    nickname: [
-                        {
-                            rule: (value) => {
-                                let len = value.length;
-                                return len >= 2 && len <= 10;
-                            },
-                            prompt: '昵称长度为2~10个字符'
-                        }
-                    ],
-                    avatar: [],
+                    // nickname: [
+                    //     {
+                    //         rule: (value) => {
+                    //             let len = value.length;
+                    //             return len >= 2 && len <= 10;
+                    //         },
+                    //         prompt: '昵称长度为2~10个字符'
+                    //     }
+                    // ],
+                    // avatar: [],
                 }
             });
+            console.log('user before');
             let user = await UserService.one(filterParams._id);
             console.log('user before', user);
             user = await UserService.update(filterParams);
