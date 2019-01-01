@@ -158,15 +158,28 @@ class Controller {
                             prompt: '缺少必要参数',
                         },
                     ],
-                    // nickname: [
-                    //     {
-                    //         rule: (value) => {
-                    //             let len = value.length;
-                    //             return len >= 2 && len <= 10;
-                    //         },
-                    //         prompt: '昵称长度为2~10个字符'
-                    //     }
-                    // ],
+                    password: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                        {
+                            rule: (value) => {
+                                let len = value.length;
+                                return len >= 6 && len <= 32;
+                            },
+                            prompt: '密码长度为6~32位',
+                        },
+                    ],
+                    nickname: [
+                        {
+                            rule: (value) => {
+                                let len = value.length;
+                                return len >= 2 && len <= 10;
+                            },
+                            prompt: '昵称长度为2~10个字符'
+                        }
+                    ],
                     // avatar: [],
                 }
             });

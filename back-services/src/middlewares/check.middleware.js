@@ -43,14 +43,14 @@ const check = (obj, source, expect) => new Promise((resolve, reject) =>  {
                         key,
                     };
                 }
-                if (typeof rule === 'function' && !rule(value, source)) {
+                if (value && typeof rule === 'function' && !rule(value, source)) {
                     callback && callback(source);
                     throw {
                         prompt: prompt || '参数格式错误',
                         key,
                     };
                 }
-                if (typeof rule === 'object' && !rule.text(value)) {
+                if (value && typeof rule === 'object' && !rule.text(value)) {
                     callback && callback(source);
                     throw {
                         prompt: prompt || '参数格式错误',
@@ -62,6 +62,7 @@ const check = (obj, source, expect) => new Promise((resolve, reject) =>  {
         });
         resolve(obj.filterParams);
     } catch (e) {
+        console.log(e)
         let {
             prompt,
             key,
