@@ -27,9 +27,9 @@ class Controller {
             let {
                 _id,
             } = await verify(token, 'user');
-            const reply = await redisUtil.getItem(token);
+            const reply = await redisUtil.getItem(`${_id} token`);
             const user = await userService.one(_id);
-            if (!reply || !_id || !user || reply !== _id)
+            if (!reply || !_id || !user || reply !== token)
                 throw '无效token，请重新登录';
             ctx.request.body._id = _id;
             await next();

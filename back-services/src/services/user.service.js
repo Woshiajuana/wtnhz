@@ -46,7 +46,7 @@ export default {
         if (typeof _id !== 'string')
             _id = _id.toString();
         const token = jwt.sign({ _id }, secret, { expiresIn: expires });
-        await redisUtil.setItem(token, _id, expires);
+        await redisUtil.setItem(`${_id} token`, token, expires);
         return token;
     },
 
