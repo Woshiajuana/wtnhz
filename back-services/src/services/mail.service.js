@@ -1,11 +1,11 @@
 
 import nodeMailer           from 'nodemailer'
 import smtpTransport        from 'nodemailer-smtp-transport'
-import Config               from '../config/env.config'
+import config               from '../config/env.config'
 
 const {
     MAIL
-}  = Config;
+}  = config;
 
 let mailClient = null;
 

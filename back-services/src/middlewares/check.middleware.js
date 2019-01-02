@@ -1,12 +1,12 @@
 import _                        from 'lodash'
-import RegularUtil              from '../utils/regular.util'
+import regularUtil              from '../utils/regular.util'
 
 export default () => async (ctx, next) => {
     try {
         let body = ctx.request.body;
         ctx.check$ = {
             regular: {
-                ...RegularUtil,
+                ...regularUtil,
             },
             _errResult: '',
             filterParams: {},

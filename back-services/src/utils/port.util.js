@@ -1,11 +1,11 @@
 
 import _ from 'lodash'
 
-import Config from '../config/env.config'
+import config from '../config/env.config'
 
 export default {
     get () {
-        let result = Config.PORT;
+        let result = config.PORT;
         let argv = process.argv;
         let index = _.findIndex(argv, (arg) => {
             return arg === '--port' || arg === '-p';
