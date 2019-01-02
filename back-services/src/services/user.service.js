@@ -50,8 +50,12 @@ export default {
 
     // 生成图形验证码
     async captcha (email) {
-        let times = await redisUtil.getItem(`${email} captcha times`, text);
-        
+        let times = await redisUtil.getItem(`${email} captcha times`) || 0;
+        if (times < 3) {
+            times++;
+            await redisUtil.setItem(`${email} captcha times`, times);
+            throw '账号密码错误';
+        }
         const {
             text
         } = svgCaptcha.create( {
@@ -67,14 +71,19 @@ export default {
     // 生成登录验证码
     async firewall (email, captcha) {
         const text = await redisUtil.getItem(`${email} captcha`);
-        if (!text) return true;
-        if (text && !captcha)
+        if (!text) return null;
+        if (!captcha)
             throw {
                 code: '1001',
                 msg: '错误次数过多，请输入图形验证码',
             };
-        console.log(captcha.text);
-        await redisUtil.setItem(email, captcha.text);
-
+        if (text !== captcha)
+            throw '图形验证码错误';
     },
+
+    // 清除
+    async chearCaptcha (email) {
+        await redisUtil.delItem(`${email} captcha`);
+        await redisUtil.delItem(`${email} captcha times`);
+    }
 }

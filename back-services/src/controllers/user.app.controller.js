@@ -10,6 +10,7 @@ class Controller {
         try {
             let filterParams;
             let {
+                email,
                 captcha,
             } = filterParams = await ctx.check$.testBody((regular) => {
                 return {
@@ -39,17 +40,42 @@ class Controller {
                     captcha: [],
                 }
             });
-
-            
-
+            await userService.firewall(email, captcha);
             let user = await userService.one(filterParams);
-            if (!user)
-                throw '账号密码错误';
+            if (!user) await userService.captcha(email);
+            await userService.chearCaptcha(email);
             user.token = await userService.token(user._id);
             ctx.handle$.success(user);
         } catch (err) {
             ctx.handle$.error(err);
         }
+    }
+
+    // 获取图形验证码
+    async captcha (ctx, next) {
+        try {
+            let {
+                email,
+            } = await ctx.check$.testBody((regular) => {
+                return {
+                    email: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                        {
+                            rule: regular.isEmail,
+                            prompt: '参数格式错误',
+                        },
+                    ],
+                }
+            });
+            await userService.captcha(email);
+            ctx.handle$.success();
+        } catch (err) {
+            ctx.handle$.error(err);
+        }
+
     }
 
     // 发送验证码
