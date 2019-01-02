@@ -2,12 +2,16 @@
 import Koa                  from 'koa'
 import koaConvert           from 'koa-convert'
 import koaBody              from 'koa-body'
+import koaStatic            from 'koa-static'
 import router               from './router'
 import loggerUtil           from './utils/logger.util'
 import handleMiddle         from './middlewares/handle.middleware'
 import checkMiddle          from './middlewares/check.middleware'
+import config               from './config/env.config'
 
-
+const {
+    ASSETS_PATH,
+} = config;
 const app = new Koa();
 app.jsonSpaces = 0; // 压缩json返回中的空格
 app.keys = ['key'];
@@ -26,6 +30,9 @@ app.use(koaConvert.compose(
     checkMiddle(), // 验证者
     handleMiddle(), // 处理者
 ));
+
+// 静态文件
+app.use(koaConvert(koaStatic(ASSETS_PATH)));
 
 // 日志
 app.use(async (ctx, next) => {

@@ -1,3 +1,6 @@
+
+import path                 from 'path'
+
 export default {
     // 服务监听端口号
     PORT: '10010',
@@ -33,4 +36,7 @@ export default {
             pass: 'liujiaoyan1120/'
         }
     },
+
+    // 公共资源目录
+    ASSETS_PATH: path.join(__dirname, '../../assets/')
 }
