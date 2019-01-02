@@ -12,10 +12,10 @@ export default {
 
     // 更新
     async update (options) {
-        const user = await UserModel.update({
-            _id: options._id
-        }, options, { runValidators: true });
-        return user;
+        let query = {};
+        options._id && (query._id = options._id);
+        options.email && (query.email = options.email);
+        return await UserModel.update(query, options, { runValidators: true });
     },
 
     // 删除
@@ -39,7 +39,7 @@ export default {
     },
 
     // 生成token
-    async token (_id, secret = 'user', expires = 10 * 60) {
+    async token (_id, secret = 'user', expires = 10 * 60 * 100) {
         if (typeof _id !== 'string')
             _id = _id.toString();
         const token = jwt.sign({ _id }, secret, { expiresIn: expires });

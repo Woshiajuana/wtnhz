@@ -170,6 +170,7 @@ class Controller {
                 }
             });
             await userService.update(filterParams);
+            console.log(filterParams)
             let user = await userService.one(filterParams._id);
             ctx.handle$.success(user);
         } catch (err) {

@@ -26,8 +26,10 @@ export default () => async (ctx, next) => {
 const check = (obj, source, expect) => new Promise((resolve, reject) =>  {
     try {
         _.forEach(expect, (uses, key) => {
+            let value = source[key];
+            let type = typeof value === 'undefined' || value === null;
             if (!uses || !uses.length)
-                return null;
+                return !type && (obj.filterParams[key] = value);
             uses.forEach((use) => {
                 let {
                     nonempty,
@@ -35,8 +37,6 @@ const check = (obj, source, expect) => new Promise((resolve, reject) =>  {
                     rule,
                     callback,
                 } = use;
-                let value = source[key];
-                let type = typeof value === 'undefined' || value === null;
                 if (nonempty && (type || value === '')) {
                     callback && callback(source);
                     throw {
@@ -58,8 +58,8 @@ const check = (obj, source, expect) => new Promise((resolve, reject) =>  {
                         key,
                     };
                 }
-                !type && (obj.filterParams[key] = value);
-            })
+            });
+            !type && (obj.filterParams[key] = value);
         });
         resolve(obj.filterParams);
     } catch (e) {
