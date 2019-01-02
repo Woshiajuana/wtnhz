@@ -8,7 +8,10 @@ class Controller {
     // 登录
     async login (ctx, next) {
         try {
-            let filterParams = await ctx.check$.testBody((regular) => {
+            let filterParams;
+            let {
+                captcha,
+            } = filterParams = await ctx.check$.testBody((regular) => {
                 return {
                     email: [
                         {
@@ -33,8 +36,12 @@ class Controller {
                             prompt: '密码长度为6~32位',
                         },
                     ],
+                    captcha: [],
                 }
             });
+
+            
+
             let user = await userService.one(filterParams);
             if (!user)
                 throw '账号密码错误';
