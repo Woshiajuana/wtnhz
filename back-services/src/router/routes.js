@@ -12,7 +12,7 @@ export default [
                 },
                 {
                     controller: 'question.app',
-                    method: 'test'
+                    method: 'test',
                 }
             ],
         },
@@ -84,7 +84,49 @@ export default [
                             ]
                         }
                     },
-                ]
+                    {
+                        path: '/revise',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'user.app',
+                                    method: 'revise',
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        path: '/forgot',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'user.app',
+                                    method: 'forgot',
+                                }
+                            ]
+                        }
+                    },
+                ],
+            },
+            {
+                path: '/upload',
+                children: [
+                    {
+                        path: '/image',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'upload',
+                                    method: 'image',
+                                },
+                            ]
+                        }
+                    }
+                ],
             }
         ]
     }
