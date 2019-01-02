@@ -110,6 +110,17 @@ export default [
                             ]
                         }
                     },
+                    {
+                        path: '/captcha',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'user.app',
+                                    method: 'captcha',
+                                }
+                            ]
+                        }
+                    },
                 ],
             },
             {

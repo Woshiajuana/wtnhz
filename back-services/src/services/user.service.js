@@ -57,7 +57,8 @@ export default {
             throw '账号密码错误';
         }
         const {
-            text
+            text,
+            data,
         } = svgCaptcha.create( {
             size: 5, // 验证码长度
             ignoreChars: '0o1i', // 验证码字符中排除 0o1i
@@ -65,18 +66,26 @@ export default {
             height: 44
         });
         await redisUtil.setItem(`${email} captcha`, text);
-        return text;
+        console.log(text);
+        throw {
+            code: '1001',
+            msg: '错误次数过多，请输入图形验证码',
+            data,
+        };
     },
 
     // 生成登录验证码
     async firewall (email, captcha) {
         const text = await redisUtil.getItem(`${email} captcha`);
         if (!text) return null;
-        if (!captcha)
+        if (!captcha) {
+            await this.captcha(email);
             throw {
                 code: '1001',
                 msg: '错误次数过多，请输入图形验证码',
             };
+        }
+        console.log(text, captcha)
         if (text !== captcha)
             throw '图形验证码错误';
     },

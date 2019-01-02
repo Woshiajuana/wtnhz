@@ -16,10 +16,10 @@ export default () => async (ctx, next) => {
                 }
             },
             error: (input = 'error', code = '9999') => {
-                console.log(input);
                 code =  _.get(input, 'code') || code;
                 const msg =  _.get(input, 'msg') || _.get(input, 'message') || input;
                 const stack = _.get(input, 'stack') || undefined;
+                const data = _.get(input, 'data') || undefined;
                 const errorType = _.includes(loggerType, _.get(input, 'type'))
                     ? input.type
                     : 'system';
@@ -27,6 +27,7 @@ export default () => async (ctx, next) => {
                 ctx.handle$._errorData = {
                     msg,
                     code,
+                    data,
                 };
             },
         };
