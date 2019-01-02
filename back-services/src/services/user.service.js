@@ -82,7 +82,7 @@ export default {
     },
 
     // 清除
-    async chearCaptcha (email) {
+    async clearCaptcha (email) {
         await redisUtil.delItem(`${email} captcha`);
         await redisUtil.delItem(`${email} captcha times`);
     }

@@ -43,7 +43,7 @@ class Controller {
             await userService.firewall(email, captcha);
             let user = await userService.one(filterParams);
             if (!user) await userService.captcha(email);
-            await userService.chearCaptcha(email);
+            await userService.clearCaptcha(email);
             user.token = await userService.token(user._id);
             ctx.handle$.success(user);
         } catch (err) {
