@@ -17,7 +17,8 @@ export default () => async (ctx, next) => {
             },
             error: (input = 'error', code = '9999') => {
                 console.log(input);
-                const msg = _.get(input, 'message') || input;
+                code =  _.get(input, 'code') || code;
+                const msg =  _.get(input, 'msg') || _.get(input, 'message') || input;
                 const stack = _.get(input, 'stack') || undefined;
                 const errorType = _.includes(loggerType, _.get(input, 'type'))
                     ? input.type
