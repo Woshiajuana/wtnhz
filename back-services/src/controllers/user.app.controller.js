@@ -41,6 +41,7 @@ class Controller {
                 }
             });
             await userService.firewall(email, captcha);
+            delete filterParams.captcha;
             let user = await userService.one(filterParams);
             if (!user) await userService.filterTimes(email, captcha);
             await userService.clearCaptcha(email);

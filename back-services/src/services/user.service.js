@@ -60,7 +60,7 @@ export default {
             height: 44
         });
         await redisUtil.setItem(`${email} captcha`, text);
-        return data;
+        return text;
     },
 
     // 判断次数
