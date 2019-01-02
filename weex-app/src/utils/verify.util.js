@@ -46,11 +46,11 @@ export default {
                 throw prompt;
             }
             if (mode === 'nonempty') return null;
-            if (typeof rule === 'function' && !rule(value, data)) {
+            if (value && typeof rule === 'function' && !rule(value, data)) {
                 callback && callback(prop, data);
                 throw prompt;
             }
-            if (typeof rule === 'object' && !rule.text(value)) {
+            if (value && typeof rule === 'object' && !rule.text(value)) {
                 callback && callback(prop, data);
                 throw prompt;
             }

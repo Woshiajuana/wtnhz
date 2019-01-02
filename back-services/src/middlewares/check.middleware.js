@@ -36,28 +36,29 @@ const check = (obj, source, expect) => new Promise((resolve, reject) =>  {
                     callback,
                 } = use;
                 let value = source[key];
-                if (nonempty && (typeof value === 'undefined' || value === '')) {
+                let type = typeof value === 'undefined' || value === null;
+                if (nonempty && (type || value === '')) {
                     callback && callback(source);
                     throw {
                         prompt: prompt || '缺少必要参数',
                         key,
                     };
                 }
-                if (value && typeof rule === 'function' && !rule(value, source)) {
+                if (!type && typeof rule === 'function' && !rule(value, source)) {
                     callback && callback(source);
                     throw {
                         prompt: prompt || '参数格式错误',
                         key,
                     };
                 }
-                if (value && typeof rule === 'object' && !rule.text(value)) {
+                if (!type && typeof rule === 'object' && !rule.text(value)) {
                     callback && callback(source);
                     throw {
                         prompt: prompt || '参数格式错误',
                         key,
                     };
                 }
-                obj.filterParams[key] = value;
+                !type && (obj.filterParams[key] = value);
             })
         });
         resolve(obj.filterParams);
