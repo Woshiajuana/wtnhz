@@ -1,21 +1,13 @@
 
 import redisUtil            from '../utils/redis.util'
-
-function randomNum (len) {
-    let result = '';
-    while (len > 0) {
-        len--;
-        result += Math.floor(Math.random() * 10)
-    }
-    return result;
-}
+import commonUtil           from '../utils/common.util'
 
 export default {
 
     // get code
     get: (email, len = 6) => new Promise(async (resolve, reject) =>  {
         try {
-            let code = randomNum(len);
+            let code = commonUtil.randomNum(len);
             await redisUtil.setItem(email, code, 10 * 60);
             return resolve(code)
         } catch (err) {

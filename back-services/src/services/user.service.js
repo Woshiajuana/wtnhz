@@ -1,8 +1,10 @@
 
 import jwt                  from 'jsonwebtoken'
-import svgCaptcha           from 'svg-captcha'
+// import svgCaptcha           from 'svg-captcha'
+import CaptchaPng           from 'captchapng'
 import UserModel            from '../models/user.model'
 import redisUtil            from '../utils/redis.util'
+import commonUtil           from '../utils/common.util'
 
 export default {
 
@@ -50,17 +52,26 @@ export default {
 
     // 生成图形验证码
     async captcha (email) {
-        const {
+        let text = commonUtil.randomNum(6);
+        let captchaPng = new CaptchaPng(80, 30, text);
+        captchaPng.color(255, 255, 255, 0);  // First color: background (red, green, blue, alpha)
+        captchaPng.color(80, 80, 80, 255); // Second color: paint (red, green, blue, alpha)
+        // let data = new Buffer(captchaPng.getBase64(), 'base64');
+        let data = captchaPng.getBase64();
+        // let {
+        //     text,
+        //     data,
+        // } = svgCaptcha.create( {
+        //     size: 5, // 验证码长度
+        //     ignoreChars: '0o1i', // 验证码字符中排除 0o1i
+        //     noise: 2, // 干扰线条的数量
+        //     height: 44
+        // });
+        await redisUtil.setItem(`${email} captcha`, text);
+        return {
             text,
             data,
-        } = svgCaptcha.create( {
-            size: 5, // 验证码长度
-            ignoreChars: '0o1i', // 验证码字符中排除 0o1i
-            noise: 2, // 干扰线条的数量
-            height: 44
-        });
-        await redisUtil.setItem(`${email} captcha`, text);
-        return text;
+        };
     },
 
     // 判断次数
