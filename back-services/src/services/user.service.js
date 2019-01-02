@@ -1,14 +1,14 @@
 
 import jwt                  from 'jsonwebtoken'
 import svgCaptcha           from 'svg-captcha'
-import userModel            from '../models/user.model'
+import UserModel            from '../models/user.model'
 import redisUtil            from '../utils/redis.util'
 
 export default {
 
     // 创建
     async create (options) {
-        await new userModel(options).save();
+        await new UserModel(options).save();
     },
 
     // 更新
@@ -16,12 +16,12 @@ export default {
         let query = {};
         options._id && (query._id = options._id);
         options.email && (query.email = options.email);
-        return await userModel.update(query, options, { runValidators: true });
+        return await UserModel.update(query, options, { runValidators: true });
     },
 
     // 删除
     async remove (options) {
-        const user = await userModel
+        const user = await UserModel
             .findById(options._id);
         if (!user)
             throw Error('无此用户');
@@ -33,7 +33,7 @@ export default {
         let key = typeof options === 'object'
             ? 'findOne'
             : 'findById';
-        const user = await userModel[key](options)
+        const user = await UserModel[key](options)
             .select('email nickname avatar create')
             .lean();
         return user;
@@ -49,14 +49,7 @@ export default {
     },
 
     // 生成图形验证码
-    async captcha (email, captcha) {
-        let times = await redisUtil.getItem(`${email} captcha times`) || 0;
-        let msg = '账号或密码错误';
-        if (times < 3) {
-            times++;
-            await redisUtil.setItem(`${email} captcha times`, times);
-            throw msg;
-        }
+    async captcha (email) {
         const {
             text,
             data,
@@ -67,6 +60,19 @@ export default {
             height: 44
         });
         await redisUtil.setItem(`${email} captcha`, text);
+        return data;
+    },
+
+    // 判断次数
+    async filterTimes (email, captcha) {
+        let times = await redisUtil.getItem(`${email} captcha times`) || 0;
+        let msg = '账号或密码错误';
+        if (times < 3) {
+            times++;
+            await redisUtil.setItem(`${email} captcha times`, times);
+            throw msg;
+        }
+        let data = await this.captcha(email);
         if (!captcha)
             msg = '错误次数过多，请输入图形验证码';
         throw {
@@ -76,13 +82,13 @@ export default {
         };
     },
 
-    // 生成登录验证码
+    // 验证验证图形码
     async firewall (email, captcha) {
         const text = await redisUtil.getItem(`${email} captcha`);
         if (!text)
             return null;
-        if (!captcha) 
-            await this.captcha(email);
+        if (!captcha)
+            await this.filterTimes(email);
         if (text !== captcha)
             throw '图形验证码错误';
     },
