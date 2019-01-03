@@ -37,6 +37,14 @@ export default {
         }
     },
 
+    // ftp服务器配置
+    FTP: {
+        host: '47.95.202.71',
+        port: '21',
+        user: 'pwftp',
+        password: 'pwftp123',
+    },
+
     // 公共资源目录
-    ASSETS_PATH: path.join(__dirname, '../../assets/')
+    ASSETS_PATH: path.join(__dirname, '../../assets/'),
 }
