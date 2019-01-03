@@ -8,5 +8,17 @@ export default {
             result += Math.floor(Math.random() * 10)
         }
         return result;
-    }
+    },
+
+    parseFile (file) {
+        let {
+            type
+        } = file;
+        let suffix = type.split('/')[1];
+        if (suffix === 'javascript') suffix = 'js';
+        return {
+            suffix,
+            rename: `${new Date().getTime()}${Math.floor(Math.random() * 10000000)}.${suffix}`,
+        }
+    },
 }

@@ -1,6 +1,7 @@
 
 import config               from '../config/env.config'
 import ftpUtil              from '../utils/ftp.util'
+import commonUtil           from '../utils/common.util'
 
 const {
     ASSETS_PATH,
@@ -54,7 +55,8 @@ class Controller {
                 }
             });
             let {
-                _id
+                _id,
+                action,
             } = await ctx.check$.testBody((regular) => {
                 return {
                     _id: [
@@ -75,9 +77,11 @@ class Controller {
                 type,
                 path,
             } = file;
-            console.log('type', type);
-            console.log('path', path);
-            // ftpUtil.put(path, `test/test.png`);
+            let {
+                rename,
+            } = commonUtil.parseFile(file);
+            let output = `${_id}/${action}/${rename}`;
+            ftpUtil.put(path, output);
             ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);
