@@ -48,7 +48,7 @@ class Controller {
                             rule: (value) => {
                                 return regular.isImage(value.type);
                             },
-                            prompt: ''
+                            prompt: '文件格式不支持'
                         }
                     ],
                 }
@@ -63,7 +63,12 @@ class Controller {
                             prompt: '缺少必要参数',
                         },
                     ],
-                    
+                    action: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ]
                 }
             });
             let {
