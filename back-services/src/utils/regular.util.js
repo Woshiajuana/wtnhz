@@ -8,5 +8,9 @@ export default {
     // 邮箱
     isEmail: value => /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value),
     // 金额
-    isMoney: value => /^([1-9]\d{0,9}|0)([.]?|(\.\d{1,2})?)$/.test(value)
+    isMoney: value => /^([1-9]\d{0,9}|0)([.]?|(\.\d{1,2})?)$/.test(value),
+    // 图片
+    isImage (value) {
+        return value ? ['image/png', 'image/jpg', 'image/jpeg'].indexOf(value.toLowerCase()) > -1 : false;
+    }
 };

@@ -37,24 +37,42 @@ class Controller {
         try {
             let {
                 file,
-            } = await ctx.check$.testFiles(() => {
+            } = await ctx.check$.testFiles((regular) => {
                 return {
                     file: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
+                        },
+                        {
+                            rule: (value) => {
+                                return regular.isImage(value.type);
+                            },
+                            prompt: ''
                         }
                     ],
                 }
             });
-            file = file.toJSON();
+            let {
+                _id
+            } = await ctx.check$.testBody((regular) => {
+                return {
+                    _id: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
+                    
+                }
+            });
             let {
                 type,
                 path,
             } = file;
             console.log('type', type);
             console.log('path', path);
-            ftpUtil.put(path, `test/test.png`);
+            // ftpUtil.put(path, `test/test.png`);
             ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);
@@ -68,9 +86,14 @@ class Controller {
                 file
             } = await ctx.check$.testFiles(() => {
                 return {
-
+                    file: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        }
+                    ],
                 }
-            })
+            });
         } catch (err) {
             ctx.handle$.error(err);
         }
