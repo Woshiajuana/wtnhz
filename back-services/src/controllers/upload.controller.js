@@ -82,7 +82,9 @@ class Controller {
             } = commonUtil.parseFile(file);
             let output = `${_id}/${action}/${rename}`;
             ftpUtil.put(path, output);
-            ctx.handle$.success();
+            ctx.handle$.success({
+                output,
+            });
         } catch (err) {
             ctx.handle$.error(err);
         }

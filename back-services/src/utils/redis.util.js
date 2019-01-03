@@ -38,7 +38,7 @@ const getItem = (key) => new Promise(async (resolve, reject) => {
         if (err)
             return reject(err);
         try {
-            resolve(JSON.parse(data));
+            resolve(JSON.parse(data).value);
         } catch (e) {
             resolve(data);
         }
@@ -48,8 +48,7 @@ const getItem = (key) => new Promise(async (resolve, reject) => {
 // 设置数据
 const setItem = (key, value, expire) => new Promise(async (resolve, reject) => {
     try {
-        if (typeof value === 'object')
-            value = JSON.stringify(value);
+        value = JSON.stringify({value});
         const client = await connect();
         if (expire) {
             return client.set(key, value, 'EX', expire, (err) => {
