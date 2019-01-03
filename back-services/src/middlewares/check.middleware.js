@@ -3,7 +3,11 @@ import regularUtil              from '../utils/regular.util'
 
 export default () => async (ctx, next) => {
     try {
-        let body = ctx.request.body;
+        let {
+            body,
+            files,
+            query,
+        } = ctx.request;
         ctx.check$ = {
             regular: {
                 ...regularUtil,
@@ -16,6 +20,19 @@ export default () => async (ctx, next) => {
                 }
                 return check(ctx.check$, body, options);
             },
+            testFiles: (options) => {
+                if (typeof options === 'function') {
+                    options = options(ctx.check$.regular)
+                }
+                console.log('files', files);
+                return check(ctx.check$, files, options);
+            },
+            testQuery: (options) => {
+                if (typeof options === 'function') {
+                    options = options(ctx.check$.regular)
+                }
+                return check(ctx.check$, query, options);
+            },
         };
         await next();
     } catch (err) {
@@ -24,6 +41,7 @@ export default () => async (ctx, next) => {
 }
 
 const check = (obj, source, expect) => new Promise((resolve, reject) =>  {
+    obj.filterParams = {};
     try {
         _.forEach(expect, (uses, key) => {
             let value = source[key];
