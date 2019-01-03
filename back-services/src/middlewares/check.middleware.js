@@ -24,7 +24,6 @@ export default () => async (ctx, next) => {
                 if (typeof options === 'function') {
                     options = options(ctx.check$.regular)
                 }
-                console.log('files', files);
                 return check(ctx.check$, files, options);
             },
             testQuery: (options) => {

@@ -131,12 +131,46 @@ export default [
                         request: {
                             post: [
                                 {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
                                     controller: 'upload',
                                     method: 'image',
                                 },
                             ]
                         }
-                    }
+                    },
+                    {
+                        path: '/base64',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'upload',
+                                    method: 'base64',
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        path: '/file',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'upload',
+                                    method: 'file',
+                                },
+                            ]
+                        }
+                    },
                 ],
             }
         ]
