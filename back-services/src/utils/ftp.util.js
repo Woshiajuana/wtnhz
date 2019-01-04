@@ -62,16 +62,11 @@ const mkDir = (to) => {
     // let paths = to.replace(/\\/g, '/').split(path.sep);
     let paths = to.replace(/\\/g, '/').split('/');
     let filePath = '';
-    console.log(to)
-    console.log(paths)
     paths.forEach((dir, index) => {
         !dir && (dir = '/');
         filePath = filePath ? path.join(filePath, dir) : dir;
         if (!fs.existsSync(filePath)) {
-            console.log('创建', filePath)
             fs.mkdirSync(filePath);
-        } else {
-            console.log(filePath)
         }
     });
 };

@@ -8,15 +8,6 @@ const {
     FTP,
 } = config;
 
-function dataURLtoFile(dataurl, filename) { //将base64转换为文件
-    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-    while(n--){
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, {type:mime});
-}
-
 class Controller {
 
     // 以base64格式上传图片
@@ -136,9 +127,42 @@ class Controller {
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
-                        }
+                        },
+                        {
+                            rule: ({size}) => {
+                                return size < 2 * 1000 * 1000;
+                            },
+                            prompt: '文件不能超过2M'
+                        },
                     ],
                 }
+            });
+            let {
+                _id,
+                action,
+            } = await ctx.check$.testBody((regular) => {
+                return {
+                    _id: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
+                    action: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ]
+                }
+            });
+            let {
+                rename,
+            } = commonUtil.parseFile(file);
+            let output = `${_id}/${action}/${rename}`;
+            await ftpUtil.put(path, output);
+            ctx.handle$.success({
+                path: `${FTP.baseUrl}${output}`,
             });
         } catch (err) {
             ctx.handle$.error(err);
