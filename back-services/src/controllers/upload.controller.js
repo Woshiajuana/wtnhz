@@ -50,8 +50,14 @@ class Controller {
                             rule: (value) => {
                                 return regular.isImage(value.type);
                             },
-                            prompt: '文件格式不支持'
-                        }
+                            prompt: '图片格式不支持'
+                        },
+                        {
+                            rule: ({size}) => {
+                                return size < 2 * 1000 * 1000;
+                            },
+                            prompt: '图片不能超过2M'
+                        },
                     ],
                 }
             });
@@ -82,7 +88,7 @@ class Controller {
                 rename,
             } = commonUtil.parseFile(file);
             let output = `${_id}/${action}/${rename}`;
-            ftpUtil.put(path, output);
+            await ftpUtil.put(path, output);
             ctx.handle$.success({
                 path: `${FTP.baseUrl}${output}`,
             });
