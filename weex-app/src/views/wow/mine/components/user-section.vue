@@ -3,13 +3,14 @@
         <div class="section">
             <image class="image" :src="src$.def"></image>
             <div class="info">
-                <div class="top">
-                    <text class="name">woshiajuana</text>
-                    <image class="sex" :src="src$.man"></image>
-                </div>
-                <div class="bottom">
-                    <text class="introduce">真是一个有趣的人~~~</text>
-                </div>
+                <!--<div class="top">-->
+                    <!--<text class="name">woshiajuana</text>-->
+                    <!--<image class="sex" :src="src$.man"></image>-->
+                <!--</div>-->
+                <!--<div class="bottom">-->
+                    <!--<text class="introduce">真是一个有趣的人~~~</text>-->
+                <!--</div>-->
+                <text class="prompt">点击登录</text>
             </div>
         </div>
         <div class="section user-number">
@@ -33,7 +34,7 @@
     import SourceMixin                  from 'mixins/source.mixin'
 
     const srcArr = [
-        { key: 'def', value: 'default-head-icon.png', },
+        { key: 'def', value: 'default-head-icon.png?8', },
         { key: 'man', value: 'sex-man-icon.png', },
         { key: 'woman', value: 'sex-woman-icon.png', },
     ];
@@ -68,7 +69,7 @@
     .image{
         width: 120px;
         height: 120px;
-        background-color: red;
+        background-color: #f2f2f2;
         border-radius: 120px;
         margin-right: 32px;
     }
@@ -88,7 +89,6 @@
     .sex{
         width: 30px;
         height: 30px;
-        background-color: red;
     }
     .bottom{
         margin-top: 10px;
@@ -115,5 +115,9 @@
         font-size: 32px;
         color: #333;
         margin-top: 10px;
+    }
+    .prompt{
+        font-size: 32px;
+        color: #333;
     }
 </style>
