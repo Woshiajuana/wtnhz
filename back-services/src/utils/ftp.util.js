@@ -54,6 +54,11 @@ const puts = (list) => new Promise((resolve, reject) => {
     ftp.connect(FTP);
 });
 
+// 上传Base64到ftp服务器
+const base64 = () => new Promise((resolve, reject) => {
+
+});
+
 export default {
     put,
     puts,

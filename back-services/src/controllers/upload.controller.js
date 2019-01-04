@@ -47,9 +47,20 @@ class Controller {
                     ],
                 }
             });
-            let file = dataURLtoFile(base64, suffix);
-            console.log(file);
-
+            // let file = dataURLtoFile(base64, suffix);
+            // console.log(file);
+            // var fs = require('fs');
+            // var path = 'public/resources/views/headPortrait/'+ Date.now() +'.png';//从app.js级开始找--在我的项目工程里是这样的
+            // var base64 = data.replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
+            // var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
+            // console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
+            // fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
+            //     if(err){
+            //         console.log(err);
+            //     }else{
+            //         console.log('写入成功！');
+            //     }
+            // })
         } catch (err) {
             ctx.handle$.error(err);
         }
