@@ -23,22 +23,25 @@ class Controller {
     async base64 (ctx, next) {
         try {
             let {
+                _id,
                 base64,
                 suffix,
+                action,
             } = await ctx.check$.testBody(() => {
                 return {
+                    _id: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
                     base64: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
                         }
                     ],
-                    suffix: [
-                        {
-                            nonempty: true,
-                            prompt: '缺少必要参数',
-                        }
-                    ],
+                    suffix: [],
                     action: [
                         {
                             nonempty: true,
@@ -47,20 +50,13 @@ class Controller {
                     ],
                 }
             });
-            // let file = dataURLtoFile(base64, suffix);
-            // console.log(file);
-            // var fs = require('fs');
-            // var path = 'public/resources/views/headPortrait/'+ Date.now() +'.png';//从app.js级开始找--在我的项目工程里是这样的
-            // var base64 = data.replace(/^data:image\/\w+;base64,/, "");//去掉图片base64码前面部分data:image/png;base64
-            // var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
-            // console.log('dataBuffer是否是Buffer对象：'+Buffer.isBuffer(dataBuffer));
-            // fs.writeFile(path,dataBuffer,function(err){//用fs写入文件
-            //     if(err){
-            //         console.log(err);
-            //     }else{
-            //         console.log('写入成功！');
-            //     }
-            // })
+            if (!suffix) suffix = 'png';
+            let rename = commonUtil.parseName(suffix);
+            let output = `${_id}/${action}/${rename}`;
+            await ftpUtil.base64(base64, output);
+            ctx.handle$.success({
+                path: `${FTP.baseUrl}${output}`,
+            });
         } catch (err) {
             ctx.handle$.error(err);
         }

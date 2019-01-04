@@ -18,7 +18,11 @@ export default {
         if (suffix === 'javascript') suffix = 'js';
         return {
             suffix,
-            rename: `${new Date().getTime()}${Math.floor(Math.random() * 10000000)}.${suffix}`,
+            rename: this.parseName(suffix),
         }
+    },
+
+    parseName (suffix) {
+        return `${new Date().getTime()}${Math.floor(Math.random() * 10000000)}.${suffix}`
     },
 }

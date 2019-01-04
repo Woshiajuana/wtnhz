@@ -1,10 +1,12 @@
 
 import _                from 'lodash'
 import Ftp              from 'ftp'
+import fs               from 'fs'
 import config           from './../config/env.config'
 
 const {
-    FTP
+    ASSETS_PATH,
+    FTP,
 } = config;
 
 // 如果不存在目录，则创建
@@ -55,8 +57,15 @@ const puts = (list) => new Promise((resolve, reject) => {
 });
 
 // 上传Base64到ftp服务器
-const base64 = () => new Promise((resolve, reject) => {
-
+const base64 = (base64, output) => new Promise((resolve, reject) => {
+    let dataBuffer = new Buffer(base64, 'base64');
+    let input = `${ASSETS_PATH}${output}`;
+    fs.writeFile(input, dataBuffer, async (err) => {
+        if (err)
+            return reject(err);
+        await put(input, output);
+        resolve();
+    })
 });
 
 export default {
