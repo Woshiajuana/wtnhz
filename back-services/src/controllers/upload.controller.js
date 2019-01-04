@@ -8,12 +8,24 @@ const {
     FTP,
 } = config;
 
+function dataURLtoFile(dataurl, filename) { //将base64转换为文件
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type:mime});
+}
+
 class Controller {
 
     // 以base64格式上传图片
     async base64 (ctx, next) {
         try {
-            let filterParams = await ctx.check$.testBody(() => {
+            let {
+                base64,
+                suffix,
+            } = await ctx.check$.testBody(() => {
                 return {
                     base64: [
                         {
@@ -27,8 +39,17 @@ class Controller {
                             prompt: '缺少必要参数',
                         }
                     ],
+                    action: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
                 }
             });
+            let file = dataURLtoFile(base64, suffix);
+            console.log(file);
+
         } catch (err) {
             ctx.handle$.error(err);
         }
