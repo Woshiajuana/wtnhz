@@ -1,6 +1,6 @@
 <template>
-    <wow-view>
-
+    <wow-view :view_header_style="{position: 'absolute', backgroundColor: 'transparent'}">
+        <div class="user"></div>
     </wow-view>
 </template>
 
@@ -17,5 +17,8 @@
 </script>
 
 <style>
-
+    .user{
+        background-color: #000;
+        height: 200px;
+    }
 </style>
