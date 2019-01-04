@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <div class="section">
+        <div class="section" @click="routerPush('wow_mine_data')">
             <image class="image" :src="src$.def"></image>
             <div class="info">
                 <!--<div class="top">-->
@@ -32,6 +32,7 @@
 
 <script>
     import SourceMixin                  from 'mixins/source.mixin'
+    import RouterMixin                  from 'mixins/router.mixin'
 
     const srcArr = [
         { key: 'def', value: 'default-head-icon.png?8', },
@@ -42,6 +43,7 @@
     export default {
         mixins: [
             SourceMixin,
+            RouterMixin,
         ],
         created () {
             this.sourceGet(srcArr);

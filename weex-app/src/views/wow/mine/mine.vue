@@ -24,6 +24,7 @@
     import WowInputCell                 from 'wow-weex-ui/lib/wow-input-cell'
     import WowArrow                     from 'wow-weex-ui/lib/wow-arrow'
     import SourceMixin                  from 'mixins/source.mixin'
+    import RouterMixin                  from 'mixins/router.mixin'
     import UserSection                  from './components/user-section.vue'
 
     const srcArr = [
@@ -33,6 +34,7 @@
     export default {
         mixins: [
             SourceMixin,
+            RouterMixin,
         ],
         data () {
             return {

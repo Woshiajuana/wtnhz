@@ -1,6 +1,6 @@
 <template>
-    <wow-view view_header_left_src="">
-        
+    <wow-view>
+
     </wow-view>
 </template>
 
