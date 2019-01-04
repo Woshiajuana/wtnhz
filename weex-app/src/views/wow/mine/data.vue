@@ -1,5 +1,5 @@
 <template>
-    <wow-view :view_header_style="{position: 'absolute', backgroundColor: 'transparent'}">
+    <wow-view :view_header_style="{position: 'fixed', backgroundColor: 'transparent'}">
         <div class="user"></div>
     </wow-view>
 </template>
