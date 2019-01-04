@@ -41,8 +41,9 @@ export default {
     FTP: {
         host: '47.95.202.71',
         port: '21',
-        user: 'pwftp',
-        password: 'pwftp123',
+        user: 'wtnhzftp',
+        password: 'wtnhzftp123',
+        baseUrl: 'http://47.95.202.71:48430/'
     },
 
     // 公共资源目录

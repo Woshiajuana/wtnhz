@@ -5,6 +5,7 @@ import commonUtil           from '../utils/common.util'
 
 const {
     ASSETS_PATH,
+    FTP,
 } = config;
 
 class Controller {
@@ -83,7 +84,7 @@ class Controller {
             let output = `${_id}/${action}/${rename}`;
             ftpUtil.put(path, output);
             ctx.handle$.success({
-                output,
+                path: `${FTP.baseUrl}${output}`,
             });
         } catch (err) {
             ctx.handle$.error(err);
