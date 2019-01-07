@@ -16,7 +16,7 @@ export default Object.assign({
     view_use_header: true,
     view_header_height: 88,
 
-    view_header_border_width: 1,
+    // view_header_border_width: 1,
     view_header_border_color: '#f2f2f2',
 
     /**主体背景颜色*/

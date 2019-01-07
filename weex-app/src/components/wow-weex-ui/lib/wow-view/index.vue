@@ -3,7 +3,7 @@
         <div class="main"
              @viewappear="handleEmit('viewappear', $event)"
              @viewdisappear="handleEmit('viewdisappear', $event)"
-             :style="d_view_style">
+             :style="computedViewStyle">
             <scroller
                 v-if="view_use_scroll"
                 :offset-accuracy="view_offset_accuracy"
@@ -18,7 +18,7 @@
         </div>
         <div class="header"
              v-if="view_use_header"
-             :style="view_header_style">
+             :style="computedViewHeaderStyle">
             <div class="left"
                  @click="handleLeft"
                  :style="d_view_header_left_style">
@@ -67,15 +67,22 @@
 
     const navigator = weex.requireModule('navigator');
 
-
     export default {
-        mixins: [EmitMixin, Mixin, AssignMixin],
+        mixins: [
+            EmitMixin,
+            Mixin,
+            AssignMixin,
+        ],
         data () {
             return {
                 height: 0,
             }
         },
         props: {
+
+            // 是否需要
+            view_use_padding: { default: config.view_use_padding },
+
             // 主要
             view_style: { default: {} },
             view_use_scroll: { default: config.view_use_scroll },
@@ -123,7 +130,7 @@
                 let paddingTop = parseInt(height) + parseInt(pad_top) + this.height;
                 return {
                     ...this.d_view_style,
-                    paddingTop,
+                    paddingTop: 0 ,
                 };
             },
             computedViewHeaderStyle () {
@@ -160,7 +167,7 @@
 
 <style>
     .wrap{
-        background-color: #fff;
+
     }
     .main{
         flex: 1;
@@ -170,6 +177,7 @@
         position: fixed;
         flex-direction: row;
         width: 750px;
+        left: 0;
     }
     .left,
     .right {
@@ -194,5 +202,6 @@
     }
     .inner{
         flex: 1;
+        width: 750px;
     }
 </style>

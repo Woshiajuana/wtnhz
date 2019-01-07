@@ -5,6 +5,7 @@ import source                       from 'utils/source.util'
 import config                       from '../../config'
 import Assign                       from '../../assign'
 export default Assign({
+    view_use_padding: true,
     view_style: {
         backgroundColor: '#f8f8f8',
     },
@@ -16,7 +17,7 @@ export default Assign({
     view_use_compatible: false,
     view_header_style: {
         height: 90,
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
         borderColor: '#dedede',
         borderBottomWidth: 1,
         position: 'fixed',
