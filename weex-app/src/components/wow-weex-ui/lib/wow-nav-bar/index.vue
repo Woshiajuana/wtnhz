@@ -14,10 +14,10 @@
             </embed>
         </div>
         <!--/主体-->
+        <slot v-if="!nav_use_menu" name="menu"></slot>
         <!--导航条-->
         <div class="nav"
              :style="d_nav_bar_style">
-            <slot v-if="!nav_use_menu" name="menu"></slot>
             <div v-if="nav_use_menu"
                  :style="computedCompatible"
                  class="item"

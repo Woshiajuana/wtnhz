@@ -1,6 +1,7 @@
 <template>
     <div class="wrap" :style="d_radio_style">
         <div class="item"
+             @click="handleEmit('input', item)"
              :style="d_radio_item_style"
              v-for="(item, index) in radio_arr"
              :key="index">
@@ -21,9 +22,11 @@
     import config                       from './config'
     import Mixin                        from './mixins'
     import AssignMixin                  from './../../mixins/assign.mixin'
+    import EmitMixin                    from './../../mixins/emit.mixin'
     export default {
         mixins: [
             Mixin,
+            EmitMixin,
             AssignMixin,
         ],
         props: {
@@ -52,11 +55,6 @@
                 return type
                     ? Object.assign({}, this.d_radio_item_text_style, this.d_radio_item_text_checked_style)
                     : this.d_radio_item_text_style
-            },
-            handleClick() {
-                this.$emit('click', (type) => {
-                    this.switch_value = !!type || !this.switch_value;
-                })
             },
         },
     }

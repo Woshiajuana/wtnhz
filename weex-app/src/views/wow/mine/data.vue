@@ -16,14 +16,21 @@
         <wow-input-cell
             v-for="(item, key) in objInput$"
             :key="key"
+            :input_use="key === 'nickname'"
+            input_placeholder=""
             :input_label_txt="item.label"
             :input_value="item.value">
             <wow-radio
+                @input="handleInput(item, $event)"
                 slot="input-right"
                 v-if="item.radio"
                 :radio_arr="item.radio"
                 :radio_value="item.value"
             ></wow-radio>
+            <wow-arrow
+                v-if="item.arrow"
+                slot="input-right"
+            ></wow-arrow>
         </wow-input-cell>
         <div class="null"></div>
         <wow-button
@@ -36,9 +43,11 @@
 <script>
     import WowView                      from 'components/wow-weex-ui/lib/wow-view'
     import WowRadio                     from 'components/wow-weex-ui/lib/wow-radio'
+    import WowArrow                     from 'wow-weex-ui/lib/wow-arrow'
     import WowInputCell                 from 'wow-weex-ui/lib/wow-input-cell'
     import WowButton                    from 'wow-weex-ui/lib/wow-button'
     import SourceMixin                  from 'mixins/source.mixin'
+    import InputMixin                   from 'mixins/input.mixin'
 
     const srcArr = [
         { key: 'man', value: 'sex-man-icon.png', },
@@ -48,6 +57,7 @@
     export default {
         mixins: [
             SourceMixin,
+            InputMixin,
         ],
         data () {
             return {
@@ -94,6 +104,7 @@
                                 prompt: '请输入职业',
                             },
                         ],
+                        arrow: true,
                     },
                 }
             }
@@ -103,6 +114,7 @@
         },
         components: {
             WowView,
+            WowArrow,
             WowButton,
             WowRadio,
             WowInputCell,
