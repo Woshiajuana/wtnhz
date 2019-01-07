@@ -19,8 +19,19 @@
 
 <script>
     import WowView                      from 'components/wow-weex-ui/lib/wow-view'
-    
+    import SourceMixin                  from 'mixins/source.mixin'
+
+    const srcArr = [
+        { key: 'set', value: 'set-icon.png', },
+    ];
+
     export default {
+        mixins: [
+            SourceMixin,
+        ],
+        created () {
+            this.sourceGet(srcArr);
+        },
         components: {
             WowView,
         },
