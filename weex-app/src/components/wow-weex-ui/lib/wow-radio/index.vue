@@ -1,15 +1,16 @@
 <template>
-    <div class="wrap" :style="d_radio_style">
+    <div class="wrap"
+         :style="computedRadioStyle">
         <div class="item"
              @click="handleEmit('input', item)"
-             :style="d_radio_item_style"
+             :style="computedRadioItemStyle"
              v-for="(item, index) in radio_arr"
              :key="index">
             <div class="spot"
                  :style="computedSpotStyle(radio_value === item.value)">
                 <div class="spot-inner"
                      v-if="radio_value === item.value"
-                     :style="d_radio_item_spot_inner_style"
+                     :style="computedRadioItemSpotInnerStyle"
                 ></div>
             </div>
             <text class="text"
@@ -21,40 +22,35 @@
 <script>
     import config                       from './config'
     import Mixin                        from './mixins'
-    import AssignMixin                  from './../../mixins/assign.mixin'
     import EmitMixin                    from './../../mixins/emit.mixin'
     export default {
         mixins: [
             Mixin,
             EmitMixin,
-            AssignMixin,
         ],
         props: {
             radio_arr: { default: config.radio_arr },
             radio_txt_key: { default: config.radio_txt_key },
             radio_value: { default: config.radio_value },
 
-            radio_style: { default: config.radio_style },
-            radio_item_style: { default: config.radio_item_style },
-            radio_item_spot_style: { default: config.radio_item_spot_style },
-            radio_item_spot_checked_style: { default: config.radio_item_spot_checked_style },
-            radio_item_spot_inner_style: { default: config.radio_item_spot_inner_style },
-            radio_item_text_style: { default: config.radio_item_text_style },
-            radio_item_text_checked_style: { default: config.radio_item_text_checked_style },
-        },
-        created(){
-            this._wowAssign(Mixin.data(), config);
+            radio_style: { default:{} },
+            radio_item_style: { default: {} },
+            radio_item_spot_style: { default: {} },
+            radio_item_spot_checked_style: { default: {} },
+            radio_item_spot_inner_style: { default: {} },
+            radio_item_text_style: { default: {} },
+            radio_item_text_checked_style: { default: {} },
         },
         methods: {
             computedSpotStyle (type) {
                 return type
-                    ? Object.assign({}, this.d_radio_item_spot_style, this.d_radio_item_spot_checked_style)
-                    : this.d_radio_item_spot_style
+                    ? Object.assign({}, config.radio_item_spot_style, this.radio_item_spot_style, config.radio_item_spot_checked_style, this.radio_item_spot_checked_style)
+                    : Object.assign({}, config.radio_item_spot_style, this.radio_item_spot_style)
             },
             computedTextStyle (type) {
                 return type
-                    ? Object.assign({}, this.d_radio_item_text_style, this.d_radio_item_text_checked_style)
-                    : this.d_radio_item_text_style
+                    ? Object.assign({}, config.radio_item_text_style, this.radio_item_text_style, config.radio_item_text_checked_style, this.radio_item_text_checked_style)
+                    : Object.assign({}, config.radio_item_text_style, this.radio_item_text_style)
             },
         },
     }

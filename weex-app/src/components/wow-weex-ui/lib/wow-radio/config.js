@@ -38,6 +38,5 @@ export default Assign({
         color: '#999',
     },
     radio_item_text_checked_style: {
-
     },
 }, config)

@@ -1,22 +1,13 @@
-import WatchUtil               from '../../utils/watch.util'
+import GenerateUtil            from '../../utils/generate.util'
+import config                  from './config'
 
-const { _generateWatch } = WatchUtil;
+const {
+    _generateComputed,
+} = GenerateUtil;
 
-const data = () => {
-    return {
-        d_radio_style: {},
-        d_radio_item_style: {},
-        d_radio_item_spot_style: {},
-        d_radio_item_spot_checked_style: {},
-        d_radio_item_spot_inner_style: {},
-        d_radio_item_text_style: {},
-        d_radio_item_text_checked_style: {},
-    }
-};
-
-const watch = _generateWatch(data());
+const computed = _generateComputed(config);
 
 export default {
-    data,
-    watch,
+    computed,
 }
+

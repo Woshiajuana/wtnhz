@@ -1,5 +1,6 @@
 <template>
     <wow-view
+        @right="routerPush('wow_app')"
         :view_header_right_src="src$.set"
         :view_style="{backgroundColor: '#f2f2f2'}"
         view_header_left_src="">

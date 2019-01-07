@@ -1,5 +1,5 @@
-# wow-switch
+# wow-radio
 
-> Weex 切换组件
+> Weex 单选框组件
 
 
