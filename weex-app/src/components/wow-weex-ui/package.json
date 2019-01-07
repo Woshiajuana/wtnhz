@@ -1,0 +1,75 @@
+{
+  "_from": "wow-weex-ui",
+  "_id": "wow-weex-ui@0.0.18",
+  "_inBundle": false,
+  "_integrity": "sha512-Kr8nY6YzHU56IqIqU8Svk0OqP3i+QGuG5kLZtLPCfg8KZDYz6GONxH1iLLON0dSiWwW8KJtw8/vFUs6ahy5l/Q==",
+  "_location": "/wow-weex-ui",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "wow-weex-ui",
+    "name": "wow-weex-ui",
+    "escapedName": "wow-weex-ui",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/wow-weex-ui/-/wow-weex-ui-0.0.18.tgz",
+  "_shasum": "334b8acb739f50c37739ef80e7a41822cdf9588f",
+  "_spec": "wow-weex-ui",
+  "_where": "F:\\wechat\\wtnhz\\weex-app",
+  "author": {
+    "name": "Ajuan",
+    "email": "zhigang.chen@owulia.com",
+    "url": "http://www.owulia.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/Woshiajuana/wow-weex/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Ajuan",
+      "email": "zhigang.chen@owulia.com",
+      "url": "http://www.owulia.com/"
+    }
+  ],
+  "deprecated": false,
+  "description": "weex ui",
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "babel-register": "^6.26.0"
+  },
+  "homepage": "https://github.com/Woshiajuana/wow-weex#readme",
+  "keywords": [
+    "weex",
+    "vue",
+    "ui"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "maintainer": [
+    {
+      "name": "Ajuan",
+      "email": "zhigang.chen@owulia.com",
+      "url": "http://www.owulia.com/"
+    }
+  ],
+  "name": "wow-weex-ui",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Woshiajuana/wow-weex.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.18"
+}

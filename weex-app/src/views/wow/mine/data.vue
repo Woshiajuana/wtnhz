@@ -1,11 +1,12 @@
 <template>
-    <wow-view :view_header_style="{position: 'fixed', backgroundColor: 'transparent'}">
+    <wow-view
+        :view_header_style="{position: 'fixed', backgroundColor: 'transparent'}">
         <div class="user"></div>
     </wow-view>
 </template>
 
 <script>
-    import WowView                      from 'wow-weex-ui/lib/wow-view'
+    import WowView                      from 'components/wow-weex-ui/lib/wow-view'
 
 
 

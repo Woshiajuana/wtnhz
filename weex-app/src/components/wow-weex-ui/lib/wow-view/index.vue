@@ -1,0 +1,198 @@
+<template>
+    <div class="wrap">
+        <div class="main"
+             @viewappear="handleEmit('viewappear', $event)"
+             @viewdisappear="handleEmit('viewdisappear', $event)"
+             :style="d_view_style">
+            <scroller
+                v-if="view_use_scroll"
+                :offset-accuracy="view_offset_accuracy"
+                class="inner"
+                @scroll="handleEmit('scroll', $event)">
+                <slot></slot>
+            </scroller>
+            <div class="inner" v-else>
+                <slot></slot>
+            </div>
+            <slot name="view-header"></slot>
+        </div>
+        <div class="header"
+             v-if="view_use_header"
+             :style="view_header_style">
+            <div class="left"
+                 @click="handleLeft"
+                 :style="d_view_header_left_style">
+                <image
+                    v-if="view_header_left_src"
+                    :src="view_header_left_src"
+                    :style="d_view_header_left_src_style"
+                ></image>
+                <text
+                    :style="d_view_header_left_txt_style"
+                    v-if="view_header_left_txt"
+                >{{view_header_left_txt}}</text>
+            </div>
+            <div class="center"
+                 :style="d_view_header_center_style">
+                <text
+                    :style="d_view_header_center_txt_style"
+                >{{view_header_center_txt}}</text>
+            </div>
+            <slot name="view-header-center"></slot>
+            <div class="right"
+                 @click="handleEmit('right', $event)"
+                 :style="d_view_header_right_style">
+                <image
+                    v-if="view_header_right_src"
+                    :src="view_header_right_src"
+                    :style="d_view_header_right_src_style"
+                    autoBitmapRecycle="false"
+                ></image>
+                <text
+                    :style="d_view_header_right_txt_style"
+                    v-if="view_header_right_txt"
+                >{{view_header_right_txt}}</text>
+            </div>
+            <slot name="view-header-cue"></slot>
+        </div>
+    </div>
+
+</template>
+
+<script>
+    import config                       from './config'
+    import Mixin                        from './mixins'
+    import EmitMixin                    from './../../mixins/emit.mixin'
+    import AssignMixin                  from './../../mixins/assign.mixin'
+
+    const navigator = weex.requireModule('navigator');
+
+
+    export default {
+        mixins: [EmitMixin, Mixin, AssignMixin],
+        data () {
+            return {
+                height: 0,
+            }
+        },
+        props: {
+            // 主要
+            view_style: { default: {} },
+            view_use_scroll: { default: config.view_use_scroll },
+            view_use_left_event: { default: config.view_use_left_event },
+            view_offset_accuracy: { default: config.view_offset_accuracy },
+
+            // 头部
+            view_use_header: { default: config.view_use_header },
+            view_use_compatible: { default: config.view_use_compatible },
+            view_header_style: { default: {} },
+
+            // 头部左边
+            view_header_left_style: { default: {} },
+            view_header_left_src: { default: config.view_header_left_src },
+            view_header_left_src_style: { default: {} },
+            view_header_left_txt: { default: config.view_header_left_txt },
+            view_header_left_txt_style: { default: {} },
+
+            // 头部中间
+            view_header_center_style: { default: {} },
+            view_header_center_txt: { default: config.view_header_center_txt },
+            view_header_center_txt_style: { default: {} },
+
+            // 头部右边
+            view_header_right_style: { default: {} },
+            view_header_right_src: { default: config.view_header_right_src },
+            view_header_right_src_style: { default: {} },
+            view_header_right_txt: { default: config.view_header_right_txt },
+            view_header_right_txt_style: { default: {} },
+
+        },
+        computed: {
+            computedCompatible () {
+                if (!this.d_view_header_style || !this.height)
+                    return {};
+                let style = {...this.d_view_header_style};
+                delete style.height;
+                delete style.borderBottomWidth;
+                style.height = this.height;
+                return style;
+            },
+            computedViewStyle () {
+                let height = this.d_view_header_style.height;
+                let pad_top = this.d_view_style.paddingTop || 0;
+                let paddingTop = parseInt(height) + parseInt(pad_top) + this.height;
+                return {
+                    ...this.d_view_style,
+                    paddingTop,
+                };
+            },
+            computedViewHeaderStyle () {
+                let top = this.d_view_header_style.top || 0;
+                top = parseInt(top) + this.height;
+                return {
+                    ...this.d_view_header_style,
+                    top,
+                };
+            }
+        },
+        created(){
+            this._wowAssign(Mixin.data(), config);
+            this.fetchPlatform();
+        },
+        methods: {
+            handleLeft (event) {
+                this.view_use_left_event ? navigator.pop() : this.$emit('left', event);
+            },
+            fetchPlatform () {
+                let env = this.$getConfig().env;
+                if (env.platform === 'iOS') {
+                    let deviceWidth = env.deviceWidth / env.scale;
+                    let height = 64.0 * 750.0 / deviceWidth;
+                    if (height < 149) this.height = 72;
+                    else this.height = Math.floor(height - 88);
+                } else {
+                    this.height = 0;
+                }
+            },
+        }
+    }
+</script>
+
+<style>
+    .wrap{
+        background-color: #fff;
+    }
+    .main{
+        flex: 1;
+        width: 750px;
+    }
+    .header {
+        position: fixed;
+        flex-direction: row;
+        width: 750px;
+    }
+    .left,
+    .right {
+        position: absolute;
+        flex-direction: row;
+        align-items: center;
+    }
+    .right{
+        right: 0;
+    }
+    .left{
+        left: 0;
+    }
+    .center{
+        position: absolute;
+        flex-direction: row;
+        left: 120px;
+        right: 120px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+    .inner{
+        flex: 1;
+    }
+</style>
