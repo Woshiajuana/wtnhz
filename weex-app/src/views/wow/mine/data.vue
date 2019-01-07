@@ -112,7 +112,6 @@
             }
         },
         created () {
-            console.log('created')
             this.sourceGet(srcArr);
         },
         components: {

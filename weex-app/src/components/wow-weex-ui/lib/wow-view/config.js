@@ -12,7 +12,7 @@ export default Assign({
     view_offset_accuracy: 10,
 
     view_use_header: true,
-    view_use_compatible: false,
+    view_use_compatible: true,
     view_header_style: {
         height: 90,
         backgroundColor: '#fff',

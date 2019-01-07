@@ -2,16 +2,18 @@
     <div class="wrap">
         <div class="main"
              @viewappear="handleEmit('viewappear', $event)"
-             @viewdisappear="handleEmit('viewdisappear', $event)"
-             :style="computedViewStyle">
+             @viewdisappear="handleEmit('viewdisappear', $event)">
             <scroller
                 v-if="view_use_scroll"
                 :offset-accuracy="view_offset_accuracy"
                 class="inner"
+                :style="computedViewStyle"
                 @scroll="handleEmit('scroll', $event)">
                 <slot></slot>
             </scroller>
-            <div class="inner" v-else>
+            <div class="inner"
+                 :style="computedViewStyle"
+                 v-else>
                 <slot></slot>
             </div>
             <slot name="view-header"></slot>
@@ -141,9 +143,13 @@
 </script>
 
 <style>
+    .wrap{
+        background-color: #fff;
+    }
     .main{
         flex: 1;
         width: 750px;
+        background-color: #fff;
     }
     .header {
         position: fixed;

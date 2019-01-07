@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import WowView                      from 'components/wow-weex/lib/wow-view'
+    import WowView                      from 'components/wow-weex-ui/lib/wow-view'
     import WowInputCell                 from 'wow-weex-ui/lib/wow-input-cell'
     import WowArrow                     from 'wow-weex-ui/lib/wow-arrow'
     import SourceMixin                  from 'mixins/source.mixin'
