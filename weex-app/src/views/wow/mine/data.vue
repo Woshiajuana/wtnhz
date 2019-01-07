@@ -19,6 +19,7 @@
             :input_label_txt="item.label"
             :input_value="item.value"
         ></wow-input-cell>
+        <div class="null"></div>
         <wow-button
             class="button"
             button_txt="安全退出"
@@ -28,6 +29,7 @@
 
 <script>
     import WowView                      from 'components/wow-weex-ui/lib/wow-view'
+    import WowRadio                     from 'components/wow-weex-ui/lib/wow-radio'
     import WowInputCell                 from 'wow-weex-ui/lib/wow-input-cell'
     import WowButton                    from 'wow-weex-ui/lib/wow-button'
     import SourceMixin                  from 'mixins/source.mixin'
@@ -92,6 +94,7 @@
         components: {
             WowView,
             WowButton,
+            WowRadio,
             WowInputCell,
         },
     }
@@ -139,7 +142,10 @@
         width: 30px;
         height: 30px;
     }
+    .null{
+        flex: 1;
+    }
     .button{
-        margin-top: 80px;
+        margin-bottom: 80px;
     }
 </style>
