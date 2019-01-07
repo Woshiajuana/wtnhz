@@ -1,6 +1,6 @@
 <template>
     <wow-view
-        view_header_right_txt="安全退出"
+        view_header_right_txt="修改资料"
         :view_header_right_txt_style="{color: '#fc5366'}"
         :view_header_style="{backgroundColor: 'transparent'}">
         <div class="user">
@@ -10,30 +10,89 @@
             </div>
             <div class="info">
                 <text class="name">woshiajuana</text>
-                <image class="sex"></image>
+                <image class="sex" :src="src$.man"></image>
             </div>
         </div>
-
+        <wow-input-cell
+            v-for="(item, key) in objInput$"
+            :key="key"
+            :input_label_txt="item.label"
+            :input_value="item.value"
+        ></wow-input-cell>
+        <wow-button
+            class="button"
+            button_txt="安全退出"
+        ></wow-button>
     </wow-view>
 </template>
 
 <script>
     import WowView                      from 'components/wow-weex-ui/lib/wow-view'
+    import WowInputCell                 from 'wow-weex-ui/lib/wow-input-cell'
+    import WowButton                    from 'wow-weex-ui/lib/wow-button'
     import SourceMixin                  from 'mixins/source.mixin'
 
     const srcArr = [
-        { key: 'set', value: 'set-icon.png', },
+        { key: 'man', value: 'sex-man-icon.png', },
+        { key: 'woman', value: 'sex-woman-icon.png', },
     ];
 
     export default {
         mixins: [
             SourceMixin,
         ],
+        data () {
+            return {
+                objInput$: {
+                    // 昵称
+                    nickname: {
+                        value: '9@qq.com',
+                        label: '昵称',
+                        type: 'text',
+                        placeholder: '请输入昵称',
+                        use: [
+                            {
+                                nonempty: true,
+                                prompt: '请输入昵称',
+                            },
+                        ],
+                    },
+                    // 性别
+                    sex: {
+                        value: '9@qq.com',
+                        label: '性别',
+                        type: 'text',
+                        placeholder: '请输入性别',
+                        use: [
+                            {
+                                nonempty: true,
+                                prompt: '请输入性别',
+                            },
+                        ],
+                    },
+                    // 职业
+                    job: {
+                        value: '9@qq.com',
+                        label: '职业',
+                        type: 'text',
+                        placeholder: '请输入职业',
+                        use: [
+                            {
+                                nonempty: true,
+                                prompt: '请输入职业',
+                            },
+                        ],
+                    },
+                }
+            }
+        },
         created () {
             this.sourceGet(srcArr);
         },
         components: {
             WowView,
+            WowButton,
+            WowInputCell,
         },
     }
 </script>
@@ -65,7 +124,6 @@
         width: 125px;
         height: 125px;
         border-radius: 125px;
-        background-color: red;
     }
     .info{
         margin-top: 20px;
@@ -80,6 +138,8 @@
     .sex{
         width: 30px;
         height: 30px;
-        background-color: red;
+    }
+    .button{
+        margin-top: 80px;
     }
 </style>
