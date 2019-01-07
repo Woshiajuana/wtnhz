@@ -22,6 +22,7 @@
                 slot="input-right"
                 v-if="item.radio"
                 :radio_arr="item.radio"
+                :radio_value="item.value"
             ></wow-radio>
         </wow-input-cell>
         <div class="null"></div>
@@ -66,7 +67,7 @@
                     },
                     // 性别
                     sex: {
-                        value: '9@qq.com',
+                        value: '1',
                         label: '性别',
                         type: 'text',
                         placeholder: '请输入性别',
@@ -77,8 +78,8 @@
                             },
                         ],
                         radio: [
-                            { text: '是' },
-                            { text: '否' },
+                            { text: '男', value: '1' },
+                            { text: '女', value: '0' },
                         ]
                     },
                     // 职业

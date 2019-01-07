@@ -33,12 +33,11 @@
 
             radio_style: { default: config.radio_style },
             radio_item_style: { default: config.radio_item_style },
-            radio_item_checked_style: { default: config.radio_item_style },
             radio_item_spot_style: { default: config.radio_item_spot_style },
-            radio_item_spot_checked_style: { default: config.radio_item_spot_style },
+            radio_item_spot_checked_style: { default: config.radio_item_spot_checked_style },
             radio_item_spot_inner_style: { default: config.radio_item_spot_inner_style },
             radio_item_text_style: { default: config.radio_item_text_style },
-            radio_item_text_checked_style: { default: config.radio_item_text_style },
+            radio_item_text_checked_style: { default: config.radio_item_text_checked_style },
         },
         created(){
             this._wowAssign(Mixin.data(), config);
