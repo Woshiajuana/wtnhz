@@ -6,8 +6,11 @@ const data = () => {
     return {
         d_radio_style: {},
         d_radio_item_style: {},
-        d_radio_item_icon_style: {},
+        d_radio_item_spot_style: {},
+        d_radio_item_spot_checked_style: {},
+        d_radio_item_spot_inner_style: {},
         d_radio_item_text_style: {},
+        d_radio_item_text_checked_style: {},
     }
 };
 

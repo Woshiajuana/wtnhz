@@ -4,8 +4,16 @@
              :style="d_radio_item_style"
              v-for="(item, index) in radio_arr"
              :key="index">
-            <div class="icon" :style="d_radio_item_icon_style"></div>
-            <text class="text" :style="d_radio_item_text_style">{{item[radio_txt_key]}}</text>
+            <div class="spot"
+                 :style="computedSpotStyle(radio_value === item.value)">
+                <div class="spot-inner"
+                     v-if="radio_value === item.value"
+                     :style="d_radio_item_spot_inner_style"
+                ></div>
+            </div>
+            <text class="text"
+                  :style="computedTextStyle(radio_value === item.value)"
+            >{{item[radio_txt_key]}}</text>
         </div>
     </div>
 </template>
@@ -25,25 +33,32 @@
 
             radio_style: { default: config.radio_style },
             radio_item_style: { default: config.radio_item_style },
-            radio_item_icon_style: { default: config.radio_item_icon_style },
+            radio_item_checked_style: { default: config.radio_item_style },
+            radio_item_spot_style: { default: config.radio_item_spot_style },
+            radio_item_spot_checked_style: { default: config.radio_item_spot_style },
+            radio_item_spot_inner_style: { default: config.radio_item_spot_inner_style },
             radio_item_text_style: { default: config.radio_item_text_style },
-        },
-        computed: {
-            computedStyle () {
-                return this.switch_value
-                    ? Object.assign({}, this.d_switch_style, this.d_switch_active_style)
-                    : this.d_switch_style
-            }
+            radio_item_text_checked_style: { default: config.radio_item_text_style },
         },
         created(){
             this._wowAssign(Mixin.data(), config);
         },
         methods: {
+            computedSpotStyle (type) {
+                return type
+                    ? Object.assign({}, this.d_radio_item_spot_style, this.d_radio_item_spot_checked_style)
+                    : this.d_radio_item_spot_style
+            },
+            computedTextStyle (type) {
+                return type
+                    ? Object.assign({}, this.d_radio_item_text_style, this.d_radio_item_text_checked_style)
+                    : this.d_radio_item_text_style
+            },
             handleClick() {
                 this.$emit('click', (type) => {
                     this.switch_value = !!type || !this.switch_value;
                 })
-            }
+            },
         },
     }
 </script>

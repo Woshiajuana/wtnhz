@@ -17,8 +17,13 @@
             v-for="(item, key) in objInput$"
             :key="key"
             :input_label_txt="item.label"
-            :input_value="item.value"
-        ></wow-input-cell>
+            :input_value="item.value">
+            <wow-radio
+                slot="input-right"
+                v-if="item.radio"
+                :radio_arr="item.radio"
+            ></wow-radio>
+        </wow-input-cell>
         <div class="null"></div>
         <wow-button
             class="button"
@@ -71,6 +76,10 @@
                                 prompt: '请输入性别',
                             },
                         ],
+                        radio: [
+                            { text: '是' },
+                            { text: '否' },
+                        ]
                     },
                     // 职业
                     job: {
