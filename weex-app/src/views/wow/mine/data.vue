@@ -2,6 +2,7 @@
     <wow-view
         view_header_right_txt="修改资料"
         :view_header_right_txt_style="{color: '#fc5366'}"
+        :view_style="{paddingTop: 0}"
         :view_header_style="{backgroundColor: 'transparent'}">
         <div class="user">
             <image class="bg"></image>
@@ -33,6 +34,7 @@
             ></wow-arrow>
         </wow-input-cell>
         <div class="null"></div>
+        <text>{{style}}</text>
         <wow-button
             class="button"
             button_txt="安全退出"
@@ -110,6 +112,7 @@
             }
         },
         created () {
+            console.log('created')
             this.sourceGet(srcArr);
         },
         components: {
@@ -119,6 +122,9 @@
             WowRadio,
             WowInputCell,
         },
+        methods: {
+
+        }
     }
 </script>
 

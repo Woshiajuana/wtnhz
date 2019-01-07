@@ -21,35 +21,35 @@
              :style="computedViewHeaderStyle">
             <div class="left"
                  @click="handleLeft"
-                 :style="d_view_header_left_style">
+                 :style="computedViewHeaderLeftStyle">
                 <image
                     v-if="view_header_left_src"
                     :src="view_header_left_src"
-                    :style="d_view_header_left_src_style"
+                    :style="computedViewHeaderLeftSrcStyle"
                 ></image>
                 <text
-                    :style="d_view_header_left_txt_style"
+                    :style="computedViewHeaderLeftTxtStyle"
                     v-if="view_header_left_txt"
                 >{{view_header_left_txt}}</text>
             </div>
             <div class="center"
-                 :style="d_view_header_center_style">
+                 :style="computedViewHeaderCenterStyle">
                 <text
-                    :style="d_view_header_center_txt_style"
+                    :style="computedViewHeaderCenterTxtStyle"
                 >{{view_header_center_txt}}</text>
             </div>
             <slot name="view-header-center"></slot>
             <div class="right"
                  @click="handleEmit('right', $event)"
-                 :style="d_view_header_right_style">
+                 :style="computedViewHeaderRightStyle">
                 <image
                     v-if="view_header_right_src"
                     :src="view_header_right_src"
-                    :style="d_view_header_right_src_style"
+                    :style="computedViewHeaderRightSrcStyle"
                     autoBitmapRecycle="false"
                 ></image>
                 <text
-                    :style="d_view_header_right_txt_style"
+                    :style="computedViewHeaderRightTxtStyle"
                     v-if="view_header_right_txt"
                 >{{view_header_right_txt}}</text>
             </div>
@@ -63,25 +63,17 @@
     import config                       from './config'
     import Mixin                        from './mixins'
     import EmitMixin                    from './../../mixins/emit.mixin'
-    import AssignMixin                  from './../../mixins/assign.mixin'
+    import WeexMixin                    from './../../mixins/weex.mixin'
 
     const navigator = weex.requireModule('navigator');
 
     export default {
         mixins: [
             EmitMixin,
+            WeexMixin,
             Mixin,
-            AssignMixin,
         ],
-        data () {
-            return {
-                height: 0,
-            }
-        },
         props: {
-
-            // 是否需要
-            view_use_padding: { default: config.view_use_padding },
 
             // 主要
             view_style: { default: {} },
@@ -115,60 +107,40 @@
 
         },
         computed: {
-            computedCompatible () {
-                if (!this.d_view_header_style || !this.height)
-                    return {};
-                let style = {...this.d_view_header_style};
-                delete style.height;
-                delete style.borderBottomWidth;
-                style.height = this.height;
-                return style;
-            },
             computedViewStyle () {
-                let height = this.d_view_header_style.height;
-                let pad_top = this.d_view_style.paddingTop || 0;
-                let paddingTop = parseInt(height) + parseInt(pad_top) + this.height;
-                return {
-                    ...this.d_view_style,
-                    paddingTop: 0 ,
-                };
+                let {
+                    compatible,
+                } = this.weex$;
+                let height = this.view_header_style.height || config.view_header_style.height;
+                let paddingTop = parseInt(height);
+                if (this.view_use_compatible)
+                    paddingTop += compatible;
+                return Object.assign({ paddingTop }, config.view_style, this.view_style);
             },
             computedViewHeaderStyle () {
-                let top = this.d_view_header_style.top || 0;
-                top = parseInt(top) + this.height;
-                return {
-                    ...this.d_view_header_style,
-                    top,
-                };
+                let {
+                    compatible,
+                } = this.weex$;
+                let paddingTop = 0;
+                if (this.view_use_compatible)
+                    paddingTop = compatible;
+                let height = this.view_header_style.height || config.view_header_style.height;
+                height = parseInt(height) + paddingTop;
+                return Object.assign(config.view_header_style, this.view_header_style, { paddingTop, height },);
             }
         },
-        created(){
-            this._wowAssign(Mixin.data(), config);
-            this.fetchPlatform();
+        created () {
+            this.weexGet();
         },
         methods: {
             handleLeft (event) {
                 this.view_use_left_event ? navigator.pop() : this.$emit('left', event);
-            },
-            fetchPlatform () {
-                let env = this.$getConfig().env;
-                if (env.platform === 'iOS') {
-                    let deviceWidth = env.deviceWidth / env.scale;
-                    let height = 64.0 * 750.0 / deviceWidth;
-                    if (height < 149) this.height = 72;
-                    else this.height = Math.floor(height - 88);
-                } else {
-                    this.height = 0;
-                }
             },
         }
     }
 </script>
 
 <style>
-    .wrap{
-
-    }
     .main{
         flex: 1;
         width: 750px;
@@ -178,6 +150,8 @@
         flex-direction: row;
         width: 750px;
         left: 0;
+        top: 0;
+        height: 90px;
     }
     .left,
     .right {
