@@ -17,9 +17,10 @@
         <slot v-if="!nav_use_menu" name="menu"></slot>
         <!--导航条-->
         <div class="nav"
+             v-if="nav_use_menu"
+             :class="[nav_position]"
              :style="computedNavBarStyle">
-            <div v-if="nav_use_menu"
-                 :style="computedNavMenuStyle"
+            <div :style="computedNavMenuStyle"
                  class="item"
                  v-for="(item, index) in nav_arr"
                  @click="handleSwitch(item, index)"
@@ -51,6 +52,9 @@
             WeexMixin,
         ],
         props: {
+
+            nav_position: { default: 'bottom' },
+
             nav_inner_style: { default: {} },
             nav_bar_style: { default: {} },
             nav_menu_style: { default: {} },
@@ -116,6 +120,12 @@
         flex-direction: row;
         align-items: center;
     }
+    .top {
+        top: 0;
+    }
+    .bottom {
+        bottom: 0;
+    }
     .item {
         flex: 1;
         justify-content: center;
@@ -124,7 +134,7 @@
         border-top-style: solid;
     }
     .item:active {
-        background-color: #ddd;
+        background-color: #dedede;
     }
     .text {
         justify-content: center;

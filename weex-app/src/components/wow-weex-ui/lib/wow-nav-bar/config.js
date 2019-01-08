@@ -9,7 +9,6 @@ export default Assign({
         bottom: 100,
     },
     nav_bar_style: {
-        bottom: 0,
         backgroundColor: '#fff',
     },
     nav_use_menu: true,
