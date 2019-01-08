@@ -33,6 +33,7 @@ const methods = {
             platform,
             height: 750 / deviceWidth * deviceHeight,
             compatible,
+            isX: compatible === 80,
         };
     },
 };

@@ -24,8 +24,6 @@
                         img_src: Source('menu-icon-wow.png'),
                         img_checked_src: Source('menu-icon-wow-checked.png'),
                         checked: true,
-                        color: '#d6d6cf',
-                        checked_color: '#5cc8ff',
                     },
                     {
                         txt: '发现',
@@ -33,8 +31,6 @@
                         img_src: Source('menu-icon-component.png'),
                         img_checked_src: Source('menu-icon-component-checked.png'),
                         checked: false,
-                        color: '#d6d6cf',
-                        checked_color: '#5cc8ff',
                     },
                     {
                         txt: '我的',
@@ -42,8 +38,6 @@
                         img_src: Source('menu-icon-plugins.png'),
                         img_checked_src: Source('menu-icon-plugins-checked.png'),
                         checked: false,
-                        color: '#d6d6cf',
-                        checked_color: '#5cc8ff',
                     },
                 ]
             }
