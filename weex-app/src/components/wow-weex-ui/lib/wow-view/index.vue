@@ -128,7 +128,7 @@
                     paddingTop = compatible;
                 let height = this.view_header_style.height || config.view_header_style.height;
                 height = parseInt(height) + paddingTop;
-                return Object.assign(config.view_header_style, this.view_header_style, { paddingTop, height },);
+                return Object.assign({}, config.view_header_style, this.view_header_style, { paddingTop, height },);
             }
         },
         created () {
@@ -183,5 +183,12 @@
     .inner{
         flex: 1;
         width: 750px;
+    }
+
+    .head-top {
+        top: 0;
+    }
+    .head-iphone {
+        top: ;
     }
 </style>

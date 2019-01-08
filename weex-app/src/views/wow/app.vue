@@ -27,7 +27,7 @@
                     },
                     {
                         txt: '发现',
-                        src: 'wow_find',
+                        src: 'wow_mine_data',
                         img_src: Source('menu-icon-component.png'),
                         img_checked_src: Source('menu-icon-component-checked.png'),
                         checked: false,
