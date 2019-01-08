@@ -5,7 +5,7 @@ export default {
     view_header_center_txt_style: {
         color: '#fff',
     },
-    view_header_style: {
+    view_header_wrap_style: {
         // backgroundColor: '#fc5366',
         borderBottomWidth: 0,
     },

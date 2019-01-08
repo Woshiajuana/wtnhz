@@ -15,11 +15,12 @@ export default Assign({
     view_use_compatible: true,
     view_header_style: {
         height: 90,
+    },
+    view_header_wrap_style: {
         backgroundColor: '#fff',
         borderColor: '#dedede',
         borderBottomWidth: 1,
     },
-
     view_header_left_style: {
         height: 90,
         bottom: 0,

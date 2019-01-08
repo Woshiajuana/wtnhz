@@ -3,7 +3,7 @@
         view_header_right_txt="修改资料"
         :view_header_right_txt_style="{color: '#fc5366'}"
         :view_style="{paddingTop: 0}"
-        :view_header_style="{backgroundColor: 'transparent'}">
+        :view_header_wrap_style="{backgroundColor: 'transparent'}">
         <div class="user">
             <image class="bg"></image>
             <div class="box">

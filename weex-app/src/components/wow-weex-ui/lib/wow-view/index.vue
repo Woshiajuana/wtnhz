@@ -1,64 +1,66 @@
 <template>
     <div class="wrap">
         <div class="main"
+             :style="computedViewStyle"
              @viewappear="handleEmit('viewappear', $event)"
              @viewdisappear="handleEmit('viewdisappear', $event)">
             <scroller
                 v-if="view_use_scroll"
                 :offset-accuracy="view_offset_accuracy"
                 class="inner"
-                :style="computedViewStyle"
                 @scroll="handleEmit('scroll', $event)">
                 <slot></slot>
             </scroller>
             <div class="inner"
-                 :style="computedViewStyle"
                  v-else>
                 <slot></slot>
             </div>
-            <slot name="view-header"></slot>
         </div>
-        <div class="header"
-             v-if="view_use_header"
-             :style="computedViewHeaderStyle">
-            <div class="left"
-                 @click="handleLeft"
-                 :style="computedViewHeaderLeftStyle">
-                <image
-                    v-if="view_header_left_src"
-                    :src="view_header_left_src"
-                    :style="computedViewHeaderLeftSrcStyle"
-                ></image>
-                <text
-                    :style="computedViewHeaderLeftTxtStyle"
-                    v-if="view_header_left_txt"
-                >{{view_header_left_txt}}</text>
+        <div class="head"
+             :class="[computedViewHeaderWrapClass]"
+             :style="computedViewHeaderWrapStyle">
+            <slot name="view-header"></slot>
+            <div class="head-box"
+                 v-if="view_use_header"
+                 :style="computedViewHeaderStyle">
+                <div class="left"
+                     @click="handleLeft"
+                     :style="computedViewHeaderLeftStyle">
+                    <image
+                        v-if="view_header_left_src"
+                        :src="view_header_left_src"
+                        :style="computedViewHeaderLeftSrcStyle"
+                    ></image>
+                    <text
+                        :style="computedViewHeaderLeftTxtStyle"
+                        v-if="view_header_left_txt"
+                    >{{view_header_left_txt}}</text>
+                </div>
+                <div class="center"
+                     :style="computedViewHeaderCenterStyle">
+                    <text
+                        :style="computedViewHeaderCenterTxtStyle"
+                    >{{view_header_center_txt}}</text>
+                </div>
+                <slot name="view-header-center"></slot>
+                <div class="right"
+                     @click="handleEmit('right', $event)"
+                     :style="computedViewHeaderRightStyle">
+                    <image
+                        v-if="view_header_right_src"
+                        :src="view_header_right_src"
+                        :style="computedViewHeaderRightSrcStyle"
+                        autoBitmapRecycle="false"
+                    ></image>
+                    <text
+                        :style="computedViewHeaderRightTxtStyle"
+                        v-if="view_header_right_txt"
+                    >{{view_header_right_txt}}</text>
+                </div>
+                <slot name="view-header-cue"></slot>
             </div>
-            <div class="center"
-                 :style="computedViewHeaderCenterStyle">
-                <text
-                    :style="computedViewHeaderCenterTxtStyle"
-                >{{view_header_center_txt}}</text>
-            </div>
-            <slot name="view-header-center"></slot>
-            <div class="right"
-                 @click="handleEmit('right', $event)"
-                 :style="computedViewHeaderRightStyle">
-                <image
-                    v-if="view_header_right_src"
-                    :src="view_header_right_src"
-                    :style="computedViewHeaderRightSrcStyle"
-                    autoBitmapRecycle="false"
-                ></image>
-                <text
-                    :style="computedViewHeaderRightTxtStyle"
-                    v-if="view_header_right_txt"
-                >{{view_header_right_txt}}</text>
-            </div>
-            <slot name="view-header-cue"></slot>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -87,6 +89,7 @@
             view_use_header: { default: config.view_use_header },
             view_use_compatible: { default: config.view_use_compatible },
             view_header_style: { default: {} },
+            view_header_wrap_style: { default: {} },
 
             // 头部左边
             view_header_left_style: { default: {} },
@@ -119,17 +122,17 @@
                     paddingTop += compatible;
                 return Object.assign({ paddingTop }, config.view_style, this.view_style);
             },
-            computedViewHeaderStyle () {
+            computedViewHeaderWrapClass () {
                 let {
-                    compatible,
+                    isX,
+                    platform,
                 } = this.weex$;
-                let paddingTop = 0;
-                if (this.view_use_compatible)
-                    paddingTop = compatible;
-                let height = this.view_header_style.height || config.view_header_style.height;
-                height = parseInt(height) + paddingTop;
-                return Object.assign({}, config.view_header_style, this.view_header_style, { paddingTop, height },);
-            }
+                if (isX)
+                    return 'head-iphoneX';
+                if (platform === 'iOS')
+                    return 'head-iphone';
+                return 'head-def';
+            },
         },
         created () {
             this.weexGet();
@@ -144,6 +147,8 @@
 
 <style>
     .wrap{
+        flex: 1;
+        width: 750px;
         background-color: #fff;
     }
     .main{
@@ -151,13 +156,16 @@
         width: 750px;
         background-color: #fff;
     }
-    .header {
-        position: fixed;
+    .head {
+        position: absolute;
         flex-direction: row;
         width: 750px;
         left: 0;
         top: 0;
-        height: 90px;
+    }
+    .head-box{
+        flex-direction: row;
+        width: 750px;
     }
     .left,
     .right {
@@ -184,11 +192,13 @@
         flex: 1;
         width: 750px;
     }
-
-    .head-top {
-        top: 0;
+    .head-def {
+        padding-top: 0;
     }
     .head-iphone {
-        top: ;
+        padding-top: 40px;
+    }
+    .head-iphoneX {
+        padding-top: 80px;
     }
 </style>
