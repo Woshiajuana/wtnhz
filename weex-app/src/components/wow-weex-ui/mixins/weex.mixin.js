@@ -1,4 +1,6 @@
+import config                       from '../config'
 
+let iOSX = config.iOSX || [];
 const data = () => {
     return {
         weex$: {},
@@ -8,6 +10,7 @@ const data = () => {
             'iPhone11,2',
             'iPhone11,4',
             'iPhone11,8',
+            ...iOSX,
         ]
     }
 };

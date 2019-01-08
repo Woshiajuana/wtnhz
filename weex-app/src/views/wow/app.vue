@@ -4,9 +4,7 @@
     </wow-nav-bar>
 </template>
 <script>
-//    import WowNavBar                    from 'wow-weex-ui/lib/wow-nav-bar'
-    import WowNavBar                    from 'components/wow-weex-ui/lib/wow-nav-bar'
-//    import WowNavBar                    from 'wow-weex/lib/wow-navbar'
+    import WowNavBar                    from 'wow-weex-ui/lib/wow-nav-bar'
     import Source                       from 'utils/source.util'
     import PathMixin                    from 'mixins/path.mixin'
     import Mixin                        from './app.mixin'

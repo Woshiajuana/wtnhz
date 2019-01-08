@@ -34,7 +34,6 @@
             ></wow-arrow>
         </wow-input-cell>
         <div class="null"></div>
-        <text>{{style}}</text>
         <wow-button
             class="button"
             button_txt="安全退出"
