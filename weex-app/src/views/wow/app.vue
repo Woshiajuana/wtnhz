@@ -5,15 +5,13 @@
 </template>
 <script>
     import WowNavBar                    from 'components/wow-weex-ui/lib/wow-nav-bar'
-    import RenderServiceMixin           from 'wow-weex-plugin/services/render.service.mixin'
-    import BarMixin                     from 'wow-weex-plugin/mixins/bar.mixin'
     import Source                       from 'utils/source.util'
+    import PathMixin                    from 'mixins/path.mixin'
     import Mixin                        from './app.mixin'
     export default {
         mixins: [
             Mixin,
-            RenderServiceMixin,
-            BarMixin,
+            PathMixin,
         ],
         data () {
             return {
@@ -29,7 +27,7 @@
                     },
                     {
                         txt: '发现',
-                        src: 'wow_component',
+                        src: 'wow_find',
                         img_src: Source('menu-icon-component.png'),
                         img_checked_src: Source('menu-icon-component-checked.png'),
                         checked: false,
@@ -38,7 +36,7 @@
                     },
                     {
                         txt: '我的',
-                        src: 'wow_plugin',
+                        src: 'wow_mine',
                         img_src: Source('menu-icon-plugins.png'),
                         img_checked_src: Source('menu-icon-plugins-checked.png'),
                         checked: false,
@@ -49,8 +47,7 @@
             }
         },
         created () {
-            this.renderView('wow_app', 'arr_nav');
-            this.barSet();
+            this.resourceGet(this.arrNav);
         },
         components: {
             WowNavBar,

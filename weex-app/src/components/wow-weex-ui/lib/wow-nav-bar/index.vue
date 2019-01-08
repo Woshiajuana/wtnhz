@@ -4,7 +4,7 @@
          @viewdisappear="handleEmit('viewdisappear')">
         <!--主体-->
         <div class="inner"
-             :style="d_nav_inner_style">
+             :style="computedNavInnerStyle">
             <embed class="content"
                    v-for="(item, index) in nav_arr"
                    :key="index"
@@ -17,9 +17,9 @@
         <slot v-if="!nav_use_menu" name="menu"></slot>
         <!--导航条-->
         <div class="nav"
-             :style="d_nav_bar_style">
+             :style="computedNavBarStyle">
             <div v-if="nav_use_menu"
-                 :style="computedCompatible"
+                 :style="computedNavMenuStyle"
                  class="item"
                  v-for="(item, index) in nav_arr"
                  @click="handleSwitch(item, index)"
@@ -27,12 +27,11 @@
                 <image
                     class="icon"
                     v-if="item.img_src"
-                    :style="d_nav_menu_icon_style"
+                    :style="computedNavMenuIconStyle"
                     :src="item.checked ? item.img_checked_src : item.img_src"
                 ></image>
                 <text class="text"
-                      :style="{fontSize: nav_menu_txt_size,
-                      color: item.checked ? item.checked_color : item.color}"
+                      :style="computedNavMenuIconStyle"
                 >{{item.txt}}</text>
             </div>
         </div>
@@ -43,15 +42,14 @@
 <script>
     import config                       from './config'
     import Mixin                        from './mixins'
-    import AssignMixin                  from './../../mixins/assign.mixin'
     import EmitMixin                    from './../../mixins/emit.mixin'
+    import WeexMixin                    from './../../mixins/weex.mixin'
     export default {
-        mixins: [AssignMixin, Mixin, EmitMixin],
-        data () {
-            return {
-                is_iphoneX: false,
-            }
-        },
+        mixins: [
+            Mixin,
+            EmitMixin,
+            WeexMixin,
+        ],
         props: {
             nav_inner_style: { default: {} },
             nav_bar_style: { default: {} },
@@ -72,13 +70,13 @@
             }
         },
         created () {
-            this._wowAssign(Mixin.data(), config);
-            this.fetchDeviceInfo();
+            this.weexGet();
         },
         methods: {
             // 切换菜单
             handleSwitch (item, index) {
-                if (!this.nav_use_switch) return this.switchNav(index);
+                if (!this.nav_use_switch)
+                    return this.switchNav(index);
                 this.$emit('switch', item, index, () => {
                     this.switchNav(index);
                 });
@@ -89,18 +87,6 @@
                     item.checked = i === index;
                 });
             },
-            // 获取设备信息
-            fetchDeviceInfo () {
-                let { deviceModel } = this.$getConfig().env;
-                this.is_iphoneX =
-                    [
-                        'iPhone10,3',
-                        'iPhone10,6',
-                        'iPhone11,2',
-                        'iPhone11,4',
-                        'iPhone11,8',
-                    ].indexOf(deviceModel) > -1;
-            }
         }
     }
 </script>
