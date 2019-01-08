@@ -7,7 +7,17 @@ const AUTH_USER_CACHE_KEY_NAME = 'AUTH_USER_CACHE_KEY_NAME';
 
 const methods = {
 
+    user$cacheSet (key, value,) {
+        this.user$StoreSet(key, value, AUTH_USER_CACHE_KEY_NAME)
+    },
 
+    user$cacheGet (key,) {
+        this.user$StoreGet(key, AUTH_USER_CACHE_KEY_NAME)
+    },
+
+    user$cacheDel (key,) {
+        this.user$StoreDel(key, AUTH_USER_CACHE_KEY_NAME)
+    },
 
     user$StoreSet (key, value, store_key = AUTH_USER_STORE_KEY_NAME) {
         let email = '';

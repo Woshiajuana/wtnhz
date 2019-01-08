@@ -3,6 +3,7 @@ import StorePlugin                      from 'plugins/store.plugin'
 
 const AUTH_KEY_NAME = 'AUTH_KEY_NAME';
 const AUTH_USER_STORE_KEY_NAME = 'AUTH_USER_STORE_KEY_NAME';
+const AUTH_USER_CACHE_KEY_NAME = 'AUTH_USER_CACHE_KEY_NAME';
 
 const data = () => {
     return {
