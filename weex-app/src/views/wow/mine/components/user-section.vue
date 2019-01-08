@@ -1,16 +1,18 @@
 <template>
     <div class="wrap">
-        <div class="section" @click="routerPush('wow_mine_data')">
-            <image class="image" :src="user.actsrc$.def"></image>
+        <div class="section" @click="routerPush('wow_mine_data', {}, )">
+            <image class="image" :src="user.avatar || src$.def"></image>
             <div class="info">
-                <div class="top">
-                    <text class="name">woshiajuana</text>
-                    <image class="sex" :src="src$.man"></image>
-                </div>
-                <div class="bottom">
-                    <text class="introduce">真是一个有趣的人~~~</text>
-                </div>
-                <text class="prompt">点击登录</text>
+                <template v-if="user$">
+                    <div class="top">
+                        <text class="name">{{user.nickname || user.email}}</text>
+                        <image class="sex" :src="user.sex === '1' ? src$.man : src$.woman"></image>
+                    </div>
+                    <div class="bottom">
+                        <text class="introduce">{{user.introduce || '这个家伙什么都没留下~~~'}}</text>
+                    </div>
+                </template>
+                <text v-if="!user$" class="prompt">点击登录</text>
             </div>
         </div>
         <div class="section user-number">

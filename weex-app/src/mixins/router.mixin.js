@@ -1,4 +1,6 @@
 import Router                   from 'plugins/router.plugin'
+import AuthService              from 'services/auth.service'
+
 const data = () => {
     return {
         params$: ''
@@ -7,16 +9,13 @@ const data = () => {
 
 export const methods = {
     // 跳转URL页面
-    routerPush (url, params = {}, callback = '') {
-        try{
-            console.log(111)
-            let type = true;
-            if (typeof callback === 'function') type = callback();
-            else type = callback === '' ? true : callback;
-            type && Router.push(url, params)
-        } catch (e) {
-            console.log(e)
-        }
+    routerPush (url, params = {}, callback) {
+        let type = true;
+        if (typeof callback === 'function') type = callback();
+        if (callback === '') type = false;
+        type
+            ? Router.push(url, params)
+            : AuthService.showLogin();
     },
 
     // 获取路由参数
