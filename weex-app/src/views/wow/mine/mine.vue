@@ -1,10 +1,11 @@
 <template>
     <wow-view
+        @viewappear="handleViewAppear"
         @right="routerPush('wow_app')"
         :view_header_right_src="src$.set"
         :view_style="{backgroundColor: '#f2f2f2'}"
         view_header_left_src="">
-        <user-section></user-section>
+        <user-section :user="user$"></user-section>
         <div class="entry">
             <wow-input-cell
                 v-for="(item, index) in arrEntry"
@@ -26,6 +27,7 @@
     import WowArrow                     from 'wow-weex-ui/lib/wow-arrow'
     import SourceMixin                  from 'mixins/source.mixin'
     import RouterMixin                  from 'mixins/router.mixin'
+    import UserMixin                    from 'mixins/user.mixin'
     import UserSection                  from './components/user-section.vue'
 
     const srcArr = [
@@ -36,6 +38,7 @@
         mixins: [
             SourceMixin,
             RouterMixin,
+            UserMixin,
         ],
         data () {
             return {
@@ -44,6 +47,11 @@
         },
         created () {
             this.sourceGet(srcArr);
+        },
+        methods: {
+            handleViewAppear () {
+                this.userGet();
+            }
         },
         components: {
             WowView,

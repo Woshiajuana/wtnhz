@@ -1,30 +1,30 @@
 <template>
     <div class="wrap">
         <div class="section" @click="routerPush('wow_mine_data')">
-            <image class="image" :src="src$.def"></image>
+            <image class="image" :src="user.actsrc$.def"></image>
             <div class="info">
-                <!--<div class="top">-->
-                    <!--<text class="name">woshiajuana</text>-->
-                    <!--<image class="sex" :src="src$.man"></image>-->
-                <!--</div>-->
-                <!--<div class="bottom">-->
-                    <!--<text class="introduce">真是一个有趣的人~~~</text>-->
-                <!--</div>-->
+                <div class="top">
+                    <text class="name">woshiajuana</text>
+                    <image class="sex" :src="src$.man"></image>
+                </div>
+                <div class="bottom">
+                    <text class="introduce">真是一个有趣的人~~~</text>
+                </div>
                 <text class="prompt">点击登录</text>
             </div>
         </div>
         <div class="section user-number">
             <div class="item">
                 <text class="label">关注</text>
-                <text class="value">999</text>
+                <text class="value">{{user.following || '---'}}</text>
             </div>
             <div class="item">
                 <text class="label">粉丝</text>
-                <text class="value">999</text>
+                <text class="value">{{user.follower || '---'}}</text>
             </div>
             <div class="item last-item">
                 <text class="label">积分</text>
-                <text class="value">999</text>
+                <text class="value">{{user.integral || '---'}}</text>
             </div>
         </div>
     </div>
@@ -45,6 +45,9 @@
             SourceMixin,
             RouterMixin,
         ],
+        props: {
+            user: {default: ''},
+        },
         created () {
             this.sourceGet(srcArr);
         },
