@@ -3,14 +3,18 @@
 import StorePlugin                      from 'plugins/store.plugin'
 
 const AUTH_USER_STORE_KEY_NAME = 'AUTH_USER_STORE_KEY_NAME';
+const AUTH_USER_CACHE_KEY_NAME = 'AUTH_USER_CACHE_KEY_NAME';
 
 const methods = {
-    user$StoreSet (key, value) {
+
+
+
+    user$StoreSet (key, value, store_key = AUTH_USER_STORE_KEY_NAME) {
         let email = '';
         let data = {};
         return this.user$Get().then((info) => {
             email = info.email;
-            return StorePlugin.get(`${AUTH_USER_STORE_KEY_NAME}${email}`);
+            return StorePlugin.get(`${store_key}${email}`);
         }).then((res) => {
             data = Object.assign(data, res);
             data[key] = value;
@@ -19,16 +23,16 @@ const methods = {
         }).finally(() => {
             if (!email)
                 return Promise.reject('用户未登录');
-            return StorePlugin.set(`${AUTH_USER_STORE_KEY_NAME}${email}`);
+            return StorePlugin.set(`${store_key}${email}`);
         })
     },
-    user$StoreGet (key) {
+    user$StoreGet (key, store_key = AUTH_USER_STORE_KEY_NAME) {
         let that = this;
         let email = '';
         return new Promise((resolve, reject) => {
             that.user$Get().then((info) => {
                 email = info.email;
-                return StorePlugin.get(`${AUTH_USER_STORE_KEY_NAME}${email}`);
+                return StorePlugin.get(`${store_key}${email}`);
             }).then((res) => {
                 let value = key ? res[key] : res;
                 resolve(value);
@@ -39,16 +43,19 @@ const methods = {
             })
         })
     },
-    user$StoreDel (key) {
+    user$StoreDel (key, store_key = AUTH_USER_STORE_KEY_NAME) {
         let that = this;
         let email = '';
         return new Promise((resolve, reject) => {
             that.user$Get().then((info) => {
                 email = info.email;
-                return StorePlugin.get(`${AUTH_USER_STORE_KEY_NAME}${email}`);
+                let fun = 'get';
+                if (!key) fun = 'remove';
+                return StorePlugin[fun](`${store_key}${email}`);
             }).then((res) => {
+                if (!key) return resolve();
                 delete res[key];
-                return StorePlugin.set(`${AUTH_USER_STORE_KEY_NAME}${email}`, res);
+                return StorePlugin.set(`${store_key}${email}`, res);
             }).then(() => {
                 resolve();
             }).catch(() => {
