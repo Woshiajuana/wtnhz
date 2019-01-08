@@ -20,7 +20,7 @@
              v-if="nav_use_menu"
              :class="[nav_position]"
              :style="computedNavBarStyle">
-            <div :style="computedNavMenuStyle"
+            <div :style="navMenuStyle(item.checked)"
                  class="item"
                  v-for="(item, index) in nav_arr"
                  @click="handleSwitch(item, index)"
@@ -32,7 +32,7 @@
                     :src="item.checked ? item.img_checked_src : item.img_src"
                 ></image>
                 <text class="text"
-                      :style="computedNavMenuTxtStyle"
+                      :style="navMenuTxtStyle(item.checked)"
                 >{{item.txt}}</text>
             </div>
         </div>
@@ -57,8 +57,13 @@
             nav_inner_style: { default: {} },
             nav_bar_style: { default: {} },
             nav_menu_style: { default: {} },
+            nav_menu_checked_style: { default: {} },
+
             nav_menu_icon_style: { default: {} },
+
             nav_menu_txt_style: { default: {} },
+            nav_menu_txt_checked_style: { default: {} },
+
             nav_use_switch: { default: config.nav_use_switch },
             nav_arr: { default: config.nav_arr },
             nav_use_menu: { default: config.nav_use_menu },
@@ -93,7 +98,6 @@
                 }
                 return Object.assign({}, config.nav_bar_style, { borderTopWidth, borderBottomWidth, paddingBottom }, this.nav_bar_style );
             },
-
         },
         created () {
             this.weexGet();
@@ -112,6 +116,16 @@
                 this.nav_arr.forEach((item, i) => {
                     item.checked = i === index;
                 });
+            },
+            navMenuStyle (checked) {
+                return checked
+                    ? Object.assign({}, config.nav_menu_style, this.nav_menu_style, config.nav_menu_checked_style, this.nav_menu_checked_style)
+                    : Object.assign({}, config.nav_menu_style, this.nav_menu_style);
+            },
+            navMenuTxtStyle (checked) {
+                return checked
+                    ? Object.assign({}, config.nav_menu_txt_style, this.nav_menu_txt_style, config.nav_menu_txt_checked_style, this.nav_menu_txt_checked_style)
+                    : Object.assign({}, config.nav_menu_txt_style, this.nav_menu_txt_style);
             },
         }
     }

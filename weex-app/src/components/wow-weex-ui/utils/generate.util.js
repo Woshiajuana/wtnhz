@@ -2,7 +2,7 @@
 const _generateComputed = (config) => {
     let result = {};
     for (let key in config) {
-        if (key.indexOf('style') > -1) {
+        if (key.indexOf('style') > -1 && key.indexOf('checked') === -1) {
             let newKeyArr = key.split('_');
             let newKey = 'computed';
             newKeyArr.forEach((item) => {

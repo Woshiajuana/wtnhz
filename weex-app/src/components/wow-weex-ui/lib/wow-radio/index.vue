@@ -7,14 +7,14 @@
              v-for="(item, index) in radio_arr"
              :key="index">
             <div class="spot"
-                 :style="computedSpotStyle(radio_value === item.value)">
+                 :style="spotStyle(radio_value === item.value)">
                 <div class="spot-inner"
                      v-if="radio_value === item.value"
                      :style="computedRadioItemSpotInnerStyle"
                 ></div>
             </div>
             <text class="text"
-                  :style="computedTextStyle(radio_value === item.value)"
+                  :style="textStyle(radio_value === item.value)"
             >{{item[radio_txt_key]}}</text>
         </div>
     </div>
@@ -42,12 +42,12 @@
             radio_item_text_checked_style: { default: {} },
         },
         methods: {
-            computedSpotStyle (type) {
+            spotStyle (type) {
                 return type
                     ? Object.assign({}, config.radio_item_spot_style, this.radio_item_spot_style, config.radio_item_spot_checked_style, this.radio_item_spot_checked_style)
                     : Object.assign({}, config.radio_item_spot_style, this.radio_item_spot_style)
             },
-            computedTextStyle (type) {
+            textStyle (type) {
                 return type
                     ? Object.assign({}, config.radio_item_text_style, this.radio_item_text_style, config.radio_item_text_checked_style, this.radio_item_text_checked_style)
                     : Object.assign({}, config.radio_item_text_style, this.radio_item_text_style)
