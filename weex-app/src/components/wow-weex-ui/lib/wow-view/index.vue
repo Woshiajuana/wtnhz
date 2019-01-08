@@ -146,11 +146,7 @@
 </script>
 
 <style>
-    .wrap{
-        flex: 1;
-        width: 750px;
-        background-color: #fff;
-    }
+    .wrap,
     .main{
         flex: 1;
         width: 750px;
