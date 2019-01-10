@@ -1,5 +1,6 @@
 <template>
     <wow-view
+        :view_style="{paddingTop: 0}"
         view_use_header="">
         <div class="wrap"
              :style="{ height: height$ }">
@@ -56,6 +57,7 @@
     import Api                          from 'api/login.api'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
+    import UserMixin                    from 'mixins/user.mixin'
     import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
 
@@ -71,13 +73,8 @@
             WeexMixin,
             InputMixin,
             RouterMixin,
+            UserMixin,
         ],
-        data () {
-            return {
-                email: '',
-                password: '',
-            }
-        },
         computed: {
             computedDisabled () {
                 let result = VerifyUtil.multiple(this.objInput$, 'nonempty');

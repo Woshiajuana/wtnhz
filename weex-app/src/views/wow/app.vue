@@ -8,6 +8,7 @@
     import WowNavBar                    from 'wow-weex-ui/lib/wow-nav-bar'
     import PathMixin                    from 'mixins/path.mixin'
     import UserMixin                    from 'mixins/user.mixin'
+    import StorePlugin                  from 'plugins/store.plugin'
     import Mixin                        from './app.mixin'
     export default {
         mixins: [
@@ -25,7 +26,11 @@
         },
         methods: {
             handleViewAppear () {
-                this.user$Get().catch(() => {
+                StorePlugin.remove('MODAL_TYPE').then(() => {
+                    return this.user$Get();
+                }).then((info) => {
+                    console.log(info);
+                }).catch(() => {
                     this.user$Logout();
                 });
             }
