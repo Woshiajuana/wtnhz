@@ -1,5 +1,5 @@
 
-import apiConfig from 'appConfig/app.config'
+import appConfig from 'appConfig/app.config'
 
 const storage = weex.requireModule('storage');
 
@@ -15,8 +15,8 @@ const DEFAULT_FORMAT = {
  * @param   option  {object}    参数配置
  * */
 const set = (key, value, option) => new Promise((resolve, reject) => {
-    if (!apiConfig.appUser) reject('must set appUser');
-    key = `${apiConfig.appUser}_${key}`;
+    if (!appConfig.app) reject('must set app');
+    key = `${appConfig.app}_${key}`;
     // console.log('存储的key', key)
     storage.setItem(key, encode(value, option), e => {
         e.result === 'success' ? resolve() : reject('set store error');
@@ -28,7 +28,7 @@ const set = (key, value, option) => new Promise((resolve, reject) => {
  * @param   key     {string}    键值对KEY
  * */
 const get = key => new Promise((resolve, reject) => {
-    key = `${apiConfig.appUser}_${key}`;
+    key = `${appConfig.app}_${key}`;
     // console.log('取出的key', key)
     storage.getItem(key, e => {
         e.result === 'success' ? resolve(decode(e.data)) : reject(key + ' is undefined');
@@ -50,7 +50,7 @@ const has = key => new Promise((resolve, reject) => {
  * @param   key     {string}    键值对KEY
  * */
 const remove = key => new Promise((resolve, reject) => {
-    key = `${apiConfig.appUser}_${key}`;
+    key = `${appConfig.app}_${key}`;
     storage.removeItem(key, e => {
         if (e.result === 'success') return resolve();
         has(key).then(() => reject('remove store error')).catch(() => resolve());

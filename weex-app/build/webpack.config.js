@@ -78,7 +78,7 @@ module.exports = {
             'extends': path.resolve(__dirname, '../src/api/extends/'),
             'config': path.resolve(__dirname, '../src/config/'),
             'services': path.resolve(__dirname, '../src/services/'),
-            'appConfig': path.resolve(__dirname, '../config/'),
+            'appConfig': path.resolve(__dirname, '../cmd/config/'),
             'text': path.resolve(__dirname, '../src/text/'),
             'url': path.resolve(__dirname, '../src/url/'),
             'mixins': path.resolve(__dirname, '../src/mixins/'),
