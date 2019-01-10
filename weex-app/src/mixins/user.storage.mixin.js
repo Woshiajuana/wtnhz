@@ -7,15 +7,15 @@ const AUTH_USER_CACHE_KEY_NAME = 'AUTH_USER_CACHE_KEY_NAME';
 
 const methods = {
 
-    user$cacheSet (key, value,) {
+    user$CacheSet (key, value,) {
         this.user$StoreSet(key, value, AUTH_USER_CACHE_KEY_NAME)
     },
 
-    user$cacheGet (key,) {
+    user$CacheGet (key,) {
         this.user$StoreGet(key, AUTH_USER_CACHE_KEY_NAME)
     },
 
-    user$cacheDel (key,) {
+    user$CacheDel (key,) {
         this.user$StoreDel(key, AUTH_USER_CACHE_KEY_NAME)
     },
 

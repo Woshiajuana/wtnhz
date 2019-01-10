@@ -50,7 +50,7 @@
         },
         methods: {
             handleViewAppear () {
-                this.userGet();
+                this.user$Get();
             }
         },
         components: {
