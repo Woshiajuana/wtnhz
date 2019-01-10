@@ -1,57 +1,62 @@
 
-import LoadingPlugin                    from 'plugins/loading.plugin'
+import Loading                          from 'plugins/loading.plugin'
 import EnvConfig                        from 'config/env.config'
 
 const Stream = weex.requireModule('stream');
+
 const DEFAULT_OPTIONS = {
+    headers: {
+        'Content-Type': 'application/json'
+    },
     method: 'POST',
-    mode: 'FETCH',
+    mode: 'fetch',
     auth: true,
+    timeout: 10000,
+    type: 'json',
 };
 
 class Http {
     constructor(api, data, opt) {
-        let options = Object.assign({}, DEFAULT_OPTIONS, opt);
+        this.options = Object.assign({}, DEFAULT_OPTIONS, opt);
         this.api = api;
-        this.auth = options.auth;
-        this.method = options.method.toLocaleUpperCase();
-        this.mode = options.mode.toLocaleLowerCase();
         this.body = Object.assign({}, data);
-        return this['_' + this.mode] ();
+        return this['_' + this.options.mode]();
     }
     _fetch () {
         return new Promise((resolve, reject) => {
-            this.api = this.method === 'GET'
+            this.api = this.options.method === 'GET'
                 ? EnvConfig.API_URL + this.api + urlEncode(this.body)
                 : EnvConfig.API_URL + this.api;
             this._log(`请求参数`, this.body);
             let reqBody = {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: this.method,
+                ...this.options,
                 url: this.api,
-                type: 'json',
-                timeout: 10000,
                 body: JSON.stringify(this.body),
             };
             Stream.fetch(reqBody, result => {
-                if (result.status !== 200)
+                console.log(result);
+                let {
+                    status,
+                    data,
+                    statusText,
+                } = result;
+                if (status === -1)
+                    return reject('连接超时，请稍后再试');
+                if (status !== 200)
                     return reject('网络繁忙，请稍后再试');
-                resolve(result.data);
+                resolve(data);
             });
         })
     }
-
     _log () {
-        console.log(this.api, this.method, ...arguments)
+        console.log(this.api, this.options.method, ...arguments)
     }
 }
 
 export default (api, data = {}, options = {}) => {
-    options.loading && LoadingPlugin.show();
+    options.loading && Loading.show();
     return new Http(api, data, options).finally(() => {
-        options.loading && LoadingPlugin.hide();
+        options.loading && Loading.hide();
     });
 }
 
@@ -70,5 +75,4 @@ function urlEncode(param, key, encode) {
         paramStr += urlEncode(param[i], k, encode)
     }
     return paramStr;
-
 }
