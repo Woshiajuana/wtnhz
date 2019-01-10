@@ -13,16 +13,24 @@
                     :src="srcMask"
                 ></image>
                 <div class="form">
-                    <input-box
-                        v-for="(item, key) in objInput$"
-                        :key="key"
-                        class="input-box"
-                        :input_label="item.label"
-                        :input_value="item.value"
-                        :input_type="item.type"
-                        :input_placeholder="item.placeholder"
-                        @input="handleInput(item, $event)"
-                    ></input-box>
+                    <div v-for="(item, key) in objInput$"
+                        :key="key">
+                        <input-box
+                            v-if="item.display !== false"
+                            class="input-box"
+                            :input_label="item.label"
+                            :input_value="item.value"
+                            :input_type="item.type"
+                            :input_placeholder="item.placeholder"
+                            @input="handleInput(item, $event)">
+                            <image
+                                class="captcha"
+                                v-if="key === 'captcha'"
+                                autoBitmapRecycle="false"
+                                :src="item.captcha"
+                            ></image>
+                        </input-box>
+                    </div>
                     <div class="prompt prompt-left">
                         <text class="prompt-text">忘记密码?</text>
                     </div>
@@ -54,6 +62,7 @@
     import InputMixin                   from 'mixins/input.mixin'
     import RouterMixin                  from 'mixins/router.mixin'
     import Animation                    from 'plugins/animation.plugin'
+    import Dialogs                      from 'plugins/dialogs.plugin'
     import Api                          from 'api/login.api'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
@@ -85,6 +94,9 @@
         created () {
             this.weexGet();
             this.sourceGet(srcArr);
+            UserService.get().then((info) => {
+                console.log(info)
+            })
         },
         mounted () {
             this.animationRun();
@@ -95,10 +107,20 @@
                 if (VerifyUtil.multiple(this.objInput$))
                     return callback();
                 let options = ExtractUtil.input(this.objInput$);
-                Api.doUserLogin(options).then((res) => {
-                    UserService.upt(res);
+                Api.doUserLogin(options).then(({code, data, msg}) => {
+                    if (code === '1001') {
+                        this.objInput$.captcha.display = true;
+                        this.objInput$.captcha.captcha = `data:image/png;base64,${data.data}`;
+                        throw msg;
+                    }
+                    if (code !== '0000')
+                        throw msg;
+                    return UserService.upt(data);
+                }).then(() => {
+                    Dialogs.toast('登录成功');
                 }).catch((err) => {
-                    console.log(err)
+                    console.log('错误')
+                    Dialogs.toast(err);
                 }).finally(() => {
                     callback();
                 });
@@ -113,9 +135,7 @@
                     duration: 300,
                     timingFunction: 'ease-out',
                     delay: 0
-                }).then(() => {
-                    console.log('成功')
-                });
+                }).then(() => {});
             },
         },
         components: {
@@ -173,6 +193,10 @@
     }
     .input-box{
         margin-top: 30px;
+    }
+    .captcha{
+        height: 60px;
+        width: 160px;
     }
     .prompt{
         height: 120px;

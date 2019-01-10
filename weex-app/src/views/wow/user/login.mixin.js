@@ -6,7 +6,7 @@ const data = () => {
         objInput$: {
             // 邮箱
             email: {
-                value: '9@qq.com',
+                value: 'qq@1.com',
                 label: '邮箱',
                 type: 'text',
                 placeholder: '请输入邮箱',
@@ -36,11 +36,12 @@ const data = () => {
             },
             // 图形验证码
             captcha: {
-                value: '111111',
+                value: '',
                 label: '图形验证码',
                 type: 'tel',
                 placeholder: '请输入图形验证码',
                 display: false,
+                captcha: '',
                 use: [
                     {
                         nonempty: true,
