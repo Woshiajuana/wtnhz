@@ -1,5 +1,6 @@
 
 import StorePlugin                      from 'plugins/store.plugin'
+import ModalPlugin                      from 'plugins/modal.plugin'
 
 const AUTH_KEY_NAME = 'AUTH_KEY_NAME';
 const AUTH_USER_STORE_KEY_NAME = 'AUTH_USER_STORE_KEY_NAME';
@@ -46,11 +47,18 @@ const methods = {
             return this.user$Set(info);
         });
     },
-    user$Del () {
-        StorePlugin.remove();
-    },
     user$Logout () {
-
+        return new Promise((resolve, reject) => {
+            Promise.all([
+                StorePlugin.remove(AUTH_KEY_NAME),
+                StorePlugin.remove(AUTH_USER_CACHE_KEY_NAME),
+            ]).then(() => {
+                ModalPlugin.show('wow_user_login');
+                resolve();
+            }).catch((err) => {
+                reject('缓存清除失败');
+            })
+        })
     },
 };
 

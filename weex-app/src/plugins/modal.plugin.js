@@ -10,7 +10,7 @@ const defer = new Defer(1000);
 export default {
     show: pagename => new Promise((resolve, reject) => {
         if (!defer.do(pagename)) return null; // 过滤连续点击
-        if (pagename !== 'kdb_user_login') {
+        if (pagename !== 'wow_user_login') {
             return getPage(pagename, resolve);
         }
         store.get('MODAL_TYPE').then((result) => {
