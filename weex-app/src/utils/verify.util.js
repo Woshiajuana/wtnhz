@@ -31,8 +31,9 @@ export default {
         let {
             use,
             value,
+            display,
         } = prop;
-        if (!use)
+        if (!use || display === false)
             return null;
         use.forEach((item) => {
             let {
@@ -58,8 +59,12 @@ export default {
     },
 
     forEach (obj, callback) {
-        for(let key in obj){
-            callback && callback(obj[key], key);
+        if (Object.prototype.toString.call(obj) === '[object Array]') {
+            obj.forEach(callback)
+        } else {
+            for(let key in obj){
+                callback && callback(obj[key], key);
+            }
         }
     },
 }

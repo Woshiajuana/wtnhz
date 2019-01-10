@@ -34,6 +34,20 @@ const data = () => {
                     },
                 ],
             },
+            // 图形验证码
+            captcha: {
+                value: '111111',
+                label: '图形验证码',
+                type: 'tel',
+                placeholder: '请输入图形验证码',
+                display: false,
+                use: [
+                    {
+                        nonempty: true,
+                        prompt: '请输入图形验证码',
+                    },
+                ],
+            },
         },
     }
 };
