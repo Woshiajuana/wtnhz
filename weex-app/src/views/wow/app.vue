@@ -17,10 +17,6 @@
             PathMixin,
             UserMixin,
         ],
-        data () {0            return {
-
-            }
-        },
         created () {
             this.resourceGet(this.arrNav);
         },
@@ -31,7 +27,7 @@
                 }).then((info) => {
                     console.log(info);
                 }).catch(() => {
-                    this.user$Logout();
+                    UserService.exit();
                 });
             }
         },

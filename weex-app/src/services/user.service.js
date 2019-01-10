@@ -27,9 +27,9 @@ const exit = () => {
         Store.remove(AUTH_USER_CACHE_KEY_NAME),
     ]).then(() => {
         Modal.show('wow_user_login');
-        resolve();
+        return Promise.resolve();
     }).catch((err) => {
-        reject('缓存清除失败');
+        return Promise.reject('缓存清除失败');
     })
 };
 
