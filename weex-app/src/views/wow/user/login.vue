@@ -58,6 +58,7 @@
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
     import UserMixin                    from 'mixins/user.mixin'
+    import UserService                  from 'services/user.service'
     import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
 
@@ -95,7 +96,7 @@
                     return callback();
                 let options = ExtractUtil.input(this.objInput$);
                 Api.doUserLogin(options).then((res) => {
-                    console.log(res)
+                    UserService.upt(res);
                 }).catch((err) => {
                     console.log(err)
                 }).finally(() => {
