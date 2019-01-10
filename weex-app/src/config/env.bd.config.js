@@ -4,5 +4,5 @@ export default {
     HTML_URL:'http://'+ BD_IP +':32580/static/html/',                   // 静态页面
     JSON_URL: 'http://'+ BD_IP +':32580/static/json/',                  // JSON文件地址
     // API_URL: 'http://rap2api.taobao.org/app/mock/116929',        // 接口
-    API_URL: 'http://'+ BD_IP +':10010/app/mock/116929',        // 接口
+    API_URL: 'http://'+ BD_IP +':10010',        // 接口
 }

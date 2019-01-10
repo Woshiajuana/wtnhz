@@ -1,11 +1,6 @@
 
 import LoadingPlugin                    from 'plugins/loading.plugin'
 import EnvConfig                        from 'config/env.config'
-// import AuthService                      from 'services/auth.service'
-// import ModalPlugin                      from 'plugins/modal.plugin'
-// import EncryptPlugin                    from 'plugins/encrypt.plugin'
-// import RoleService                      from 'services/role.service'
-// import Router                           from 'plugins/router.plugin'
 
 const Stream = weex.requireModule('stream');
 const DEFAULT_OPTIONS = {
@@ -32,7 +27,7 @@ class Http {
             this._log(`请求参数`, this.body);
             let reqBody = {
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json'
                 },
                 method: this.method,
                 url: this.api,
