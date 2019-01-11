@@ -25,7 +25,7 @@
                 console.log(0)
                 StorePlugin.remove('MODAL_TYPE').then(() => {
                     console.log(1)
-                    return this.user$Get();
+                    return this.userGet();
                 }).then((info) => {
                     console.log(2)
                     console.log(info);

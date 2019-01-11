@@ -8,8 +8,9 @@ const data = () => {
 };
 
 const methods = {
-    user$Get () {
+    userGet () {
         let that = this;
+        console.log(11)
         return new Promise((resolve, reject) => {
             UserService.get().then((info) => {
                 that.user$ = info;

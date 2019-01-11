@@ -6,6 +6,7 @@
         :view_style="{backgroundColor: '#f2f2f2'}"
         view_header_left_src="">
         <user-section :user="user$"></user-section>
+        <text>{{user$}}</text>
         <div class="entry">
             <wow-input-cell
                 v-for="(item, index) in arrEntry"
@@ -46,11 +47,13 @@
             }
         },
         created () {
+            console.log(111)
             this.sourceGet(srcArr);
         },
         methods: {
             handleViewAppear () {
-                this.user$Get();
+                console.log(1111)
+                this.userGet();
             }
         },
         components: {
