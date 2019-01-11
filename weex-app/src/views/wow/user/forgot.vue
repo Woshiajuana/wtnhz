@@ -39,6 +39,7 @@
     import WowButton                    from 'wow-weex-ui/lib/wow-button'
     import WowCountDown                 from 'wow-weex-ui/lib/wow-count-down'
     import InputMixin                   from 'mixins/input.mixin'
+    import RouterMixin                  from 'mixins/router.mixin'
     import Api                          from 'config/api.config'
     import Http                         from 'plugins/http.plugin'
     import Router                       from 'plugins/router.plugin'
@@ -51,6 +52,7 @@
 
     export default {
         mixins: [
+            RouterMixin,
             InputMixin,
             Mixin,
         ],
@@ -59,7 +61,15 @@
                 return VerifyUtil.multiple(this.objInput$, 'nonempty');
             }
         },
+        created () {
+            this.routerGetParams();
+            this.assignmentData();
+        },
         methods: {
+            assignmentData () {
+                console.log(this.params$);
+                ExtractUtil.assignment(this.params$, this.objInput$);
+            },
             handleSend (callback) {
                 if (VerifyUtil.single(this.objInput$.email))
                     return null;

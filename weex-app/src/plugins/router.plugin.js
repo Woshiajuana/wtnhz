@@ -1,11 +1,13 @@
 
 import './Promise'
-import path             from 'plugins/path.plugin'
-import loading          from 'plugins/loading.plugin'
-import dialogs          from 'plugins/dialogs.plugin'
-import Defer            from 'utils/defer.util'
-import _                from 'utils/lodash.util'
+import path                     from 'plugins/path.plugin'
+import loading                  from 'plugins/loading.plugin'
+import dialogs                  from 'plugins/dialogs.plugin'
+import Defer                    from 'utils/defer.util'
+import _                        from 'utils/lodash.util'
+import Dialogs                  from 'plugins/dialogs.plugin'
 
+const Close = weex.requireModule('closeModule');
 const navigator = weex.requireModule('navigator');
 const manager = weex.requireModule('pageManagerModule');
 const external = weex.requireModule('externalAppModule');
@@ -19,7 +21,7 @@ export default {
         let animated = _.isObject(input) ? input.animated:  'true';
         let close = _.isObject(input) ? input.close:  '';
         path.page(pagename).then(nativepath => {
-            nativepath = parmas ? nativepath + '?parmas=' + encodeURIComponent(JSON.stringify(parmas)) : nativepath;
+            nativepath = parmas ? nativepath + '?params=' + encodeURIComponent(JSON.stringify(parmas)) : nativepath;
             navigator.push({ url: nativepath, animated: animated, close: close }, e => {});
         }).catch(error => {
             dialogs.toast({ message: error });
@@ -34,9 +36,9 @@ export default {
         manager.popToRootPage(e => {})
     },
 
-    getParmas: weex => {
+    getParams: weex => {
         var bundleUrl = weex.$getConfig().bundleUrl,
-            params = bundleUrl.indexOf('?parmas=') > -1 ? bundleUrl.substr(bundleUrl.indexOf("?parmas=") + 8) : '';
+            params = bundleUrl.indexOf('?params=') > -1 ? bundleUrl.substr(bundleUrl.indexOf("?params=") + 8) : '';
         return params ? JSON.parse(decodeURIComponent(decodeURIComponent(params))) : '';
     },
 
@@ -50,5 +52,9 @@ export default {
 
     external: options => {
         external.open(options);
+    },
+
+    close () {
+        Close.close && Close.close();
     }
 };

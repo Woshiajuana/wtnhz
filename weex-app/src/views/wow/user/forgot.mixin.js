@@ -5,7 +5,7 @@ const data = () => {
         objInput$: {
             // 邮箱
             email: {
-                value: '979703986@qq.com',
+                value: '',
                 label: '邮箱',
                 type: 'text',
                 placeholder: '请输入邮箱',
@@ -22,7 +22,7 @@ const data = () => {
             },
             // 验证码
             code: {
-                value: '123',
+                value: '',
                 label: '验证码',
                 type: 'tel',
                 placeholder: '请输入验证码',
