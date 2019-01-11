@@ -1,5 +1,5 @@
 <template>
-    <wow-view>
+    <wow-view view_header_left_src="">
         <div class="wrap">
             <div class="portrait-box">
                 <image class="portrait" :src="src$.banner"></image>
@@ -193,8 +193,8 @@
         margin-left: 20px;
     }
     .prompt-left{
-        height: 60px;
-        line-height: 60px;
+        height: 80px;
+        line-height: 80px;
         justify-content: flex-end;
     }
 </style>
