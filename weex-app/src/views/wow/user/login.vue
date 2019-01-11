@@ -118,9 +118,11 @@
                         throw msg;
                     return UserService.upt(data);
                 }).then(() => {
-                    Dialogs.toast('登录成功');
                     Modal.close();
-                    Router.root();
+                    return Modal.close();
+                }).then(() => {
+                    Dialogs.toast('登录成功');
+                    return Router.root();
                 }).catch((err) => {
                     Dialogs.toast(err);
                 }).finally(() => {

@@ -6,7 +6,7 @@ const data = () => {
         objInput$: {
             // 邮箱
             email: {
-                value: 'qq@1.com',
+                value: '979703986@qq.com',
                 label: '邮箱',
                 type: 'text',
                 placeholder: '请输入邮箱',
