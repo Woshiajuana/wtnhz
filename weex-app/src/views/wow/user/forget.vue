@@ -1,5 +1,6 @@
 <template>
-    <wow-view>
+    <wow-view
+        view_header_center_txt="Sign Up">
         <div class="wrap">
             <image class="logo" :src="src$.logo"></image>
             <input-box
