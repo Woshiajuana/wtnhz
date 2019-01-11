@@ -24,7 +24,7 @@
                         ></image>
                     </input-box>
                 </div>
-                <div class="prompt prompt-left">
+                <div class="prompt prompt-left" @click="routerPush('wow_user_forget')">
                     <text class="prompt-text">忘记密码?</text>
                 </div>
                 <wow-button

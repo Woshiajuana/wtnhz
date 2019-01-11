@@ -1,8 +1,7 @@
 <template>
     <wow-view
-        view_header_center_txt="Sign Up">
+        view_header_center_txt="忘记密码">
         <div class="wrap">
-            <image class="logo" :src="src$.logo"></image>
             <input-box
                 v-for="(item, key) in objInput$"
                 :key="key"
@@ -22,21 +21,11 @@
                     @click="handleSend"
                 ></wow-count-down>
             </input-box>
-            <div class="prompt">
-                <wow-switch
-                    @click="objAgree$.value = !objAgree$.value"
-                    :switch_value="objAgree$.value"
-                    :switch_style="{ width: 50, height: 32 }"
-                    :switch_inner_style="{ width: 28, height: 28 }"
-                ></wow-switch>
-                <text class="prompt-text" @click="objAgree$.value = !objAgree$.value">我已阅读并同意</text>
-                <text class="prompt-link">《SO注意服务协议》</text>
-            </div>
             <wow-button
                 @click="handleSubmit"
                 :button_disabled="computedDisabled"
                 :button_style="{marginLeft: 0, marginTop: 100}"
-                button_txt="注 册"
+                button_txt="确 定"
             ></wow-button>
         </div>
     </wow-view>
@@ -55,7 +44,7 @@
     import Dialogs                      from 'plugins/dialogs.plugin'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
-    import Mixin                        from './register.mixin'
+    import Mixin                        from './forget.mixin'
     import InputBox                     from './components/input-box.vue'
 
     const srcArr = [
@@ -77,8 +66,7 @@
         },
         computed: {
             computedDisabled () {
-                let result = VerifyUtil.multiple(this.objInput$, 'nonempty');
-                return result || !this.objAgree$.value;
+                return VerifyUtil.multiple(this.objInput$, 'nonempty');
             }
         },
         created () {
