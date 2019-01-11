@@ -29,11 +29,14 @@ const exit = () => {
     ]).then(() => {
         return Router.root();
     }).then(() => {
-        Modal.show('wow_user_login');
         return Promise.resolve();
     }).catch((err) => {
         return Promise.reject('缓存清除失败');
     })
+};
+
+const login = () => {
+    Modal.show('wow_user_login');
 };
 
 const _storageGet = (key, name) => {
@@ -100,6 +103,9 @@ export default {
 
     // 用户退出
     exit,
+
+    // 用户去登录
+    login,
 
     // 会话级边缓存
     cache: {

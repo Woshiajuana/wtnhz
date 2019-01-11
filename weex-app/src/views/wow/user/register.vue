@@ -50,6 +50,8 @@
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
     import Api                          from 'api/register.api'
+    import Http                         from 'plugins/http.plugin'
+    import Dialogs                      from 'plugins/dialogs.plugin'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
     import Mixin                        from './register.mixin'
@@ -85,14 +87,14 @@
             handleSend (callback) {
                 if (VerifyUtil.single(this.objInput$.email))
                     return null;
-                let options = {
-                    email: this.objInput$.email.value,
-                };
-                Api.doFetchVerifyCode(options).then((res) => {
-                    console.log(res);
+                let options = ExtractUtil.input(this.objInput$);
+                Http(Api.doFetchVerifyCode, options).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    Dialogs.toast('发送验证码成功');
                     callback();
                 }).catch((err) => {
-                    console.log(err);
+                    Dialogs.toast(err);
                 });
             },
             // 提交

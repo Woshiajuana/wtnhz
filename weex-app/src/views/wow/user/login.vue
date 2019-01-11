@@ -70,7 +70,6 @@
     import Http                         from 'plugins/http.plugin'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
-    import UserMixin                    from 'mixins/user.mixin'
     import UserService                  from 'services/user.service'
     import Mixin                        from './login.mixin'
     import InputBox                     from './components/input-box.vue'
@@ -87,7 +86,6 @@
             WeexMixin,
             InputMixin,
             RouterMixin,
-            UserMixin,
         ],
         computed: {
             computedDisabled () {

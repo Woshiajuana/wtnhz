@@ -22,12 +22,16 @@
         },
         methods: {
             handleViewAppear () {
+                console.log(0)
                 StorePlugin.remove('MODAL_TYPE').then(() => {
+                    console.log(1)
                     return this.user$Get();
                 }).then((info) => {
+                    console.log(2)
                     console.log(info);
                 }).catch(() => {
-                    UserService.exit();
+                    console.log(3)
+                    UserService.login();
                 });
             }
         },
