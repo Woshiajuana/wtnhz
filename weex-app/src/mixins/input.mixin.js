@@ -7,6 +7,7 @@ const methods = {
         typeof key === 'object'
             ? key.value = value
             : this[key] = value;
+        this.inputCallback && this.inputCallback(key, event);
     },
 };
 

@@ -64,6 +64,8 @@
     import RouterMixin                  from 'mixins/router.mixin'
     import Animation                    from 'plugins/animation.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
+    import Modal                        from 'plugins/modal.plugin'
+    import Router                       from 'plugins/router.plugin'
     import Api                          from 'api/login.api'
     import Http                         from 'plugins/http.plugin'
     import VerifyUtil                   from 'utils/verify.util'
@@ -96,9 +98,6 @@
         created () {
             this.weexGet();
             this.sourceGet(srcArr);
-            UserService.get().then((info) => {
-                console.log(info)
-            })
         },
         mounted () {
             this.animationRun();
@@ -120,6 +119,8 @@
                     return UserService.upt(data);
                 }).then(() => {
                     Dialogs.toast('登录成功');
+                    Modal.close();
+                    Router.root();
                 }).catch((err) => {
                     Dialogs.toast(err);
                 }).finally(() => {
@@ -139,6 +140,13 @@
                 }).catch((err) => {
                     Dialogs.toast(err);
                 });
+            },
+            // 输入框验证
+            inputCallback (item) {
+                if (item.label !== '邮箱')
+                    return null;
+                this.objInput$.captcha.display = false;
+                this.objInput$.captcha.captcha = '';
             },
             animationRun () {
                 Animation.run(this.$refs.inner, {
