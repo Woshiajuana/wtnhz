@@ -50,7 +50,7 @@
     import WowSwitch                    from 'wow-weex-ui/lib/wow-switch'
     import WowCountDown                 from 'wow-weex-ui/lib/wow-count-down'
     import InputMixin                   from 'mixins/input.mixin'
-    import Api                          from 'api/register.api'
+    import Api                          from 'config/api.config'
     import Http                         from 'plugins/http.plugin'
     import Router                       from 'plugins/router.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'

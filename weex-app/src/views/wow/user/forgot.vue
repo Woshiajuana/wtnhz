@@ -39,13 +39,13 @@
     import WowButton                    from 'wow-weex-ui/lib/wow-button'
     import WowCountDown                 from 'wow-weex-ui/lib/wow-count-down'
     import InputMixin                   from 'mixins/input.mixin'
-    import Api                          from 'api/forget.api'
+    import Api                          from 'config/api.config'
     import Http                         from 'plugins/http.plugin'
     import Router                       from 'plugins/router.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
-    import Mixin                        from './forget.mixin'
+    import Mixin                        from './forgot.mixin'
     import InputBox                     from './components/input-box.vue'
     import HeadSection                  from './components/head-section.vue'
 
@@ -77,13 +77,11 @@
             handleSubmit (callback) {
                 if (VerifyUtil.multiple(this.objInput$))
                     return callback();
-                if (VerifyUtil.single(this.objAgree$))
-                    return callback();
                 let options = ExtractUtil.input(this.objInput$);
-                Http(Api.doUserRegister, options).then(({code, data, msg}) => {
+                Http(Api.doUserForgot, options).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
-                    Dialogs.toast('注册成功');
+                    Dialogs.toast('设置成功');
                     Router.pop();
                 }).catch((err) => {
                     Dialogs.toast(err);

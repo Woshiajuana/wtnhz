@@ -24,7 +24,7 @@
                         ></image>
                     </input-box>
                 </div>
-                <div class="prompt prompt-left" @click="routerPush('wow_user_forget')">
+                <div class="prompt prompt-left" @click="routerPush('wow_user_forgot')">
                     <text class="prompt-text">忘记密码?</text>
                 </div>
                 <wow-button
@@ -52,7 +52,7 @@
     import Dialogs                      from 'plugins/dialogs.plugin'
     import Modal                        from 'plugins/modal.plugin'
     import Router                       from 'plugins/router.plugin'
-    import Api                          from 'api/login.api'
+    import Api                          from 'config/api.config'
     import Http                         from 'plugins/http.plugin'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
