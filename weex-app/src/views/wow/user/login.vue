@@ -1,53 +1,41 @@
 <template>
-    <wow-view
-        :view_style="{paddingTop: 0}"
-        view_use_header="">
-        <div class="wrap"
-             :style="{ height: height$ }">
-            <div class="inner"
-                 :style="{ height: height$ * 0.8 }">
-                <image
-                    class="mask"
-                    autoBitmapRecycle="false"
-                    :src="srcMask"
-                ></image>
-                <div class="form">
-                    <div v-for="(item, key) in objInput$"
-                        :key="key">
-                        <input-box
-                            v-if="item.display !== false"
-                            class="input-box"
-                            :input_label="item.label"
-                            :input_value="item.value"
-                            :input_type="item.type"
-                            :input_placeholder="item.placeholder"
-                            @input="handleInput(item, $event)">
-                            <image
-                                @click="handleRefresh(item)"
-                                class="captcha"
-                                v-if="key === 'captcha'"
-                                autoBitmapRecycle="false"
-                                :src="item.captcha"
-                            ></image>
-                        </input-box>
-                    </div>
-                    <div class="prompt prompt-left">
-                        <text class="prompt-text">忘记密码?</text>
-                    </div>
-                    <wow-button
-                        @click="handleSubmit"
-                        :button_disabled="computedDisabled"
-                        class="button"
-                        :button_style="{marginLeft: 0, marginTop: 100}"
-                        button_txt="登录"
-                    ></wow-button>
-                    <div class="prompt" @click="routerPush('wow_user_register')">
-                        <text class="prompt-text">还没有帐号 ?</text>
-                        <text class="prompt-link">去注册</text>
-                    </div>
+    <wow-view>
+        <div class="wrap">
+            <div class="portrait-box">
+                <image class="portrait" :src="src$.banner"></image>
+            </div>
+            <div class="form">
+                <div v-for="(item, key) in objInput$"
+                     :key="key">
+                    <input-box
+                        v-if="item.display !== false"
+                        class="input-box"
+                        :input_label="item.label"
+                        :input_value="item.value"
+                        :input_type="item.type"
+                        :input_placeholder="item.placeholder"
+                        @input="handleInput(item, $event)">
+                        <image
+                            @click="handleRefresh(item)"
+                            class="captcha"
+                            v-if="key === 'captcha'"
+                            autoBitmapRecycle="false"
+                            :src="item.captcha"
+                        ></image>
+                    </input-box>
                 </div>
-                <div class="portrait-box">
-                    <image class="portrait" :src="src$.banner"></image>
+                <div class="prompt prompt-left">
+                    <text class="prompt-text">忘记密码?</text>
+                </div>
+                <wow-button
+                    @click="handleSubmit"
+                    :button_disabled="computedDisabled"
+                    :button_style="{marginLeft: 0, marginTop: 100}"
+                    button_txt="登录"
+                ></wow-button>
+                <div class="prompt" @click="routerPush('wow_user_register')">
+                    <text class="prompt-text">还没有帐号 ?</text>
+                    <text class="prompt-link">去注册</text>
                 </div>
             </div>
         </div>
@@ -155,32 +143,25 @@
 <style>
     .wrap{
         width: 750px;
-        flex: 1;
-        background-color: #fc5366;
-        justify-content: flex-end;
+        align-items: center;
+        margin-top: 20px;
     }
     .portrait-box{
-        position: absolute;
-        top: 0;
-        margin-left: 275px;
         width: 220px;
         height: 220px;
         border-radius: 220px;
         border-width: 10px;
-        border-color: #fff;
+        border-color: #f2f2f2;
         justify-content: center;
         align-items: center;
         background-color: #dedede;
+        margin-top: 20px;
+        margin-bottom: 50px;
     }
     .portrait{
         width: 200px;
         height: 200px;
         border-radius: 200px;
-    }
-    .inner{
-        width: 750px;
-        flex-direction: column;
-        justify-content: flex-end;
     }
     .form{
         flex: 1;
@@ -188,10 +169,6 @@
         padding-left: 55px;
         padding-right: 55px;
         justify-content: flex-end;
-    }
-    .mask{
-        width: 750px;
-        height: 200px;
     }
     .input-box{
         margin-top: 30px;
