@@ -35,6 +35,7 @@
         </wow-input-cell>
         <div class="null"></div>
         <wow-button
+            @click="handleButton"
             class="button"
             button_txt="安全退出"
         ></wow-button>
@@ -47,6 +48,7 @@
     import WowArrow                     from 'wow-weex-ui/lib/wow-arrow'
     import WowInputCell                 from 'wow-weex-ui/lib/wow-input-cell'
     import WowButton                    from 'wow-weex-ui/lib/wow-button'
+    import UserService                  from 'services/user.service'
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
 
@@ -121,7 +123,9 @@
             WowInputCell,
         },
         methods: {
-
+            handleButton (callback) {
+                UserService.exit().finally(() => {callback();})
+            }
         }
     }
 </script>

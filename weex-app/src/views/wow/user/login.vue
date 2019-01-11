@@ -24,6 +24,7 @@
                             :input_placeholder="item.placeholder"
                             @input="handleInput(item, $event)">
                             <image
+                                @click="handleRefresh(item)"
                                 class="captcha"
                                 v-if="key === 'captcha'"
                                 autoBitmapRecycle="false"
@@ -64,6 +65,7 @@
     import Animation                    from 'plugins/animation.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
     import Api                          from 'api/login.api'
+    import Http                         from 'plugins/http.plugin'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
     import UserMixin                    from 'mixins/user.mixin'
@@ -102,15 +104,15 @@
             this.animationRun();
         },
         methods: {
-            // 提交
+            // 登录
             handleSubmit (callback) {
                 if (VerifyUtil.multiple(this.objInput$))
                     return callback();
                 let options = ExtractUtil.input(this.objInput$);
-                Api.doUserLogin(options).then(({code, data, msg}) => {
+                Http(Api.doUserLogin, options).then(({code, data, msg}) => {
                     if (code === '1001') {
                         this.objInput$.captcha.display = true;
-                        this.objInput$.captcha.captcha = `data:image/png;base64,${data.data}`;
+                        this.objInput$.captcha.captcha = `data:image/png;base64,${data}`;
                         throw msg;
                     }
                     if (code !== '0000')
@@ -119,10 +121,23 @@
                 }).then(() => {
                     Dialogs.toast('登录成功');
                 }).catch((err) => {
-                    console.log('错误')
                     Dialogs.toast(err);
                 }).finally(() => {
                     callback();
+                });
+            },
+            // 刷新图形验证码
+            handleRefresh (item) {
+                if (VerifyUtil.single(this.objInput$.email))
+                    return null;
+                let options = ExtractUtil.input(this.objInput$);
+                Http(Api.doRefreshCaptcha, options).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    item.display = true;
+                    item.captcha = `data:image/png;base64,${data}`;
+                }).catch((err) => {
+                    Dialogs.toast(err);
                 });
             },
             animationRun () {

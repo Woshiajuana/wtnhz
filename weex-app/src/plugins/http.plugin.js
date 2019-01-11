@@ -54,9 +54,12 @@ class Http {
 }
 
 export default (api, data = {}, options = {}) => {
-    options.loading && Loading.show();
+    let {loading} = options;
+    loading !== false && Loading.show();
     return new Http(api, data, options).finally(() => {
-        options.loading && Loading.hide();
+        setTimeout(() => {
+            loading !== false && Loading.hide();
+        },300)
     });
 }
 
