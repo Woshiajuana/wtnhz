@@ -18,8 +18,8 @@ export default {
     // check code
     check: (email, code) => new Promise(async (resolve, reject) =>  {
         try {
-            let data = await redisUtil.getItem(email);
-            if (!data || code !== data.toString())
+            let data = await redisUtil.getItem(`${email} code`);
+            if (!data || code !== data)
                 return reject(`验证码错误`);
             await redisUtil.setItem(`${email} code`, '', 0);
             return resolve(data);

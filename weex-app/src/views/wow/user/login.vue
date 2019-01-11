@@ -5,7 +5,6 @@
         <div class="wrap"
              :style="{ height: height$ }">
             <div class="inner"
-                 ref="inner"
                  :style="{ height: height$ * 0.8 }">
                 <image
                     class="mask"
@@ -62,7 +61,6 @@
     import WeexMixin                    from 'mixins/weex.mixin'
     import InputMixin                   from 'mixins/input.mixin'
     import RouterMixin                  from 'mixins/router.mixin'
-    import Animation                    from 'plugins/animation.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
     import Modal                        from 'plugins/modal.plugin'
     import Router                       from 'plugins/router.plugin'
@@ -96,9 +94,6 @@
         created () {
             this.weexGet();
             this.sourceGet(srcArr);
-        },
-        mounted () {
-            this.animationRun();
         },
         methods: {
             // 登录
@@ -148,18 +143,6 @@
                 this.objInput$.captcha.display = false;
                 this.objInput$.captcha.captcha = '';
             },
-            animationRun () {
-                Animation.run(this.$refs.inner, {
-                    styles: {
-                        opacity: '1',
-                        transform: 'translate(0,0)',
-                        transformOrigin: 'center center'
-                    },
-                    duration: 300,
-                    timingFunction: 'ease-out',
-                    delay: 0
-                }).then(() => {});
-            },
         },
         components: {
             WowView,
@@ -174,6 +157,7 @@
         width: 750px;
         flex: 1;
         background-color: #fc5366;
+        justify-content: flex-end;
     }
     .portrait-box{
         position: absolute;
@@ -194,14 +178,9 @@
         border-radius: 200px;
     }
     .inner{
-        position: absolute;
-        bottom: 0;
-        left: 0;
         width: 750px;
         flex-direction: column;
         justify-content: flex-end;
-        transform: translate(0, 600px);
-        opacity: 0;
     }
     .form{
         flex: 1;
