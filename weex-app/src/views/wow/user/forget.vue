@@ -1,7 +1,10 @@
 <template>
-    <wow-view
-        view_header_center_txt="忘记密码">
+    <wow-view>
         <div class="wrap">
+            <head-section
+                title="忘记密码"
+                title_sub="请填写帐号信息并设置新密码"
+            ></head-section>
             <input-box
                 v-for="(item, key) in objInput$"
                 :key="key"
@@ -34,11 +37,9 @@
 <script>
     import WowView                      from 'wow-weex-ui/lib/wow-view'
     import WowButton                    from 'wow-weex-ui/lib/wow-button'
-    import WowSwitch                    from 'wow-weex-ui/lib/wow-switch'
     import WowCountDown                 from 'wow-weex-ui/lib/wow-count-down'
-    import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
-    import Api                          from 'api/register.api'
+    import Api                          from 'api/forget.api'
     import Http                         from 'plugins/http.plugin'
     import Router                       from 'plugins/router.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
@@ -46,31 +47,17 @@
     import ExtractUtil                  from 'utils/extract.util'
     import Mixin                        from './forget.mixin'
     import InputBox                     from './components/input-box.vue'
-
-    const srcArr = [
-        { key: 'logo', value: 'logo-icon-fc5366.png', },
-    ];
+    import HeadSection                  from './components/head-section.vue'
 
     export default {
         mixins: [
-            SourceMixin,
             InputMixin,
             Mixin,
         ],
-        data () {
-            return {
-                email: '',
-                password: '',
-                switch_value: true,
-            }
-        },
         computed: {
             computedDisabled () {
                 return VerifyUtil.multiple(this.objInput$, 'nonempty');
             }
-        },
-        created () {
-            this.sourceGet(srcArr);
         },
         methods: {
             handleSend (callback) {
@@ -109,8 +96,8 @@
             WowView,
             WowButton,
             InputBox,
-            WowSwitch,
             WowCountDown,
+            HeadSection,
         },
     }
 </script>
@@ -120,31 +107,7 @@
         width: 750px;
         align-items: center;
     }
-    .logo{
-        width: 150px;
-        height: 150px;
-        margin-top: 20px;
-        margin-bottom: 50px;
-    }
     .input-box{
         margin-top: 30px;
-    }
-    .prompt{
-        width: 640px;
-        margin-top: 20px;
-        align-items: center;
-        flex-direction: row;
-    }
-    .prompt-text{
-        color: #999;
-        font-size: 26px;
-        padding-left: 10px;
-        line-height: 30px;
-    }
-    .prompt-link{
-        line-height: 30px;
-        color: #333;
-        font-size: 26px;
-        margin-left: 20px;
     }
 </style>

@@ -1,7 +1,10 @@
 <template>
     <wow-view>
         <div class="wrap">
-            <image class="logo" :src="src$.logo"></image>
+            <head-section
+                title="注册"
+                title_sub="请填写帐号信息"
+            ></head-section>
             <input-box
                 v-for="(item, key) in objInput$"
                 :key="key"
@@ -46,7 +49,6 @@
     import WowButton                    from 'wow-weex-ui/lib/wow-button'
     import WowSwitch                    from 'wow-weex-ui/lib/wow-switch'
     import WowCountDown                 from 'wow-weex-ui/lib/wow-count-down'
-    import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
     import Api                          from 'api/register.api'
     import Http                         from 'plugins/http.plugin'
@@ -56,32 +58,18 @@
     import ExtractUtil                  from 'utils/extract.util'
     import Mixin                        from './register.mixin'
     import InputBox                     from './components/input-box.vue'
-
-    const srcArr = [
-        { key: 'logo', value: 'logo-icon-fc5366.png', },
-    ];
+    import HeadSection                  from './components/head-section.vue'
 
     export default {
         mixins: [
-            SourceMixin,
             InputMixin,
             Mixin,
         ],
-        data () {
-            return {
-                email: '',
-                password: '',
-                switch_value: true,
-            }
-        },
         computed: {
             computedDisabled () {
                 let result = VerifyUtil.multiple(this.objInput$, 'nonempty');
                 return result || !this.objAgree$.value;
             }
-        },
-        created () {
-            this.sourceGet(srcArr);
         },
         methods: {
             handleSend (callback) {
@@ -121,6 +109,7 @@
             WowButton,
             InputBox,
             WowSwitch,
+            HeadSection,
             WowCountDown,
         },
     }
@@ -130,12 +119,6 @@
     .wrap{
         width: 750px;
         align-items: center;
-    }
-    .logo{
-        width: 150px;
-        height: 150px;
-        margin-top: 20px;
-        margin-bottom: 50px;
     }
     .input-box{
         margin-top: 30px;
