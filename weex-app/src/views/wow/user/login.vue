@@ -99,10 +99,9 @@
                         throw msg;
                     return UserService.upt(data);
                 }).then(() => {
-                    Modal.close();
+                    Dialogs.toast('登录成功');
                     return Modal.close();
                 }).then(() => {
-                    Dialogs.toast('登录成功');
                     return Router.root();
                 }).catch((err) => {
                     Dialogs.toast(err);
