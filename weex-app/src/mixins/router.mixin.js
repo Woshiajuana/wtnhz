@@ -1,5 +1,5 @@
 import Router                   from 'plugins/router.plugin'
-import AuthService              from 'services/auth.service'
+import UserService              from 'services/user.service'
 
 const data = () => {
     return {
@@ -15,7 +15,7 @@ export const methods = {
         if (callback === '') type = false;
         type
             ? Router.push(url, params)
-            : AuthService.showLogin();
+            : UserService.login();
     },
 
     // 获取路由参数
