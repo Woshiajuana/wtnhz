@@ -5,5 +5,5 @@ export default {
     doUserRegister: '/app/user/register',
 
     // 验证码
-    doFetchVerifyCode: '/app/user/code',
+    doFetchVerifyCode: '/app/user/send',
 }

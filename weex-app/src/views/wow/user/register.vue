@@ -51,6 +51,7 @@
     import InputMixin                   from 'mixins/input.mixin'
     import Api                          from 'api/register.api'
     import Http                         from 'plugins/http.plugin'
+    import Router                       from 'plugins/router.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
@@ -104,11 +105,13 @@
                 if (VerifyUtil.single(this.objAgree$))
                     return callback();
                 let options = ExtractUtil.input(this.objInput$);
-                Api.doUserRegister(options).then((res) => {
-                    console.log(res);
-                    callback();
+                Http(Api.doUserRegister, options).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    Dialogs.toast('注册成功');
+                    Router.pop();
                 }).catch((err) => {
-                    console.log(err);
+                    Dialogs.toast(err);
                 }).finally(() => {
                     callback();
                 });
