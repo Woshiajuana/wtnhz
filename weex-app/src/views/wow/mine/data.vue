@@ -17,15 +17,15 @@
                     :input_style="{color: disabled ? '#DEDEDE' : '#333'}"
                     :input_disabled="disabled"
                     :input_use="key !== 'job'"
-                    :input_use_right="key !== 'sex' && key !== 'avatar'"
+                    :input_use_right="key | filterUseRight(disabled)"
                     :input_placeholder="item.placeholder"
                     :input_label_txt="item.label"
-                    :input_value="item.value">
+                    :input_value="item.value | filterSex(key)">
                     <div slot="input-right"
                          class="input-right">
                         <wow-radio
                             @input="handleInput(item, $event, disabled)"
-                            v-if="item.radio"
+                            v-if="item.radio && !disabled"
                             :radio_arr="item.radio"
                             :radio_value="item.value"
                         ></wow-radio>
@@ -86,6 +86,20 @@
             return {
                 disabled: true,
             }
+        },
+        filters: {
+            filterSex (value, key) {
+                if (key === 'sex')
+                    return {'1': '男', '0': '女'}[value] || '';
+                return value;
+            },
+            filterUseRight (value, disabled) {
+                if (value === 'avatar')
+                    return false;
+                if (value !== 'sex')
+                    return true;
+                return disabled;
+            },
         },
         created () {
             this.sourceGet(srcArr);
