@@ -1,5 +1,5 @@
-# wow-switch
+# wow-action-sheet
 
-> Weex 切换组件
+> Weex 弹窗组件
 
 

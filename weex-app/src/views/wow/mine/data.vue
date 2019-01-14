@@ -94,7 +94,6 @@
                 arrOptions: [
                     { src: '', text: '拍照' },
                     { src: '', text: '相册' },
-                    { src: '', text: '相册' },
                 ],
             }
         },
