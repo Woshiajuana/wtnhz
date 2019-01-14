@@ -33,7 +33,7 @@
                             <image
                                 v-if="key === 'avatar'"
                                 class="avatar"
-                                :src="item.value | filterAvatar(src$.def)"
+                                :src="item.value || src$.def"
                             ></image>
                             <wow-arrow
                                 v-if="item.arrow && !disabled"
@@ -119,9 +119,6 @@
                 if (value !== 'sex')
                     return true;
                 return disabled;
-            },
-            filterAvatar (value, def) {
-                return value ? `data:image/png;base64,${value}` : def;
             },
         },
         created () {
