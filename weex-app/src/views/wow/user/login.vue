@@ -2,7 +2,10 @@
     <wow-view view_header_left_src="">
         <div class="wrap">
             <div class="portrait-box">
-                <image class="portrait" :src="src$.banner"></image>
+                <image
+                    class="portrait"
+                    :src="src$.banner"
+                ></image>
             </div>
             <div class="form">
                 <div v-for="(item, key) in objInput$"

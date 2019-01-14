@@ -1,12 +1,18 @@
 <template>
     <div class="wrap">
         <div class="section" @click="routerPush('wow_mine_core', {}, user)">
-            <image class="image" :src="user.avatar || src$.def"></image>
+            <image
+                class="image"
+                :src="user.avatar || src$.def"
+            ></image>
             <div class="info">
                 <template v-if="user">
                     <div class="top">
                         <text class="name">{{user.nickname || user.email}}</text>
-                        <image class="sex" :src="user.sex === '0' ? src$.woman : src$.man"></image>
+                        <image
+                            class="sex"
+                            :src="user.sex === '0' ? src$.woman : src$.man"
+                        ></image>
                     </div>
                     <div class="bottom">
                         <text class="introduce">{{user.introduce || '这个家伙什么都没留下~~~'}}</text>

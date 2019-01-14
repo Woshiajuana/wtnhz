@@ -33,7 +33,7 @@
                             <image
                                 v-if="key === 'avatar'"
                                 class="avatar"
-                                :src="item.value || src$.def"
+                                :src="item.value | filterAvatar(src$.def)"
                             ></image>
                             <wow-arrow
                                 v-if="item.arrow && !disabled"
@@ -60,7 +60,10 @@
             </div>
         </wow-view>
         <wow-action-sheet
-            :action_options="arrOptions"
+            @change="handleChange"
+            @close="actionSheet.is = false"
+            v-if="actionSheet.is"
+            :action_options="actionSheet.options"
         ></wow-action-sheet>
     </div>
 </template>
@@ -75,6 +78,8 @@
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
     import Mixin                        from './data.mixin'
+    import Camera                       from 'plugins/camera.plugin'
+    import Dialogs                      from 'plugins/dialogs.plugin'
 
     const srcArr = [
         { key: 'def', value: 'default-head-icon.png?8', },
@@ -91,10 +96,13 @@
         data () {
             return {
                 disabled: true,
-                arrOptions: [
-                    { src: '', text: '拍照' },
-                    { src: '', text: '相册' },
-                ],
+                actionSheet: {
+                    is: false,
+                    options: [
+                        { src: '', text: '拍照', key: 'take' },
+                        { src: '', text: '相册', key: 'pick' },
+                    ],
+                },
             }
         },
         filters: {
@@ -110,6 +118,9 @@
                     return true;
                 return disabled;
             },
+            filterAvatar (value, def) {
+                return value ? `data:image/png;base64,${value}` : def;
+            },
         },
         created () {
             this.sourceGet(srcArr);
@@ -122,8 +133,19 @@
                 if (this.disabled)
                     return this.disabled = false;
             },
-            handleSelect () {
-
+            handleSelect (key) {
+                if (this.disabled)
+                    return null;
+                if (key === 'avatar')
+                    return this.actionSheet.is = true;
+            },
+            handleChange ({key}) {
+                this.actionSheet.is = false;
+                Camera[key]().then((res) => {
+                    console.log(res);
+                }).catch((err) => {
+                    Dialogs.toast(err);
+                });
             },
         },
         components: {

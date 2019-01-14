@@ -2,6 +2,7 @@
     <div class="wrap"
          @click="handleEmit('close')">
         <div class="inner"
+             ref="inner"
              @click="handleEmit('null')">
             <div class="option"
                  @click="handleEmit('change', item)"
@@ -27,6 +28,9 @@
 <script>
     import Mixin                        from './mixins'
     import EmitMixin                    from './../../mixins/emit.mixin'
+
+    const animation = weex.requireModule('animation');
+
     export default {
         mixins: [
             Mixin,
@@ -36,7 +40,24 @@
             action_options: {
                 default: [],
             }
-        }
+        },
+        mounted () {
+            this.animationRun();
+        },
+        methods: {
+            animationRun () {
+                animation.transition(this.$refs.inner, {
+                    styles: {
+                        opacity: '1',
+                        transform: 'translate(0, 0, 0)',
+                        transformOrigin: 'center center'
+                    },
+                    duration: 200,
+                    timingFunction: 'ease-in',
+                    delay: 0
+                }, () => {})
+            }
+        },
     }
 </script>
 
@@ -59,9 +80,14 @@
         border-bottom-right-radius: 16px;
         border-bottom-left-radius: 16px;
     }
+    .inner{
+        transform: translate(0, 300px);
+        opacity: 0;
+    }
     .option{
         justify-content: center;
         align-items: center;
+        flex-direction: row;
         width: 710px;
         height: 100px;
         background-color: #fff;
@@ -72,7 +98,9 @@
         background-color: #dedede;
     }
     .image{
-
+        width: 48px;
+        height: 48px;
+        margin-right: 8px;
     }
     .text{
         font-size: 32px;
