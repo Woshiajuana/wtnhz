@@ -29,10 +29,24 @@ const Schema = new mongoose.Schema({
         maxlength: 20,
     },
 
+    // 性别  '1' 男， '0' 女，
+    sex: {
+        type: String,
+        trim: true,
+        default: '1',
+    },
+
     // 头像
     avatar: {
         type: String,
         trim: true,
+    },
+
+    // 个性签名
+    autograph: {
+        type: String,
+        trim: true,
+        maxlength: 30,
     },
 
     // 注册信息
@@ -66,3 +80,5 @@ const Schema = new mongoose.Schema({
 });
 
 export default mongoose.model('User', Schema);
+
+export const select = 'email nickname sex avatar autograph create';

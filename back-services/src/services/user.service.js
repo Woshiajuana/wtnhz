@@ -2,7 +2,7 @@
 import jwt                  from 'jsonwebtoken'
 // import svgCaptcha           from 'svg-captcha'
 import CaptchaPng           from 'captchapng'
-import UserModel            from '../models/user.model'
+import UserModel, {select}  from '../models/user.model'
 import redisUtil            from '../utils/redis.util'
 import commonUtil           from '../utils/common.util'
 
@@ -36,7 +36,7 @@ export default {
             ? 'findOne'
             : 'findById';
         const user = await UserModel[key](options)
-            .select('email nickname avatar create')
+            .select(select)
             .lean();
         return user;
     },

@@ -193,6 +193,10 @@ class Controller {
                     ],
                     nickname: [
                         {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                        {
                             rule: (value) => {
                                 let len = value.length;
                                 return len >= 2 && len <= 10;
@@ -200,11 +204,39 @@ class Controller {
                             prompt: '昵称长度为2~10个字符'
                         }
                     ],
-                    avatar: [],
+                    avatar: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
+                    sex: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                        {
+                            rule: (value) => {
+                                return ['1', '0'].indexOf(value) > -1;
+                            },
+                            prompt: '参数格式错误',
+                        },
+                    ],
+                    autograph: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                        {
+                            rule: (value) => {
+                                return value.length <= 30;
+                            },
+                            prompt: '参数不能超过30个字符',
+                        },
+                    ],
                 }
             });
             await userService.update(filterParams);
-            console.log(filterParams)
             let user = await userService.one(filterParams._id);
             ctx.handle$.success(user);
         } catch (err) {
