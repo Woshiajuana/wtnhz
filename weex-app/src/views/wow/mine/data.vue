@@ -1,63 +1,66 @@
 <template>
-    <wow-view
-        :view_header_right_txt="disabled ? '编辑' : '保存'"
-        :view_header_right_txt_style="{color: '#fc5366'}"
-        @right="handleRight"
-        :view_style="{backgroundColor: '#f2f2f2'}"
-        view_header_center_txt="个人信息">
-        <div class="wrap">
-            <template
-                v-for="(item, key) in objInput$">
-                <wow-input-cell
-                    v-if="key !== 'autograph'"
-                    :class="[key === 'avatar' && 'avatar-wrap']"
-                    @input="handleInput(item, $event, disabled)"
-                    @click="handleSelect(key, disabled)"
-                    :key="key"
-                    :input_style="{color: disabled ? '#DEDEDE' : '#333'}"
-                    :input_disabled="disabled"
-                    :input_use="key !== 'job'"
-                    :input_use_right="key | filterUseRight(disabled)"
-                    :input_placeholder="item.placeholder"
-                    :input_label_txt="item.label"
-                    :input_value="item.value | filterSex(key)">
-                    <div slot="input-right"
-                         class="input-right">
-                        <wow-radio
-                            @input="handleInput(item, $event, disabled)"
-                            v-if="item.radio && !disabled"
-                            :radio_arr="item.radio"
-                            :radio_value="item.value"
-                        ></wow-radio>
-                        <image
-                            v-if="key === 'avatar'"
-                            class="avatar"
-                            :src="src$.def"
-                        ></image>
-                        <wow-arrow
-                            v-if="item.arrow && !disabled"
-                        ></wow-arrow>
-                    </div>
-                </wow-input-cell>
-                <div class="textarea-wrap"
-                     v-if="key === 'autograph'">
-                    <div class="textarea-label">
-                        <text class="textarea-label-text">{{item.label}}</text>
-                    </div>
-                    <textarea
-                        class="textarea-value"
-                        placeholder-color="#dedede"
-                        :style="{color: disabled ? '#DEDEDE' : '#333'}"
-                        :rows="3"
-                        :disabled="disabled"
-                        :value="item.value"
-                        :placeholder="item.placeholder"
+    <div>
+        <wow-view
+            :view_header_right_txt="disabled ? '编辑' : '保存'"
+            :view_header_right_txt_style="{color: '#fc5366'}"
+            @right="handleRight"
+            :view_style="{backgroundColor: '#f2f2f2'}"
+            view_header_center_txt="个人信息">
+            <div class="wrap">
+                <template
+                    v-for="(item, key) in objInput$">
+                    <wow-input-cell
+                        v-if="key !== 'autograph'"
+                        :class="[key === 'avatar' && 'avatar-wrap']"
                         @input="handleInput(item, $event, disabled)"
-                    ></textarea>
-                </div>
-            </template>
-        </div>
-    </wow-view>
+                        @click="handleSelect(key, disabled)"
+                        :key="key"
+                        :input_style="{color: disabled ? '#DEDEDE' : '#333'}"
+                        :input_disabled="disabled"
+                        :input_use="key !== 'job'"
+                        :input_use_right="key | filterUseRight(disabled)"
+                        :input_placeholder="item.placeholder"
+                        :input_label_txt="item.label"
+                        :input_value="item.value | filterSex(key)">
+                        <div slot="input-right"
+                             class="input-right">
+                            <wow-radio
+                                @input="handleInput(item, $event, disabled)"
+                                v-if="item.radio && !disabled"
+                                :radio_arr="item.radio"
+                                :radio_value="item.value"
+                            ></wow-radio>
+                            <image
+                                v-if="key === 'avatar'"
+                                class="avatar"
+                                :src="item.value || src$.def"
+                            ></image>
+                            <wow-arrow
+                                v-if="item.arrow && !disabled"
+                            ></wow-arrow>
+                        </div>
+                    </wow-input-cell>
+                    <div class="textarea-wrap"
+                         v-if="key === 'autograph'">
+                        <div class="textarea-label">
+                            <text class="textarea-label-text">{{item.label}}</text>
+                        </div>
+                        <textarea
+                            class="textarea-value"
+                            placeholder-color="#dedede"
+                            :style="{color: disabled ? '#DEDEDE' : '#333'}"
+                            :rows="3"
+                            :disabled="disabled"
+                            :value="item.value"
+                            :placeholder="item.placeholder"
+                            @input="handleInput(item, $event, disabled)"
+                        ></textarea>
+                    </div>
+                </template>
+            </div>
+        </wow-view>
+
+    </div>
 </template>
 
 <script>
