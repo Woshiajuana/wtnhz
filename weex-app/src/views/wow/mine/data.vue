@@ -17,8 +17,8 @@
         <wow-input-cell
             v-for="(item, key) in objInput$"
             :key="key"
-            :input_use="key === 'nickname'"
-            input_placeholder=""
+            :input_use_right="key === 'nickname'"
+            :input_placeholder="item.placeholder"
             :input_label_txt="item.label"
             :input_value="item.value">
             <wow-radio

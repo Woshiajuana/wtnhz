@@ -40,8 +40,6 @@ class Http {
                     data,
                     statusText,
                 } = result;
-                if (status === -1)
-                    return reject('连接超时，请稍后再试');
                 if (status !== 200)
                     return reject('网络繁忙，请稍后再试');
                 resolve(data);
