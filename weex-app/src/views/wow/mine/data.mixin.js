@@ -2,6 +2,19 @@
 const data = () => {
     return {
         objInput$: {
+            // 头像
+            avatar: {
+                value: '',
+                label: '头像',
+                type: 'text',
+                arrow: true,
+                use: [
+                    {
+                        nonempty: true,
+                        prompt: '请输入昵称',
+                    },
+                ],
+            },
             // 昵称
             nickname: {
                 value: '',
