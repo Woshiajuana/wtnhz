@@ -58,6 +58,7 @@
                     </div>
                 </template>
             </div>
+            <text>{{objInput$}}</text>
         </wow-view>
         <wow-action-sheet
             @change="handleChange"
@@ -78,10 +79,12 @@
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
     import Api                          from 'config/api.config'
+    import VerifyUtil                   from 'utils/verify.util'
+    import ExtractUtil                  from 'utils/extract.util'
     import Http                         from 'plugins/http.plugin'
-    import Mixin                        from './data.mixin'
     import Camera                       from 'plugins/camera.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
+    import Mixin                        from './data.mixin'
 
     const srcArr = [
         { key: 'def', value: 'default-head-icon.png?8', },
@@ -131,6 +134,29 @@
             handleRight () {
                 if (this.disabled)
                     return this.disabled = false;
+                if (VerifyUtil.multiple(this.objInput$))
+                    return null;
+                let options = ExtractUtil.input(this.objInput$);
+                return console.log(options)
+                Http(Api.doUpdateUserInfo, options).then(({code, data, msg}) => {
+                    if (code === '1001') {
+                        this.objInput$.captcha.display = true;
+                        this.objInput$.captcha.captcha = `data:image/png;base64,${data}`;
+                        throw msg;
+                    }
+                    if (code !== '0000')
+                        throw msg;
+                    return UserService.upt(data);
+                }).then(() => {
+                    Dialogs.toast('登录成功');
+                    return Modal.close();
+                }).then(() => {
+                    return Router.root();
+                }).catch((err) => {
+                    Dialogs.toast(err);
+                }).finally(() => {
+                    callback();
+                });
             },
             handleSelect (key) {
                 if (this.disabled)
@@ -155,7 +181,7 @@
                 }).catch((err) => {
                     Dialogs.toast(err);
                 });
-            }
+            },
         },
         components: {
             WowView,

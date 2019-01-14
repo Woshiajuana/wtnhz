@@ -4,14 +4,14 @@ const data = () => {
         objInput$: {
             // 头像
             avatar: {
-                value: '',
+                value: '1',
                 label: '头像',
                 type: 'text',
                 arrow: true,
                 use: [
                     {
                         nonempty: true,
-                        prompt: '请输入昵称',
+                        prompt: '请选择头像',
                     },
                 ],
             },
@@ -33,11 +33,11 @@ const data = () => {
                 value: '1',
                 label: '性别',
                 type: 'text',
-                placeholder: '请输入性别',
+                placeholder: '请选择性别',
                 use: [
                     {
                         nonempty: true,
-                        prompt: '请输入性别',
+                        prompt: '请选择性别',
                     },
                 ],
                 radio: [
@@ -45,34 +45,19 @@ const data = () => {
                     { text: '女', value: '0' },
                 ]
             },
-            // 职业
-            job: {
-                value: '9@qq.com',
-                label: '职业',
-                type: 'text',
-                placeholder: '请输入职业',
-                use: [
-                    {
-                        nonempty: true,
-                        prompt: '请输入职业',
-                    },
-                ],
-                arrow: true,
-            },
             // 个性签名
             autograph: {
                 value: '',
-                label: '简介',
+                label: '个性签名',
                 type: 'text',
                 placeholder: '一句话简介自己~~~',
                 use: [
                     {
                         nonempty: true,
-                        prompt: '请输入简介',
+                        prompt: '请输入个性签名',
                     },
                 ],
-            }
-
+            },
         },
     }
 };
