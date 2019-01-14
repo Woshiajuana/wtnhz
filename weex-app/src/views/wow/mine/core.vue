@@ -1,15 +1,17 @@
 <template>
     <wow-view
+        @viewappear="handleViewAppear"
         :view_style="{paddingTop: 0, backgroundColor: '#f2f2f2'}"
         :view_header_wrap_style="{backgroundColor: 'transparent'}">
         <div class="user">
-            <image class="bg"></image>
+            <image class="bg" :src="user$.avatar"></image>
+            <div class="mask"></div>
             <div class="box">
-                <image class="image"></image>
+                <image class="image" :src="user$.avatar || src$.def"></image>
             </div>
             <div class="info">
-                <text class="name">woshiajuana</text>
-                <image class="sex" :src="src$.man"></image>
+                <text class="name">{{user$.nickname}}</text>
+                <image class="sex" :src="user$.sex === '0' ? src$.woman : src$.man"></image>
             </div>
         </div>
         <div class="main">
@@ -41,9 +43,11 @@
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
     import RouterMixin                  from 'mixins/router.mixin'
+    import UserMixin                    from 'mixins/user.mixin'
     import Mixin                        from './core.mixin'
 
     const srcArr = [
+        { key: 'def', value: 'default-head-icon.png?8', },
         { key: 'man', value: 'sex-man-icon.png', },
         { key: 'woman', value: 'sex-woman-icon.png', },
     ];
@@ -51,6 +55,7 @@
     export default {
         mixins: [
             Mixin,
+            UserMixin,
             RouterMixin,
             SourceMixin,
             InputMixin,
@@ -59,11 +64,11 @@
             this.sourceGet(srcArr);
         },
         methods: {
+            handleViewAppear () {
+                this.userGet();
+            },
             handleExit (callback) {
                 UserService.exit().finally(() => {callback();})
-            },
-            handleSelect () {
-
             },
         },
         components: {
@@ -85,10 +90,17 @@
         position: absolute;
         left: 0;
         top: 0;
-        margin-top: -375px;
+        margin-top: -187px;
         width: 750px;
         height: 750px;
-        background-color: #333333;
+    }
+    .mask{
+        position: absolute;
+        width: 750px;
+        height: 375px;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,.5);
     }
     .box{
         width: 130px;
@@ -107,6 +119,7 @@
         margin-top: 20px;
         flex-direction: row;
         align-items: center;
+        height: 44px;
     }
     .name{
         font-size: 36px;
@@ -117,7 +130,6 @@
         width: 30px;
         height: 30px;
     }
-
     .main{
         margin-top: 20px;
         flex: 1;

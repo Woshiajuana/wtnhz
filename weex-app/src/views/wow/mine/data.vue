@@ -83,7 +83,6 @@
     import Http                         from 'plugins/http.plugin'
     import Camera                       from 'plugins/camera.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
-    import UserMixin                    from 'mixins/user.mixin'
     import Mixin                        from './data.mixin'
 
     const srcArr = [
@@ -95,7 +94,6 @@
     export default {
         mixins: [
             Mixin,
-            UserMixin,
             SourceMixin,
             InputMixin,
         ],
@@ -127,12 +125,13 @@
         },
         created () {
             this.sourceGet(srcArr);
-            this.userGet();
             this.assignmentData();
         },
         methods: {
             assignmentData () {
-                ExtractUtil.assignment(this.user$, this.objInput$);
+                UserService.get().then((user) => {
+                    ExtractUtil.assignment(user, this.objInput$);
+                });
             },
             handleRight () {
                 if (this.disabled)
