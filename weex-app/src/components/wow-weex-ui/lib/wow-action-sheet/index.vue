@@ -1,14 +1,13 @@
 <template>
-    <div class="wrap">
-        <div class="inner">
-            <div class="option"
-                 :class="[index === 0 && 'first-child',
-                 index === arrOptions.length - 1 && 'last-child']"
-                 v-for="(item, index) in arrOptions"
-                 :key="index">
-                <image class="image"></image>
-                <text class="text">{{item.text}}</text>
-            </div>
+    <div class="wrap"
+         @click="handleEmit('close')">
+        <div class="option"
+             :class="[index === 0 && 'first-child',
+             index === action_options.length - 1 && 'last-child']"
+             v-for="(item, index) in action_options"
+             :key="index">
+            <image class="image"></image>
+            <text class="text">{{item.text}}</text>
         </div>
         <div class="option button">
             <text class="button-text">取消</text>
@@ -17,14 +16,15 @@
 </template>
 
 <script>
+    import Mixin                        from './mixins'
+    import EmitMixin                    from './../../mixins/emit.mixin'
     export default {
-        data () {
-            return {
-                arrOptions: [
-                    { src: '', text: '拍照' },
-                    { src: '', text: '相册' },
-                    { src: '', text: '相册' },
-                ]
+        mixins: [
+            EmitMixin,
+        ],
+        props: {
+            action_options: {
+                default: [],
             }
         }
     }
@@ -40,10 +40,6 @@
         background-color: rgba(0, 0, 0, .3);
         justify-content: flex-end;
         align-items: center;
-    }
-    .inner{
-        border-radius: 16px;
-        overflow: hidden;
     }
     .first-child{
         border-top-right-radius: 16px;

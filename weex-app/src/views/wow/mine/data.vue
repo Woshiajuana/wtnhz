@@ -59,7 +59,9 @@
                 </template>
             </div>
         </wow-view>
-
+        <wow-action-sheet
+            :action_options="arrOptions"
+        ></wow-action-sheet>
     </div>
 </template>
 
@@ -68,6 +70,7 @@
     import WowRadio                     from 'wow-weex-ui/lib/wow-radio'
     import WowArrow                     from 'wow-weex-ui/lib/wow-arrow'
     import WowInputCell                 from 'wow-weex-ui/lib/wow-input-cell'
+    import WowActionSheet               from 'components/wow-weex-ui/lib/wow-action-sheet'
     import UserService                  from 'services/user.service'
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
@@ -88,6 +91,11 @@
         data () {
             return {
                 disabled: true,
+                arrOptions: [
+                    { src: '', text: '拍照' },
+                    { src: '', text: '相册' },
+                    { src: '', text: '相册' },
+                ],
             }
         },
         filters: {
@@ -124,6 +132,7 @@
             WowArrow,
             WowRadio,
             WowInputCell,
+            WowActionSheet,
         },
     }
 </script>
