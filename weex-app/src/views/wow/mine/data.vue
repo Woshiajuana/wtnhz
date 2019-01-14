@@ -49,14 +49,16 @@
                 </div>
                 <textarea
                     class="textarea-value"
+                    placeholder-color="#dedede"
+                    :style="{color: disabled ? '#DEDEDE' : '#333'}"
                     :rows="3"
+                    :disabled="disabled"
                     :value="item.value"
                     :placeholder="item.placeholder"
                     @input="handleInput(item, $event, disabled)"
                 ></textarea>
             </div>
         </template>
-        <text>{{objInput$}}</text>
         <div class="null"></div>
         <wow-button
             @click="handleButton"
@@ -135,10 +137,10 @@
                     },
                     // 一句话简介自己
                     introduce: {
-                        value: '暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介',
+                        value: '',
                         label: '简介',
                         type: 'text',
-                        placeholder: '暂无简介',
+                        placeholder: '一句话简介自己~~~',
                         use: [
                             {
                                 nonempty: true,
