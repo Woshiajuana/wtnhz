@@ -4,7 +4,7 @@ const data = () => {
         objInput$: {
             // 头像
             avatar: {
-                value: '1',
+                value: '',
                 label: '头像',
                 type: 'text',
                 arrow: true,

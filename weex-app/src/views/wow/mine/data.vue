@@ -58,7 +58,6 @@
                     </div>
                 </template>
             </div>
-            <text>{{objInput$}}</text>
         </wow-view>
         <wow-action-sheet
             @change="handleChange"
@@ -84,6 +83,7 @@
     import Http                         from 'plugins/http.plugin'
     import Camera                       from 'plugins/camera.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
+    import UserMixin                    from 'mixins/user.mixin'
     import Mixin                        from './data.mixin'
 
     const srcArr = [
@@ -95,6 +95,7 @@
     export default {
         mixins: [
             Mixin,
+            UserMixin,
             SourceMixin,
             InputMixin,
         ],
@@ -126,10 +127,12 @@
         },
         created () {
             this.sourceGet(srcArr);
+            this.userGet();
+            this.assignmentData();
         },
         methods: {
-            handleButton (callback) {
-                UserService.exit().finally(() => {callback();})
+            assignmentData () {
+                ExtractUtil.assignment(this.user$, this.objInput$);
             },
             handleRight () {
                 if (this.disabled)
@@ -137,25 +140,13 @@
                 if (VerifyUtil.multiple(this.objInput$))
                     return null;
                 let options = ExtractUtil.input(this.objInput$);
-                return console.log(options)
                 Http(Api.doUpdateUserInfo, options).then(({code, data, msg}) => {
-                    if (code === '1001') {
-                        this.objInput$.captcha.display = true;
-                        this.objInput$.captcha.captcha = `data:image/png;base64,${data}`;
-                        throw msg;
-                    }
                     if (code !== '0000')
                         throw msg;
-                    return UserService.upt(data);
-                }).then(() => {
-                    Dialogs.toast('登录成功');
-                    return Modal.close();
-                }).then(() => {
-                    return Router.root();
+                    Dialogs.toast('保存成功');
+                    return this.disabled = true;
                 }).catch((err) => {
                     Dialogs.toast(err);
-                }).finally(() => {
-                    callback();
                 });
             },
             handleSelect (key) {
