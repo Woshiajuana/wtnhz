@@ -77,6 +77,8 @@
     import UserService                  from 'services/user.service'
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
+    import Api                          from 'config/api.config'
+    import Http                         from 'plugins/http.plugin'
     import Mixin                        from './data.mixin'
     import Camera                       from 'plugins/camera.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
@@ -142,11 +144,20 @@
             handleChange ({key}) {
                 this.actionSheet.is = false;
                 Camera[key]().then((res) => {
-                    console.log(res);
+                    return Http(Api.doUploadPicture, {
+                        base64: res.base64,
+                        suffix: 'png',
+                        action: 'head',
+                    });
+                }).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    Dialogs.toast('上传成功');
+                    this.objInput$.avatar.value = data.path;
                 }).catch((err) => {
                     Dialogs.toast(err);
                 });
-            },
+            }
         },
         components: {
             WowView,
@@ -173,6 +184,7 @@
         margin-bottom: 20px;
         width: 120px;
         height: 120px;
+        border-radius: 120px;
     }
     .textarea-wrap{
         padding-left: 32px;
