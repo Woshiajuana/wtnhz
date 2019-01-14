@@ -1,6 +1,7 @@
 <template>
     <wow-view
-        view_header_right_txt="修改资料"
+        :view_header_right_txt="disabled ? '修改资料' : '保存资料'"
+        @right="handleRight"
         :view_header_right_txt_style="{color: '#fc5366'}"
         :view_style="{paddingTop: 0}"
         :view_header_wrap_style="{backgroundColor: 'transparent'}">
@@ -14,25 +15,48 @@
                 <image class="sex" :src="src$.man"></image>
             </div>
         </div>
-        <wow-input-cell
-            v-for="(item, key) in objInput$"
-            :key="key"
-            :input_use_right="key === 'nickname'"
-            :input_placeholder="item.placeholder"
-            :input_label_txt="item.label"
-            :input_value="item.value">
-            <wow-radio
-                @input="handleInput(item, $event)"
-                slot="input-right"
-                v-if="item.radio"
-                :radio_arr="item.radio"
-                :radio_value="item.value"
-            ></wow-radio>
-            <wow-arrow
-                v-if="item.arrow"
-                slot="input-right"
-            ></wow-arrow>
-        </wow-input-cell>
+
+        <template
+            v-for="(item, key) in objInput$">
+            <wow-input-cell
+                v-if="key !== 'introduce'"
+                @input="handleInput(item, $event, disabled)"
+                @click="handleSelect(key, disabled)"
+                :key="key"
+                :input_style="{color: disabled ? '#DEDEDE' : '#333'}"
+                :input_disabled="disabled"
+                :input_use="key !== 'job'"
+                :input_use_right="key !== 'sex'"
+                :input_placeholder="item.placeholder"
+                :input_label_txt="item.label"
+                :input_value="item.value">
+                <wow-radio
+                    @input="handleInput(item, $event, disabled)"
+                    slot="input-right"
+                    v-if="item.radio"
+                    :radio_arr="item.radio"
+                    :radio_value="item.value"
+                ></wow-radio>
+                <wow-arrow
+                    v-if="item.arrow && !disabled"
+                    slot="input-right"
+                ></wow-arrow>
+            </wow-input-cell>
+            <div class="textarea-wrap"
+                 v-if="key === 'introduce'">
+                <div class="textarea-label">
+                    <text class="textarea-label-text">{{item.label}}</text>
+                </div>
+                <textarea
+                    class="textarea-value"
+                    :rows="3"
+                    :value="item.value"
+                    :placeholder="item.placeholder"
+                    @input="handleInput(item, $event, disabled)"
+                ></textarea>
+            </div>
+        </template>
+        <text>{{objInput$}}</text>
         <div class="null"></div>
         <wow-button
             @click="handleButton"
@@ -67,10 +91,10 @@
                 objInput$: {
                     // 昵称
                     nickname: {
-                        value: '9@qq.com',
+                        value: '',
                         label: '昵称',
                         type: 'text',
-                        placeholder: '请输入昵称',
+                        placeholder: '暂无昵称',
                         use: [
                             {
                                 nonempty: true,
@@ -109,11 +133,38 @@
                         ],
                         arrow: true,
                     },
-                }
+                    // 一句话简介自己
+                    introduce: {
+                        value: '暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介暂无简介',
+                        label: '简介',
+                        type: 'text',
+                        placeholder: '暂无简介',
+                        use: [
+                            {
+                                nonempty: true,
+                                prompt: '请输入简介',
+                            },
+                        ],
+                    }
+
+                },
+                disabled: true,
             }
         },
         created () {
             this.sourceGet(srcArr);
+        },
+        methods: {
+            handleButton (callback) {
+                UserService.exit().finally(() => {callback();})
+            },
+            handleRight () {
+                if (this.disabled)
+                    return this.disabled = false;
+            },
+            handleSelect () {
+
+            },
         },
         components: {
             WowView,
@@ -122,11 +173,6 @@
             WowRadio,
             WowInputCell,
         },
-        methods: {
-            handleButton (callback) {
-                UserService.exit().finally(() => {callback();})
-            }
-        }
     }
 </script>
 
@@ -177,5 +223,28 @@
     }
     .button{
         margin-bottom: 80px;
+    }
+    .textarea-wrap{
+        padding-left: 32px;
+        padding-right: 32px;
+        padding-bottom: 26px;
+        border-bottom-width: 1px;
+        border-color: #dedede;
+    }
+    .textarea-label{
+        height: 100px;
+        flex-direction: row;
+        align-items: center;
+    }
+    .textarea-label-text{
+        font-size: 32px;
+        color: #333;
+    }
+    .textarea-value{
+        flex: 1;
+        height: 132px;
+        font-size: 32px;
+        color: #333;
+        line-height: 44px;
     }
 </style>

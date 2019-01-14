@@ -1,6 +1,7 @@
 
 const methods = {
-    handleInput (key, event) {
+    handleInput (key, event, disabled) {
+        if (disabled) return;
         let value = typeof event === 'object'
             ? event.value
             : event;
