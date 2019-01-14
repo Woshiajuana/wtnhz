@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <div class="section" @click="routerPush('wow_mine_data', {}, user)">
+        <div class="section" @click="routerPush('wow_mine_core', {}, user)">
             <image class="image" :src="user.avatar || src$.def"></image>
             <div class="info">
                 <template v-if="user">
