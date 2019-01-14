@@ -1,5 +1,8 @@
 
-import UserService                      from 'services/user.service'
+import UserService                  from 'services/user.service'
+import Http                         from 'plugins/http.plugin'
+import Api                          from 'config/api.config'
+import Dialogs                      from 'plugins/dialogs.plugin'
 
 const data = () => {
     return {
@@ -19,6 +22,20 @@ const methods = {
                 reject(err);
             })
         });
+    },
+    userReq () {
+        Http(Api.reqUserInfo).then(({code, data, msg}) => {
+            if (code !== '0000')
+                throw msg;
+            return UserService.upt(data);
+        }).then(() => {
+            return this.userGet();
+        }).then((user) => {
+            return Promise.resolve(user);
+        }).catch((err) => {
+            Dialogs.toast(err);
+            return Promise.reject(err);
+        })
     },
 };
 

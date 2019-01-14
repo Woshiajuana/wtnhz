@@ -22,4 +22,6 @@ export default {
     // 修改用户信息
     doUpdateUserInfo: '/app/user/update',
 
+    // 获取用户信息
+    reqUserInfo: '/app/user/info'
 }

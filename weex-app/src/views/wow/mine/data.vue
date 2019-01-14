@@ -143,7 +143,10 @@
                     if (code !== '0000')
                         throw msg;
                     Dialogs.toast('保存成功');
-                    return this.disabled = true;
+                    this.disabled = true;
+                    return UserService.upt(options);
+                }).then(() => {
+                    return UserService.store.upt('avatar', options.avatar);
                 }).catch((err) => {
                     Dialogs.toast(err);
                 });

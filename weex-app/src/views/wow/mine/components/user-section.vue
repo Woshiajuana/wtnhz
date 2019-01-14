@@ -15,7 +15,7 @@
                         ></image>
                     </div>
                     <div class="bottom">
-                        <text class="introduce">{{user.introduce || '这个家伙什么都没留下~~~'}}</text>
+                        <text class="autograph">{{user.autograph || '这个家伙什么都没留下~~~'}}</text>
                     </div>
                 </template>
                 <text v-if="!user" class="prompt">点击登录</text>
@@ -106,7 +106,7 @@
     .bottom{
         margin-top: 10px;
     }
-    .introduce{
+    .autograph{
         font-size: 20px;
         color: #999;
     }
