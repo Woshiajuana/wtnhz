@@ -144,11 +144,12 @@
             handleChange ({key}) {
                 this.actionSheet.is = false;
                 Camera[key]().then((res) => {
-                    return Http(Api.doUploadPicture, {
+                    let options = {
                         base64: res.base64,
                         suffix: 'png',
                         action: 'head',
-                    });
+                    };
+                    return Http(Api.doUploadPicture, options, {timeout: 60 * 1000});
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;

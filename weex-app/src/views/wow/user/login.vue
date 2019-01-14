@@ -93,7 +93,7 @@
                 if (VerifyUtil.multiple(this.objInput$))
                     return callback();
                 let options = ExtractUtil.input(this.objInput$);
-                Http(Api.doUserLogin, options).then(({code, data, msg}) => {
+                Http(Api.doUserLogin, options, { auth: false }).then(({code, data, msg}) => {
                     if (code === '1001') {
                         this.objInput$.captcha.display = true;
                         this.objInput$.captcha.captcha = `data:image/png;base64,${data}`;
@@ -118,7 +118,7 @@
                 if (VerifyUtil.single(this.objInput$.email))
                     return null;
                 let options = ExtractUtil.input(this.objInput$);
-                Http(Api.doRefreshCaptcha, options).then(({code, data, msg}) => {
+                Http(Api.doRefreshCaptcha, options, { auth: false }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
                     item.display = true;

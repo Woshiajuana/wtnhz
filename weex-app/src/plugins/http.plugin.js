@@ -1,6 +1,7 @@
 
 import Loading                          from 'plugins/loading.plugin'
 import EnvConfig                        from 'config/env.config'
+import UserService                      from 'services/user.service'
 
 const Stream = weex.requireModule('stream');
 
@@ -24,26 +25,51 @@ class Http {
     }
     _fetch () {
         return new Promise((resolve, reject) => {
-            this.api = this.options.method === 'GET'
-                ? EnvConfig.API_URL + this.api + urlEncode(this.body)
-                : EnvConfig.API_URL + this.api;
-            this._log(`请求参数`, this.body);
-            let reqBody = {
-                ...this.options,
-                url: this.api,
-                body: JSON.stringify(this.body),
-            };
-            Stream.fetch(reqBody, result => {
-                console.log(result);
+            let token;
+            UserService.get().then((user) => {
+                token = user.token;
+            }).catch(() => {
+                token = '';
+            }).finally(() => {
                 let {
-                    status,
-                    data,
-                    statusText,
-                } = result;
-                if (status !== 200)
-                    return reject('网络繁忙，请稍后再试');
-                resolve(data);
+                    auth,
+                    method,
+                } = this.options;
+                if (auth && !token) {
+                    reject('您还未登录，请先登录');
+                    return UserService.exit();
+                }
+                this.api = method === 'GET'
+                    ? EnvConfig.API_URL + this.api + urlEncode(this.body)
+                    : EnvConfig.API_URL + this.api;
+                if (token)
+                    this.body.token = token;
+                this._log(`请求参数`, this.body);
+                let reqBody = {
+                    ...this.options,
+                    url: this.api,
+                    body: JSON.stringify(this.body),
+                };
+                Stream.fetch(reqBody, result => {
+                    let {
+                        status,
+                        data,
+                        statusText,
+                    } = result;
+                    if (status !== 200)
+                        return reject('网络繁忙，请稍后再试');
+                    let {
+                        code,
+                        msg
+                    } = data;
+                    if (code === '9999') {
+                        reject(msg);
+                        return UserService.exit();
+                    }
+                    resolve(data);
+                });
             });
+
         })
     }
     _log () {

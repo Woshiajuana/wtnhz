@@ -74,7 +74,7 @@
                 if (VerifyUtil.single(this.objInput$.email))
                     return null;
                 let options = ExtractUtil.input(this.objInput$);
-                Http(Api.doFetchVerifyCode, options).then(({code, data, msg}) => {
+                Http(Api.doFetchVerifyCode, options, { auth: false }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
                     Dialogs.toast('发送验证码成功');
@@ -88,7 +88,7 @@
                 if (VerifyUtil.multiple(this.objInput$))
                     return callback();
                 let options = ExtractUtil.input(this.objInput$);
-                Http(Api.doUserForgot, options).then(({code, data, msg}) => {
+                Http(Api.doUserForgot, options, { auth: false }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
                     Dialogs.toast('设置成功');
