@@ -4,7 +4,7 @@
             <div class="portrait-box">
                 <image
                     class="portrait"
-                    :src="src$.banner"
+                    :src="avatar || src$.def"
                 ></image>
             </div>
             <div class="form">
@@ -66,8 +66,7 @@
     import InputBox                     from './components/input-box.vue'
 
     const srcArr = [
-        { key: 'banner', value: 'login-banner-2.png', },
-        { key: 'mask', value: 'triangle-block.png', },
+        { key: 'def', value: 'default-head-icon.png?8', },
     ];
 
     export default {
@@ -78,6 +77,11 @@
             InputMixin,
             RouterMixin,
         ],
+        data () {
+            return {
+                avatar: '',
+            }
+        },
         computed: {
             computedDisabled () {
                 let result = VerifyUtil.multiple(this.objInput$, 'nonempty');
@@ -93,7 +97,11 @@
             inputCallback (key, event) {
                 if (key !== 'email')
                     return null;
-
+                Store.get(`${event.value.trim()}_avatar`).then((res) => {
+                    this.avatar = res;
+                }).catch(() => {
+                    this.avatar = '';
+                })
             },
             // 登录
             handleSubmit (callback) {
