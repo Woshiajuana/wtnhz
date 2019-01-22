@@ -106,7 +106,6 @@
                     }
                     if (code !== '0000')
                         throw msg;
-                    console.log(`${data.email}_avatar`, data.avatar)
                     Store.set(`${data.email}_avatar`, data.avatar);
                     return UserService.upt(data);
                 }).then(() => {
