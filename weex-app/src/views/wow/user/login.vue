@@ -93,16 +93,6 @@
             this.sourceGet(srcArr);
         },
         methods: {
-            // inputCallback
-            inputCallback (key, event) {
-                if (key !== 'email')
-                    return null;
-                Store.get(`${event.value.trim()}_avatar`).then((res) => {
-                    this.avatar = res;
-                }).catch(() => {
-                    this.avatar = '';
-                })
-            },
             // 登录
             handleSubmit (callback) {
                 if (VerifyUtil.multiple(this.objInput$))
@@ -116,6 +106,8 @@
                     }
                     if (code !== '0000')
                         throw msg;
+                    console.log(`${data.email}_avatar`, data.avatar)
+                    Store.set(`${data.email}_avatar`, data.avatar);
                     return UserService.upt(data);
                 }).then(() => {
                     Dialogs.toast('登录成功');
@@ -143,11 +135,16 @@
                 });
             },
             // 输入框验证
-            inputCallback (item) {
+            inputCallback (item, event) {
                 if (item.label !== '邮箱')
                     return null;
                 this.objInput$.captcha.display = false;
                 this.objInput$.captcha.captcha = '';
+                Store.get(`${event}_avatar`).then((res) => {
+                    this.avatar = res;
+                }).catch(() => {
+                    this.avatar = '';
+                })
             },
         },
         components: {
