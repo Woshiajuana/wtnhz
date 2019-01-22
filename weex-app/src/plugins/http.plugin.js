@@ -44,13 +44,14 @@ class Http {
                     : EnvConfig.API_URL + this.api;
                 if (token)
                     this.body.token = token;
-                this._log(`请求参数`, this.body);
+                this._log(`请求参数=> `, this.body);
                 let reqBody = {
                     ...this.options,
                     url: this.api,
                     body: JSON.stringify(this.body),
                 };
                 Stream.fetch(reqBody, result => {
+                    this._log(`请求返回结果=> `, result);
                     let {
                         status,
                         data,
@@ -62,6 +63,7 @@ class Http {
                         code,
                         msg
                     } = data;
+                    this._log(`请求格式结果=> `, data);
                     if (code === '9999') {
                         reject(msg);
                         return UserService.exit();

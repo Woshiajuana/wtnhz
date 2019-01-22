@@ -24,8 +24,6 @@
             handleViewAppear () {
                 StorePlugin.remove('MODAL_TYPE').then(() => {
                     return this.userGet();
-                }).then((info) => {
-                    console.log(info);
                 }).catch(() => {
                     UserService.login();
                 });
