@@ -81,6 +81,7 @@
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
     import Http                         from 'plugins/http.plugin'
+    import Store                        from 'plugins/store.plugin'
     import Camera                       from 'plugins/camera.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
     import Mixin                        from './data.mixin'
@@ -144,9 +145,8 @@
                         throw msg;
                     Dialogs.toast('保存成功');
                     this.disabled = true;
-                    return UserService.upt(options);
-                }).then(() => {
-                    return UserService.store.upt('avatar', options.avatar);
+                    Store.set(`${data.email}_avatar`, data.avatar);
+                    return UserService.upt(data);
                 }).catch((err) => {
                     Dialogs.toast(err);
                 });

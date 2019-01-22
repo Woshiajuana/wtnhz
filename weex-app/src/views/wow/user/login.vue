@@ -58,6 +58,7 @@
     import Router                       from 'plugins/router.plugin'
     import Api                          from 'config/api.config'
     import Http                         from 'plugins/http.plugin'
+    import Store                        from 'plugins/store.plugin'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
     import UserService                  from 'services/user.service'
@@ -88,6 +89,12 @@
             this.sourceGet(srcArr);
         },
         methods: {
+            // inputCallback
+            inputCallback (key, event) {
+                if (key !== 'email')
+                    return null;
+
+            },
             // 登录
             handleSubmit (callback) {
                 if (VerifyUtil.multiple(this.objInput$))
