@@ -7,19 +7,19 @@ export default {
 
     // mongodb数据库配置
     MONGO_DB: {
-        host: 'mongo.xiaomiqiu.com',
-        port: '80',
+        host: '47.95.202.71',
+        port: '27017',
         db: 'wtnhz',
         options: {
-            username: '',
-            password: '',
+            username: 'admin',
+            password: 'admin123',
         },
     },
 
     // redis数据库配置
     REDIS: {
-        host: 'redis.xiaomiqiu.com',
-        port: '80',
+        host: 'localhost',
+        port: '6379',
         db: '0',
         family: 'IPv4',
         pass: 'zbDHVaWOgMdV4rPQ3wETRYfRFjlEos83',
@@ -37,6 +37,15 @@ export default {
         }
     },
 
+    // ftp服务器配置
+    FTP: {
+        host: '47.95.202.71',
+        port: '21',
+        user: 'wtnhzftp',
+        password: 'wtnhzftp123',
+        baseUrl: 'http://47.95.202.71:48430/'
+    },
+
     // 公共资源目录
-    ASSETS_PATH: path.join(__dirname, '../../assets/')
+    ASSETS_PATH: path.join(__dirname, '../../assets/'),
 }

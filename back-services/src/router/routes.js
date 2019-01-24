@@ -163,39 +163,39 @@ export default [
                 ],
             },
             // 关注
-            {
-                path: '/follow',
-                request: {
-                    post: [
-                        {
-                            controller: 'auth',
-                            method: 'check',
-                        },
-                        {
-                            controller: 'follow',
-                            method: 'follow',
-                        },
-                    ]
-                },
-                children: [
-                    {
-                        path: '/info',
-                        request: {
-                            post: [
-                                {
-                                    controller: 'auth',
-                                    method: 'check',
-                                },
-                                {
-                                    controller: 'follow',
-                                    method: 'info',
-                                },
-                            ]
-                        },
-                    },
-
-                ]
-            }
+            // {
+            //     path: '/follow',
+            //     request: {
+            //         post: [
+            //             {
+            //                 controller: 'auth',
+            //                 method: 'check',
+            //             },
+            //             {
+            //                 controller: 'follow',
+            //                 method: 'follow',
+            //             },
+            //         ]
+            //     },
+            //     children: [
+            //         {
+            //             path: '/info',
+            //             request: {
+            //                 post: [
+            //                     {
+            //                         controller: 'auth',
+            //                         method: 'check',
+            //                     },
+            //                     {
+            //                         controller: 'follow',
+            //                         method: 'info',
+            //                     },
+            //                 ]
+            //             },
+            //         },
+            //
+            //     ]
+            // }
         ]
     }
 ]
