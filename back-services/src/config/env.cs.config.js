@@ -9,10 +9,10 @@ export default {
     MONGO_DB: {
         host: '47.95.202.71',
         port: '27017',
-        db: 'wtnhz',
+        db: 'admin1',
         options: {
-            user: 'admin',
-            pass: 'admin123',
+            username: 'admin11',
+            password: 'admin1231xx',
         },
     },
 
