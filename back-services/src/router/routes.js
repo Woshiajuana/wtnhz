@@ -4,20 +4,8 @@ export default [
     // /app
     {
         path: '/app',
-        request: {
-            get: [
-                {
-                    controller: 'question.app',
-                    method: 'hello',
-                },
-                {
-                    controller: 'question.app',
-                    method: 'test',
-                }
-            ],
-        },
         children: [
-            // /user
+            // 用户
             {
                 path: '/user',
                 children: [
@@ -123,6 +111,7 @@ export default [
                     },
                 ],
             },
+            // 上传
             {
                 path: '/upload',
                 children: [
@@ -172,6 +161,40 @@ export default [
                         }
                     },
                 ],
+            },
+            // 关注
+            {
+                path: '/follow',
+                request: {
+                    post: [
+                        {
+                            controller: 'auth',
+                            method: 'check',
+                        },
+                        {
+                            controller: 'follow',
+                            method: 'follow',
+                        },
+                    ]
+                },
+                children: [
+                    {
+                        path: '/info',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'follow',
+                                    method: 'info',
+                                },
+                            ]
+                        },
+                    },
+
+                ]
             }
         ]
     }
