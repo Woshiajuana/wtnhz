@@ -1,7 +1,7 @@
 
-import mongoose                 from 'mongoose'
-
 // 用户表
+
+import mongoose                 from 'mongoose'
 
 const Schema = new mongoose.Schema({
 
