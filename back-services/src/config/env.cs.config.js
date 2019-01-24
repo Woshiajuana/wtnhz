@@ -11,8 +11,8 @@ export default {
         port: '27017',
         db: 'wtnhz',
         options: {
-            username: 'admin',
-            password: 'admin123',
+            user: 'admin',
+            pass: 'admin123',
         },
     },
 
