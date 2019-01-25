@@ -9,16 +9,16 @@ export default {
     MONGO_DB: {
         host: '47.95.202.71',
         port: '27017',
-        db: 'admin1',
+        db: 'wtnhz',
         options: {
-            username: 'admin11',
-            password: 'admin1231xx',
+            user: 'wtnhz',
+            pass: 'wtnhz123',
         },
     },
 
     // redis数据库配置
     REDIS: {
-        host: 'localhost',
+        host: '47.95.202.71',
         port: '6379',
         db: '0',
         family: 'IPv4',
@@ -32,6 +32,8 @@ export default {
         secureConnection: true, // 使用 SSL
         port: 465, // SMTP 端口
         auth: {
+            // user: 'woshiajuana@aliyun.com',
+            // pass: 'Qq7758258/'
             user: 'zhigang.chen@owulia.com',
             pass: 'liujiaoyan1120/'
         }

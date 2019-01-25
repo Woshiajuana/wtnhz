@@ -21,6 +21,7 @@ const connect = () => new Promise(async (resolve, reject) => {
             pass,
         } = REDIS;
         const client = redis.createClient({ host, port, family, db });
+        pass && client.auth(pass);
         client.on('connect', () => {
             redisClient = client;
             resolve(client)

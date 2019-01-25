@@ -11,8 +11,8 @@ export default {
         port: '27017',
         db: 'wtnhz',
         options: {
-            username: '',
-            password: '',
+            user: '',
+            pass: '',
         },
     },
 
@@ -22,7 +22,7 @@ export default {
         port: '6379',
         db: '0',
         family: 'IPv4',
-        pass: 'zbDHVaWOgMdV4rPQ3wETRYfRFjlEos83',
+        pass: '',
     },
 
     // mail邮箱配置
