@@ -1,6 +1,7 @@
 
 import fs_extra from 'fs-extra'
 import path from 'path'
+import baseConfig from './config/base.config'
 import {
     log
 } from 'wow-cmd'
@@ -16,16 +17,17 @@ const Handle = (options, data) => new Promise((resolve, reject) => {
         env = require('./config/release.config');
     let ipConfig = require('./config/ip.config').default;
     let appConfig = require('./config/app.config').default;
+    let base = baseConfig[env] || `http://${ipConfig}:42580/dist/${env}`;
     let outTree = Object.assign({
         app: 'app',
-        base: `http://${ipConfig}:32580/dist/${env}`,
+        base,
         version: '0.0.1',
         entry: 'app',
         resource: {},
     }, appConfig);
     let oldOutTree = Object.assign({
         app: 'app',
-        base: `http://${ipConfig}:32580/dist/${env}`,
+        base,
         version: '0.0.1',
         entry: 'app',
         resource: {},
