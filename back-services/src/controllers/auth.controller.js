@@ -30,7 +30,7 @@ class Controller {
             const reply = await redisUtil.getItem(`${_id} token`);
             const user = await userService.one(_id);
             if (!reply || !_id || !user || reply !== token)
-                throw '无效token，请重新登录';
+                throw { msg: '无效token，请重新登录', code: '-1' };
             ctx.request.body._id = _id;
             await next();
         } catch (err) {

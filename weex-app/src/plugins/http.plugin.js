@@ -55,7 +55,6 @@ class Http {
                     let {
                         status,
                         data,
-                        statusText,
                     } = result;
                     if (status !== 200)
                         return reject('网络繁忙，请稍后再试');
@@ -64,7 +63,8 @@ class Http {
                         msg
                     } = data;
                     this._log(`请求格式结果=> `, data);
-                    if (code === '9999') {
+                    if (code === '-1') {
+                        // token失效
                         reject(msg);
                         return UserService.exit();
                     }
