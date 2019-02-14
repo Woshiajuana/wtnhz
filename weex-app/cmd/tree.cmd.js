@@ -17,7 +17,7 @@ const Handle = (options, data) => new Promise((resolve, reject) => {
         env = require('./config/release.config');
     let ipConfig = require('./config/ip.config').default;
     let appConfig = require('./config/app.config').default;
-    let base = baseConfig[env] || `http://${ipConfig}:42580/dist/${env}`;
+    let base = baseConfig[env] || `http://${ipConfig}:32580/dist/${env}`;
     let outTree = Object.assign({
         app: 'app',
         base,
