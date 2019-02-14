@@ -110,16 +110,12 @@
                     return UserService.upt(data);
                 }).then(() => {
                     Dialogs.toast('登录成功');
-                    console.log(1)
                     return Modal.close();
                 }).then(() => {
-                    console.log(2)
                     return Router.root();
                 }).catch((err) => {
-                    console.log(3)
                     Dialogs.toast(err);
                 }).finally(() => {
-                    console.log(4)
                     callback();
                 });
             },
