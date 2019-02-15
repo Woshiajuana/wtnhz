@@ -6,7 +6,10 @@ import Channel                      from 'plugins/channel.plugin'
 const data = () => {
     return {
         channel$: {
-            
+            EVENT: {
+                $$USER_EXIT: '$$USER_EXIT', // 用户退出
+            },
+            _registered: []
         },
     }
 };
@@ -15,7 +18,9 @@ const methods = {
 
     // 监听事件
     channelAdd (event, callback) {
-        this.channel$.push({ event, callback });
+        if (this.channel$.EVENT[event])
+            throw '事件未注册';
+        this.channel$._registered.push({ event, callback });
         Channel.add(event, callback);
     },
 
@@ -26,11 +31,11 @@ const methods = {
 
     // 销毁事件
     disMonitorEvent () {
-        this.channel$.forEach((item) => {
+        this.channel$._registered.forEach((item) => {
             let { event } = item;
             Channel.remove(event);
         });
-        this.channel$ = [];
+        this.channel$._registered = [];
     },
 };
 
