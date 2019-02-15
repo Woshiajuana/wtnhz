@@ -11,7 +11,8 @@ const DEFAULT_OPTIONS = {
     },
     method: 'POST',
     mode: 'fetch',
-    auth: true,
+    useToken: true,             // 是否需要token
+    useExit: true,              // 是否执行退出
     timeout: 10000,
     type: 'json',
 };
@@ -32,12 +33,13 @@ class Http {
                 token = '';
             }).finally(() => {
                 let {
-                    auth,
+                    useToken,
+                    useExit,
                     method,
                 } = this.options;
-                if (auth && !token) {
-                    reject('您还未登录，请先登录');
-                    return UserService.exit();
+                if (useToken && !token) {
+                    useExit ? reject('您还未登录，请先登录') : reject();
+                    return useExit ? UserService.exit() : null;
                 }
                 this.api = method === 'GET'
                     ? EnvConfig.API_URL + this.api + urlEncode(this.body)
