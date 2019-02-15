@@ -8,5 +8,5 @@ export default {
 
   remove: $event => channel.removeEventListener(app_user + '_' + $event),
 
-  post: ($event, input) => channel.postMessage(app_user + '_' + $event, input),
+  post: ($event, input = {}) => channel.postMessage(app_user + '_' + $event, input),
 };

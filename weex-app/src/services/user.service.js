@@ -2,6 +2,7 @@
 import Store                        from 'plugins/store.plugin'
 import Modal                        from 'plugins/modal.plugin'
 import Router                       from 'plugins/router.plugin'
+import Channel                      from 'plugins/channel.plugin'
 
 const AUTH_KEY_NAME = 'AUTH_KEY_NAME';
 const AUTH_USER_STORE_KEY_NAME = 'AUTH_USER_STORE_KEY_NAME';
@@ -28,6 +29,8 @@ const exit = () => {
         Store.remove(AUTH_USER_CACHE_KEY_NAME),
     ]).then(() => {
         return Router.root();
+    }).then(() => {
+        return Channel.post('$$USER_EXIT');
     }).then(() => {
         return Promise.resolve();
     }).catch((err) => {

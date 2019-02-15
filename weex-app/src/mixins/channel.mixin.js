@@ -18,7 +18,7 @@ const methods = {
 
     // 监听事件
     channelAdd (event, callback) {
-        if (this.channel$.EVENT[event])
+        if (!this.channel$.EVENT[event])
             throw '事件未注册';
         this.channel$._registered.push({ event, callback });
         Channel.add(event, callback);
@@ -26,6 +26,8 @@ const methods = {
 
     // 响应事件
     channelPost (event, data = {}) {
+        if (!this.channel$.EVENT[event])
+            throw '事件未注册';
         Channel.post(event, data);
     },
 
