@@ -49,10 +49,10 @@
                 this.$emit('input', event.value);
             },
             handleClear () {
-                this.$emit('input', ' ');
-                setTimeout(() => {
-                    this.$emit('input', '');
-                })
+                this.$emit('input', '');
+//                setTimeout(() => {
+//                    this.$emit('input', '');
+//                })
             },
         }
     }
