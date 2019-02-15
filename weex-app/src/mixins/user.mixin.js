@@ -24,7 +24,7 @@ const methods = {
         });
     },
     userReq () {
-        Http(Api.reqUserInfo).then(({code, data, msg}) => {
+        Http(Api.reqUserInfo, {}, { loading: false }).then(({code, data, msg}) => {
             if (code !== '0000')
                 throw msg;
             return UserService.upt(data);
@@ -33,6 +33,7 @@ const methods = {
         }).then((user) => {
             return Promise.resolve(user);
         }).catch((err) => {
+            this.user$ = '';
             Dialogs.toast(err);
             return Promise.reject(err);
         })

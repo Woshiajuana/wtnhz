@@ -16,7 +16,7 @@
     import Defer                        from 'utils/defer.util'
     import Router                       from 'plugins/router.plugin'
 
-    const defer = new Defer(1000);
+    const defer = new Defer(2000);
 
     export default {
         mixins: [
@@ -40,11 +40,10 @@
             channelUserExit () {
                 if (!defer.do('$$USER_EXIT'))
                     return null;
-                console.log('响应事件')
                 Router.root();
                 setTimeout(() => {
                     UserService.login();
-                },1000)
+                },800)
             }
         },
         components: {
