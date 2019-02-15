@@ -9,9 +9,12 @@
     import WowNavBar                    from 'wow-weex-ui/lib/wow-nav-bar'
     import PathMixin                    from 'mixins/path.mixin'
     import UserMixin                    from 'mixins/user.mixin'
+    import ChannelMixin                 from 'mixins/channel.mixin'
     import UserService                  from 'services/user.service'
-    import StorePlugin                  from 'plugins/store.plugin'
+    import Store                        from 'plugins/store.plugin'
     import Mixin                        from './app.mixin'
+
+    const $$SELECT_BANK = '$$SELECT_BANK';
 
     export default {
         mixins: [
@@ -20,17 +23,18 @@
             UserMixin,
         ],
         created () {
+            // 获取资源
             this.resourceGet(this.arrNav);
         },
         methods: {
+
             handleViewAppear () {
-                StorePlugin.remove('MODAL_TYPE').then(() => {
+                Store.remove('MODAL_TYPE').then(() => {
                     return this.userGet();
                 }).catch(() => {
                     UserService.login();
                 });
             },
-
         },
         components: {
             WowNavBar,
