@@ -34,6 +34,7 @@ const exit = () => {
         console.log(bundleUrl)
         let name = bundleUrl.substring(bundleUrl.lastIndexOf('wow'));
         if (['wow_app.js', 'wow_mine.js'].indexOf(name) === -1) return;
+        console.log('登录', bundleUrl)
         login();
     }).then(() => {
         return Promise.resolve();

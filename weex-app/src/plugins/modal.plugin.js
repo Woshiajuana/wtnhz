@@ -13,13 +13,19 @@ export default {
         if (pagename !== 'wow_user_login') {
             return getPage(pagename, resolve);
         }
+        console.log(1);
         store.get('MODAL_TYPE').then((result) => {
+            console.log(2);
             if(result) return resolve();
+            console.log(3);
             store.set('MODAL_TYPE', true).then(() => {
+                console.log(4);
                 getPage(pagename, resolve);
             });
         }).catch(() => {
+            console.log(5);
             store.set('MODAL_TYPE', true).then(() => {
+                console.log(6);
                 getPage(pagename, resolve);
             });
         });
