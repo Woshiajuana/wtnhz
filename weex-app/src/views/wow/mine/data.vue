@@ -165,7 +165,7 @@
                         suffix: 'png',
                         action: 'head',
                     };
-                    return Http(Api.doUploadPicture, options, {timeout: 60 * 1000});
+                    return Http(Api.doUploadPicture, options, {timeout: 60 * 1000 * 3});
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
