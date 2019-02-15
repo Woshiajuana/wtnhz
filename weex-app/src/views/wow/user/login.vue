@@ -1,5 +1,6 @@
 <template>
-    <wow-view view_header_left_src="">
+    <wow-view
+        :view_header_left_src="src$.close">
         <div class="wrap">
             <div class="portrait-box">
                 <image
@@ -67,6 +68,7 @@
 
     const srcArr = [
         { key: 'def', value: 'default-head-icon.png?8', },
+        { key: 'close', value: 'header-left-close.png?6', },
     ];
 
     export default {

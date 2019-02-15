@@ -24,7 +24,10 @@ const methods = {
         });
     },
     userReq () {
-        Http(Api.reqUserInfo, {}, { loading: false }).then(({code, data, msg}) => {
+        Http(Api.reqUserInfo, {}, {
+            loading: false,
+            useExit: false ,
+        }).then(({code, data, msg}) => {
             if (code !== '0000')
                 throw msg;
             return UserService.upt(data);

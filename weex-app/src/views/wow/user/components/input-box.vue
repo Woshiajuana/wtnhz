@@ -25,7 +25,7 @@
     import SourceMixin                  from 'mixins/source.mixin'
 
     const srcArr = [
-        { key: 'clear', value: 'input-clear-icon.png', },
+        { key: 'clear', value: 'input-clear-icon.png?2', },
     ];
 
     export default {
@@ -93,7 +93,7 @@
         background-color: #dedede;
     }
     .clear-icon{
-        width: 25px;
-        height: 25px;
+        width: 48px;
+        height: 48px;
     }
 </style>
