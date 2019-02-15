@@ -5,7 +5,7 @@ export default function Defer(duration) {
 };
 
 Defer.prototype.do = function(argument) {
-    if (this.deferred != argument) {
+    if (this.deferred !== argument) {
         this.deferred = argument;
         clearTimeout(this.timer);
         this.timer = setTimeout(() => { this.deferred = '' }, this.duration);

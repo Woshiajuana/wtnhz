@@ -1,7 +1,7 @@
 
 import Store                        from 'plugins/store.plugin'
 import Modal                        from 'plugins/modal.plugin'
-import Router                       from 'plugins/router.plugin'
+import Channel                      from 'plugins/channel.plugin'
 
 const AUTH_KEY_NAME = 'AUTH_KEY_NAME';
 const AUTH_USER_STORE_KEY_NAME = 'AUTH_USER_STORE_KEY_NAME';
@@ -27,15 +27,7 @@ const exit = () => {
         Store.remove(AUTH_KEY_NAME),
         Store.remove(AUTH_USER_CACHE_KEY_NAME),
     ]).then(() => {
-        return Router.root();
-    }).then(() => {
-        let { bundleUrl } = weex.config;
-        if (!bundleUrl) return;
-        console.log(bundleUrl)
-        let name = bundleUrl.substring(bundleUrl.lastIndexOf('wow'));
-        if (['wow_app.js', 'wow_mine.js'].indexOf(name) === -1) return;
-        console.log('登录', bundleUrl)
-        login();
+        return Channel.post('$$USER_EXIT');
     }).then(() => {
         return Promise.resolve();
     }).catch((err) => {
@@ -44,7 +36,6 @@ const exit = () => {
 };
 
 const login = () => {
-    console.log(1);
     Modal.show('wow_user_login');
 };
 
