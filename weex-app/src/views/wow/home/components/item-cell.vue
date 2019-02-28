@@ -19,24 +19,42 @@
         </div>
         <div class="info">
             <div class="info-item">
-                <image class="info-icon"></image>
+                <image class="info-icon" :src="src$.give"></image>
                 <text class="info-text">999</text>
             </div>
             <div class="info-item">
-                <image class="info-icon"></image>
+                <image class="info-icon" :src="src$.msg"></image>
                 <text class="info-text">999</text>
             </div>
             <div class="info-item">
-                <image class="info-icon"></image>
+                <image class="info-icon" :src="src$.collect"></image>
                 <text class="info-text">999</text>
             </div>
         </div>
+        <text>{{src$}}</text>
     </div>
 </template>
 
 <script>
-    export default {
+    import SourceMixin                  from 'mixins/source.mixin'
 
+    const srcArr = [
+        { key: 'give_active', value: 'give-icon-fc5366.png', },
+        { key: 'give', value: 'give-icon-999.png', },
+        { key: 'collect', value: 'collect-icon-999.png', },
+        { key: 'collect_active', value: 'collect-icon-fc5366.png', },
+        { key: 'msg', value: 'msg-icon-999.png', },
+        { key: 'search', value: 'search-icon-ffffff.png', },
+
+    ];
+
+    export default {
+        mixins: [
+            SourceMixin,
+        ],
+        created () {
+            this.sourceGet(srcArr);
+        },
     }
 </script>
 
@@ -133,7 +151,6 @@
     .info-icon{
         width: 30px;
         height: 30px;
-        background-color: #999;
         margin-right: 10px;
     }
     .info-text{
