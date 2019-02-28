@@ -1,10 +1,12 @@
 <template>
     <div class="wrap">
         <div class="head">
-            <image class="user-head" src="https://img.mukewang.com/5c6d3e4e0001946418720632.jpg"></image>
-            <div class="head-con">
-                <text class="name">Woshiajuana</text>
-                <text class="time">2019-02-28 16:11</text>
+            <div class="user">
+                <image class="user-head" src="https://img.mukewang.com/5c6d3e4e0001946418720632.jpg"></image>
+                <div class="head-con">
+                    <text class="name">Woshiajuana</text>
+                    <text class="time">2019-02-28 16:11</text>
+                </div>
             </div>
         </div>
         <div class="center">
@@ -42,13 +44,20 @@
     .wrap{
         background-color: #fff;
         margin-bottom: 10px;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-color: #dedede;
     }
     .head{
         flex-direction: row;
         align-items: center;
-        height: 120px;
         padding-left: 32px;
         padding-right: 32px;
+    }
+    .user{
+        flex-direction: row;
+        align-items: center;
+        height: 120px;
     }
     .user-head{
         width: 80px;
@@ -75,16 +84,19 @@
         padding-top: 10px;
         padding-bottom: 30px;
     }
+    .center:active{
+        background-color: #f2f2f2;
+    }
     .title{
-        font-size: 28px;
+        font-size: 32px;
         color: #333;
-        line-height: 44px;
+        line-height: 50px;
     }
     .type{
         flex-direction: row;
         align-items: center;
         flex-wrap: wrap;
-        margin-top: 10px;
+        margin-top: 16px;
     }
     .type-item{
         height: 34px;
@@ -101,22 +113,21 @@
         color: #999;
     }
     .info{
+        margin-top: 20px;
         flex-direction: row;
         align-items: center;
-        height: 80px;
-        /*border-top-width: 1px;*/
-        /*border-top-color: #dedede;*/
-        /*border-bottom-width: 1px;*/
-        /*border-bottom-color: #dedede;*/
+        border-top-width: 1px;
+        border-style: dotted;
+        border-top-color: #dedede;
     }
     .info-item{
         justify-content: center;
         align-items: center;
         flex: 1;
-        height: 40px;
-        /*background-color: #fff;*/
-        /*border-right-width: 1px;*/
-        /*border-color: #dedede;*/
+        height: 80px;
+    }
+    .info-item:active{
+        background-color: #f2f2f2;
     }
     .info-icon{
 
