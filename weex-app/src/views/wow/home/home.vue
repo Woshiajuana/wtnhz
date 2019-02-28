@@ -2,6 +2,7 @@
     <wow-view
         view_use_scroll=""
         view_use_header=""
+        :view_style="{backgroundColor: '#f2f2f2'}"
         view_header_left_src="">
         <head-section
             slot="view-header"
