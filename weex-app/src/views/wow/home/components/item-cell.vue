@@ -121,6 +121,7 @@
         border-top-color: #dedede;
     }
     .info-item{
+        flex-direction: row;
         justify-content: center;
         align-items: center;
         flex: 1;
@@ -130,9 +131,13 @@
         background-color: #f2f2f2;
     }
     .info-icon{
-
+        width: 30px;
+        height: 30px;
+        background-color: #999;
+        margin-right: 10px;
     }
     .info-text{
-
+        font-size: 22px;
+        color: #999;
     }
 </style>
