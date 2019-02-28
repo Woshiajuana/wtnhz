@@ -1,38 +1,39 @@
 <template>
-    <div class="wrap">
-        <div class="head">
-            <div class="user">
-                <image class="user-head" src="https://img.mukewang.com/5c6d3e4e0001946418720632.jpg"></image>
-                <div class="head-con">
-                    <text class="name">Woshiajuana</text>
-                    <text class="time">2019-02-28 16:11</text>
+    <cell>
+        <div class="wrap">
+            <div class="head">
+                <div class="user">
+                    <image class="user-head" src="https://img.mukewang.com/5c6d3e4e0001946418720632.jpg"></image>
+                    <div class="head-con">
+                        <text class="name">Woshiajuana</text>
+                        <text class="time">2019-02-28 16:11</text>
+                    </div>
+                </div>
+            </div>
+            <div class="center">
+                <text class="title">javascripjavascript基础开发javascript基础开发t基础开发</text>
+                <div class="type">
+                    <div class="type-item">
+                        <text class="type-text">JS</text>
+                    </div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="info-item">
+                    <image class="info-icon" :src="src$.give"></image>
+                    <text class="info-text">999</text>
+                </div>
+                <div class="info-item">
+                    <image class="info-icon" :src="src$.msg"></image>
+                    <text class="info-text">999</text>
+                </div>
+                <div class="info-item">
+                    <image class="info-icon" :src="src$.collect"></image>
+                    <text class="info-text">999</text>
                 </div>
             </div>
         </div>
-        <div class="center">
-            <text class="title">javascripjavascript基础开发javascript基础开发t基础开发</text>
-            <div class="type">
-                <div class="type-item">
-                    <text class="type-text">JS</text>
-                </div>
-            </div>
-        </div>
-        <div class="info">
-            <div class="info-item">
-                <image class="info-icon" :src="src$.give"></image>
-                <text class="info-text">999</text>
-            </div>
-            <div class="info-item">
-                <image class="info-icon" :src="src$.msg"></image>
-                <text class="info-text">999</text>
-            </div>
-            <div class="info-item">
-                <image class="info-icon" :src="src$.collect"></image>
-                <text class="info-text">999</text>
-            </div>
-        </div>
-        <text>{{src$}}</text>
-    </div>
+    </cell>
 </template>
 
 <script>

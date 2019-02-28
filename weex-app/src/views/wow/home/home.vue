@@ -7,17 +7,20 @@
         <head-section
             slot="view-header"
         ></head-section>
-        <scroller class="list">
+        <wow-scroll
+            @refresh="handleRefresh"
+            @loading="handleLoading">
             <item-cell></item-cell>
             <item-cell></item-cell>
             <item-cell></item-cell>
             <item-cell></item-cell>
-        </scroller>
+        </wow-scroll>
     </wow-view>
 </template>
 
 <script>
     import WowView                      from 'wow-weex-ui/lib/wow-view'
+    import WowScroll                    from 'wow-weex-ui/lib/wow-scroll'
     import SourceMixin                  from 'mixins/source.mixin'
     import HeadSection                  from './components/head-section.vue'
     import ItemCell                     from './components/item-cell.vue'
@@ -34,8 +37,17 @@
         created () {
             this.sourceGet(srcArr);
         },
+        methods: {
+            handleRefresh (callback) {
+                callback && callback();
+            },
+            handleLoading (callback) {
+                callback && callback();
+            },
+        },
         components: {
             WowView,
+            WowScroll,
             ItemCell,
             HeadSection,
         },
