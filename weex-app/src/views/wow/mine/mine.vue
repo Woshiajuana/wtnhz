@@ -1,7 +1,7 @@
 <template>
     <wow-view
         @viewappear="handleViewAppear"
-        @right="routerPush('wow_app')"
+        @right="routerPush('wow_message')"
         :view_header_right_src="src$.set"
         :view_style="{backgroundColor: '#f2f2f2'}"
         view_header_left_src="">
