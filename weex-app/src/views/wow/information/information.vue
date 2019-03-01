@@ -9,15 +9,10 @@
         <wow-scroll
             @refresh="handleRefresh"
             @loading="handleLoading">
-            <item-cell></item-cell>
-            <item-cell></item-cell>
-            <item-cell></item-cell>
-            <item-cell></item-cell>
-            <item-cell></item-cell>
-            <item-cell></item-cell>
-            <item-cell></item-cell>
-            <item-cell></item-cell>
-            <item-cell></item-cell>
+            <item-cell
+                v-for="(item, index) in arrList"
+                :key="index"
+            ></item-cell>
         </wow-scroll>
     </wow-view>
 </template>
@@ -28,11 +23,18 @@
     import ItemCell                     from './components/item-cell.vue'
 
     export default {
+        data () {
+            return {
+                arrList: 10,
+            }
+        },
         methods: {
             handleRefresh (callback) {
+                this.arrList = 10;
                 callback && callback();
             },
             handleLoading (callback) {
+                this.arrList += 10;
                 callback && callback();
             },
         },

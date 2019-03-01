@@ -10,10 +10,10 @@
         <wow-scroll
             @refresh="handleRefresh"
             @loading="handleLoading">
-            <item-cell></item-cell>
-            <item-cell></item-cell>
-            <item-cell></item-cell>
-            <item-cell></item-cell>
+            <item-cell
+                v-for="(item, index) in arrList"
+                :key="index"
+            ></item-cell>
         </wow-scroll>
     </wow-view>
 </template>
@@ -34,14 +34,21 @@
         mixins: [
             SourceMixin,
         ],
+        data () {
+            return {
+                arrList: 10,
+            }
+        },
         created () {
             this.sourceGet(srcArr);
         },
         methods: {
             handleRefresh (callback) {
+                this.arrList = 10;
                 callback && callback();
             },
             handleLoading (callback) {
+                this.arrList += 10;
                 callback && callback();
             },
         },

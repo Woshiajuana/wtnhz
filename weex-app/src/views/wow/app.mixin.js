@@ -9,14 +9,14 @@ const data = () => {
                 src: 'wow_home',
                 img_src: Source('menu-home-icon.png'),
                 img_checked_src: Source('menu-home-checked-icon.png'),
-                checked: false,
+                checked: true,
             },
             {
                 txt: '消息',
                 src: 'wow_information',
                 img_src: Source('menu-notice-icon.png?1'),
                 img_checked_src: Source('menu-notice-checked-icon.png'),
-                checked: true,
+                checked: false,
             },
             // {
             //     txt: '发现',
