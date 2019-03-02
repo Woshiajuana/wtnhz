@@ -13,8 +13,8 @@ project
 ├── build                                   // 打包脚本目录
 |   ├── webpack.config.js                   // 打包脚本
 ├── cmd                                     // node命令目录
-|   ├── app.cmd.js                           
-|   ├── cmd.js                              
+|   ├── app.cmd.js
+|   ├── cmd.js
 |   ├── index.js
 |   ├── ip.cmd.js
 |   ├── release.cmd.js
@@ -48,7 +48,7 @@ project
 ├── .editorconfig                           // 代码格式文件
 ├── .gitignore                              // 忽略文件
 ├── old_tree.json                           // 老壳子tree
-├── package.json                            
+├── package.json
 ├── package-lock.json
 ├── README.md
 ├── tree.json                               // 新壳子tree
@@ -98,12 +98,6 @@ project
 ```
 data () {
     return {
-        arr_demo: [],
-        nd_demo: this.$refs.demo,
-        obj_demo: {},
-        num_demo: 1,
-        str_demo: 'demo',
-        is_demo: false
     }
 }
 
