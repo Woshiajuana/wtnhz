@@ -11,6 +11,7 @@
             @refresh="handleRefresh"
             @loading="handleLoading">
             <item-cell
+                @click="routerPush('wow_content', item)"
                 v-for="(item, index) in arrList"
                 :key="index"
             ></item-cell>
@@ -22,6 +23,7 @@
     import WowView                      from 'wow-weex-ui/lib/wow-view'
     import WowScroll                    from 'wow-weex-ui/lib/wow-scroll'
     import SourceMixin                  from 'mixins/source.mixin'
+    import RouterMixin                  from 'mixins/router.mixin'
     import HeadSection                  from './components/head-section.vue'
     import ItemCell                     from './components/item-cell.vue'
 
@@ -33,6 +35,7 @@
     export default {
         mixins: [
             SourceMixin,
+            RouterMixin,
         ],
         data () {
             return {
