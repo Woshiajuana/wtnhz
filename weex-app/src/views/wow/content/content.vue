@@ -5,28 +5,41 @@
             <div class="user">
                 <image
                     class="image"
-                    :src="data.author && data.author.avatar"
+                    :src="params$.author && params$.author.avatar"
                 ></image>
-                <text class="name">{{data.author && data.author.name}}</text>
-                <text class="time">{{data.time}}</text>
+                <text class="name">{{params$.author && params$.author.name}}</text>
+                <text class="time">{{params$.time}}</text>
             </div>
             <div class="info">
                 <div class="info-item">
                     <image class="info-icon" :src="src$.give"></image>
-                    <text class="info-text">{{data.praise}}</text>
+                    <text class="info-text">{{params$.praise}}</text>
                 </div>
                 <div class="info-item">
                     <image class="info-icon" :src="src$.msg"></image>
-                    <text class="info-text">{{data.comment}}</text>
+                    <text class="info-text">{{params$.comment}}</text>
                 </div>
                 <div class="info-item">
                     <image class="info-icon" :src="src$.collect"></image>
-                    <text class="info-text">{{data.collect}}</text>
+                    <text class="info-text">{{params$.collect}}</text>
                 </div>
             </div>
         </div>
         <div class="main">
-            <text class="text"></text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
         </div>
     </wow-view>
 </template>
@@ -61,33 +74,72 @@
 
 <style>
     .header{
-
+        align-items: center;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        padding-left: 100px;
+        padding-right: 100px;
     }
     .title{
-
+        text-align: center;
+        color: #000;
+        font-size: 48px;
+        line-height: 70px;
     }
     .user{
-
+        margin-top: 36px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
     }
     .image{
-
+        width: 42px;
+        height: 42px;
+        border-radius: 42px;
+        margin-right: 16px;
     }
     .name{
-
+        font-size: 24px;
+        line-height: 44px;
+        color: #999;
+        margin-right: 32px;
     }
     .time{
-
+        font-size: 24px;
+        line-height: 44px;
+        color: #999;
     }
     .info{
-
+        margin-top: 36px;
+        flex-direction: row;
+        align-items: center;
     }
     .info-item{
-
+        flex-direction: row;
+        align-items: center;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    .info-item:active{
+        background-color: #f2f2f2;
     }
     .info-icon{
-
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
     }
     .info-text{
-        
+        font-size: 22px;
+        color: #999;
+    }
+    .main{
+        padding-left: 32px;
+        padding-right: 32px;
+        padding-bottom: 60px;
+    }
+    .text{
+        line-height: 44px;
+        font-size: 28px;
+        color: #333;
     }
 </style>
