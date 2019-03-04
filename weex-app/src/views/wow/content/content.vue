@@ -1,7 +1,11 @@
 <template>
-    <wow-view>
+    <wow-view
+        :view_header_center_txt="computedTitle">
         <div class="header">
-            <text class="title">{{params$.title}}</text>
+            <text class="title"
+                  @appear="handleAppear"
+                  @disappear="handleDisappear"
+            >{{params$.title}}</text>
             <div class="user">
                 <image
                     class="image"
@@ -48,6 +52,7 @@
     import WowView                      from 'wow-weex-ui/lib/wow-view'
     import RouterMixin                  from 'mixins/router.mixin'
     import SourceMixin                  from 'mixins/source.mixin'
+    import { filterCutOut }             from 'mixins/filter.mixin'
 
     const srcArr = [
         { key: 'give_active', value: 'give-icon-fc5366.png', },
@@ -62,9 +67,29 @@
             RouterMixin,
             SourceMixin,
         ],
+        computed: {
+            computedTitle () {
+                return this.isAppear
+                    ? ''
+                    : filterCutOut(this.params$.title, 10);
+            }
+        },
+        data () {
+            return {
+                isAppear: true,
+            }
+        },
         created () {
             this.sourceGet(srcArr);
             this.routerGetParams();
+        },
+        methods: {
+            handleAppear () {
+                this.isAppear = true;
+            },
+            handleDisappear () {
+                this.isAppear = false;
+            },
         },
         components: {
             WowView,

@@ -1,10 +1,11 @@
 
+export const filterCutOut = (value, max) => {
+    return value
+        ? `${value.substring(0, max)}${value.length > max ? '...' : ''}`
+        : '';
+};
 const filters = {
-    filterCutOut (value, max) {
-        return value
-            ? `${value.substring(0, max)}${value.length > max ? '...' : ''}`
-            : '';
-    },
+    filterCutOut,
 };
 
 export default {

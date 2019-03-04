@@ -42,7 +42,7 @@
             return {
                 arrList: [
                     {
-                        title: 'javascripjavascript基础开发javascript基础开发t基础开发',
+                        title: '基础开发基础开发基础开发基础开发基础开发基础开发基础开发基础开发',
                         time: '2019-02-28 16:11',
                         type: ['JS', 'HTML', 'CSS'],
                         praise: 999,
