@@ -1,7 +1,7 @@
 <template>
     <wow-view>
         <div class="header">
-            <text class="title">{{params$.}}</text>
+            <text class="title">{{params$.title}}</text>
         </div>
     </wow-view>
 </template>

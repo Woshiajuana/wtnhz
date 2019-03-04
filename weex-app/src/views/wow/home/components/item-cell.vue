@@ -3,33 +3,38 @@
         <div class="wrap">
             <div class="head">
                 <div class="user" @click="emitEvent('link')">
-                    <image class="user-head" src="https://img.mukewang.com/5c6d3e4e0001946418720632.jpg"></image>
+                    <image
+                        class="user-head"
+                        :src="data.author && data.author.avatar"
+                    ></image>
                     <div class="head-con">
-                        <text class="name">Woshiajuana</text>
-                        <text class="time">2019-02-28 16:11</text>
+                        <text class="name">{{data.author && data.author.name}}</text>
+                        <text class="time">{{data.time}}</text>
                     </div>
                 </div>
             </div>
             <div class="center" @click="emitEvent('click')">
-                <text class="title">javascripjavascript基础开发javascript基础开发t基础开发</text>
+                <text class="title">{{data.title}}</text>
                 <div class="type">
-                    <div class="type-item">
-                        <text class="type-text">JS</text>
+                    <div class="type-item"
+                         v-for="(item, index) in data.type"
+                         :key="index">
+                        <text class="type-text">{{item}}</text>
                     </div>
                 </div>
             </div>
             <div class="info">
                 <div class="info-item">
                     <image class="info-icon" :src="src$.give"></image>
-                    <text class="info-text">999</text>
+                    <text class="info-text">{{data.praise}}</text>
                 </div>
                 <div class="info-item">
                     <image class="info-icon" :src="src$.msg"></image>
-                    <text class="info-text">999</text>
+                    <text class="info-text">{{data.comment}}</text>
                 </div>
                 <div class="info-item">
                     <image class="info-icon" :src="src$.collect"></image>
-                    <text class="info-text">999</text>
+                    <text class="info-text">{{data.collect}}</text>
                 </div>
             </div>
         </div>
@@ -55,6 +60,9 @@
             EmitMixin,
             SourceMixin,
         ],
+        props: {
+            data: { default: {} },
+        },
         created () {
             this.sourceGet(srcArr);
         },
@@ -128,6 +136,7 @@
         border-color: #dedede;
         border-width: 1px;
         border-radius: 8px;
+        margin-right: 8px;
     }
     .type-text{
         font-size: 20px;

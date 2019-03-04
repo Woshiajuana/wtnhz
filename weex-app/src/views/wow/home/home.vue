@@ -14,6 +14,7 @@
                 @click="routerPush('wow_content', item)"
                 v-for="(item, index) in arrList"
                 :key="index"
+                :data="item"
             ></item-cell>
         </wow-scroll>
     </wow-view>
