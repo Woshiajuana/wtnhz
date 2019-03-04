@@ -2,7 +2,7 @@
     <cell>
         <div class="wrap">
             <div class="head">
-                <div class="user">
+                <div class="user" @click="emitEvent('link')">
                     <image class="user-head" src="https://img.mukewang.com/5c6d3e4e0001946418720632.jpg"></image>
                     <div class="head-con">
                         <text class="name">Woshiajuana</text>
@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <div class="center">
+            <div class="center" @click="emitEvent('click')">
                 <text class="title">javascripjavascript基础开发javascript基础开发t基础开发</text>
                 <div class="type">
                     <div class="type-item">
@@ -38,6 +38,7 @@
 
 <script>
     import SourceMixin                  from 'mixins/source.mixin'
+    import EmitMixin                    from 'mixins/emit.mixin'
 
     const srcArr = [
         { key: 'give_active', value: 'give-icon-fc5366.png', },
@@ -51,6 +52,7 @@
 
     export default {
         mixins: [
+            EmitMixin,
             SourceMixin,
         ],
         created () {

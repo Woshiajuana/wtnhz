@@ -39,7 +39,20 @@
         ],
         data () {
             return {
-                arrList: 10,
+                arrList: [
+                    {
+                        title: 'javascripjavascript基础开发javascript基础开发t基础开发',
+                        time: '2019-02-28 16:11',
+                        type: ['JS', 'HTML', 'CSS'],
+                        praise: 999,
+                        comment: 999,
+                        collect: 999,
+                        author: {
+                            name: 'Woshiajuana',
+                            avatar: 'https://img.mukewang.com/5c6d3e4e0001946418720632.jpg',
+                        }
+                    }
+                ],
             }
         },
         created () {

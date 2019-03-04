@@ -1,6 +1,8 @@
 <template>
     <wow-view>
-
+        <div class="header">
+            <text class="title">{{params$.}}</text>
+        </div>
     </wow-view>
 </template>
 
