@@ -3,10 +3,14 @@
         <image class="image" src="https://img.mukewang.com/5c6d3e4e0001946418720632.jpg"></image>
         <input type="text" v-model="value" class="input" placeholder="说说你的看法..."/>
         <div class="button-box">
-            <div class="button sub-button" :style="{visibility: value ? 'visible' : 'hidden'}">
+            <div class="button sub-button"
+                 @click="emitEvent('submit')"
+                 :style="{visibility: value ? 'visible' : 'hidden'}">
                 <text class="button-text">发布</text>
             </div>
-            <div class="button" :style="{visibility: value ? 'hidden' : 'visible'}">
+            <div class="button"
+                 @click="emitEvent('more')"
+                 :style="{visibility: value ? 'hidden' : 'visible'}">
                 <image class="icon" :src="src$.more"></image>
             </div>
         </div>
@@ -14,7 +18,7 @@
 </template>
 
 <script>
-    import EmitMixin                    from 'wow-weex-ui/mixins/emit.mixin'
+    import EmitMixin                    from 'mixins/emit.mixin'
     import SourceMixin                  from 'mixins/source.mixin'
     const srcArr = [
         { key: 'more', value: 'more-icon-fc5366.png', },
