@@ -18,6 +18,19 @@
         <div class="content">
             <text class="text">哈哈 我心有猛虎我心有猛虎我心有猛虎我心有猛虎</text>
         </div>
+        <div class="comment">
+            <div class="item">
+                <text class="comment-text label">哈哈哈：</text>
+                <text class="comment-text value">哈哈哈哈哈哈</text>
+            </div>
+            <div class="item">
+                <text class="comment-text label">哈哈哈：</text>
+                <text class="comment-text value">我心有猛虎我心有猛虎我心有猛虎我心有猛虎</text>
+            </div>
+            <div class="button">
+                <text class="button-text">查看全部评论</text>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -50,7 +63,7 @@
         border-width: 1px;
     }
     .info{
-
+        flex: 1;
     }
     .top{
         flex-direction: row;
@@ -90,5 +103,40 @@
         height: 20px;
         width: 1px;
         background-color: #999;
+    }
+    .comment{
+        margin-left: 96px;
+        background-color: #f2f2f2;
+        padding-left: 32px;
+        padding-bottom: 16px;
+        padding-top: 16px;
+        padding-right: 32px;
+    }
+    .item{
+        flex-direction: row;
+        /*flex-wrap: wrap;*/
+    }
+    .label{
+        color: #50b9fe;
+        flex: 1;
+    }
+    .value{
+        color: #333;
+    }
+    .comment-text{
+        display: inline-block;
+        font-size: 28px;
+        color: #50b9fe;
+        line-height: 44px;
+    }
+    .button{
+        margin-top: 16px;
+        flex-direction: row;
+        align-items: center;
+    }
+    .button-text{
+        color: #999;
+        font-size: 24px;
+        line-height: 34px;
     }
 </style>
