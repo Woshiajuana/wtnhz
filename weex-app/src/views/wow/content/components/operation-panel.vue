@@ -1,6 +1,5 @@
 <template>
     <div class="wrap">
-        <image class="image" src="https://img.mukewang.com/5c6d3e4e0001946418720632.jpg"></image>
         <input type="text" v-model="value" class="input" placeholder="说说你的看法..."/>
         <div class="button-box">
             <div class="button sub-button"
@@ -53,21 +52,13 @@
         border-top-width: 1px;
         flex-direction: row;
         align-items: center;
+        padding-left: 32px;
     }
     .input{
         flex: 1;
         height: 68px;
-        border-color: #dedede;
-        border-bottom-width: 1px;
         font-size: 28px;
         color: #333;
-    }
-    .image{
-        width: 68px;
-        height: 68px;
-        border-radius: 68px;
-        margin-right: 16px;
-        margin-left: 32px;
     }
     .button-box{
         margin-right: 16px;

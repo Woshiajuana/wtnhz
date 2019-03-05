@@ -2,6 +2,7 @@
     <div class="wrap" @click="emitEvent('close')">
         <div class="inner"
              ref="inner"
+             :style="{height: height$ * 0.8}"
              @click="emitEvent('null')">
             <div class="head">
                 <image
@@ -65,10 +66,11 @@
 </template>
 
 <script>
-    import OperationPanel               from './operation-panel.vue'
     import EmitMixin                    from 'mixins/emit.mixin'
     import SourceMixin                  from 'mixins/source.mixin'
     import AnimationMixin               from 'mixins/animation.mixin'
+    import WeexMixin                    from 'mixins/weex.mixin'
+    import OperationPanel               from './operation-panel.vue'
 
     const srcArr = [
         { key: 'close', value: 'header-left-close.png', },
@@ -78,10 +80,12 @@
         mixins: [
             EmitMixin,
             SourceMixin,
+            WeexMixin,
             AnimationMixin,
         ],
         created () {
             this.sourceGet(srcArr);
+            this.weexGet();
         },
         mounted () {
             this.animationRun(this.$refs.inner);
@@ -107,8 +111,7 @@
     .inner{
         background-color: #fff;
         width: 750px;
-        height: 1200px;
-        transform: translate(0, 1200px);
+        transform: translate(0, 1500px);
     }
     .head{
         height: 90px;
