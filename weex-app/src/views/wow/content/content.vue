@@ -75,5 +75,6 @@
 <style>
     .main{
         flex: 1;
+        background-color: #f2f2f2;
     }
 </style>

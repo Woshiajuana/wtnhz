@@ -62,6 +62,7 @@
         padding-bottom: 60px;
         padding-left: 100px;
         padding-right: 100px;
+        background-color: #fff;
     }
     .title{
         text-align: center;
