@@ -20,12 +20,10 @@
         </div>
         <div class="comment">
             <div class="item">
-                <text class="comment-text label">哈哈哈：</text>
-                <text class="comment-text value">哈哈哈哈哈哈</text>
+                <text class="comment-text">哈哈哈：哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</text>
             </div>
             <div class="item">
-                <text class="comment-text label">哈哈哈：</text>
-                <text class="comment-text value">我心有猛虎我心有猛虎我心有猛虎我心有猛虎</text>
+                <text class="comment-text">哈哈哈：我心有猛虎我心有猛虎我心有猛虎我心有猛虎1</text>
             </div>
             <div class="button">
                 <text class="button-text">查看全部评论</text>
@@ -115,18 +113,13 @@
     }
     .item{
         flex-direction: row;
-        /*flex-wrap: wrap;*/
-    }
-    .label{
-        color: #50b9fe;
-    }
-    .value{
-        color: #333;
+        flex-wrap: wrap;
     }
     .comment-text{
+        flex: 1;
         display: inline-block;
         font-size: 28px;
-        color: #50b9fe;
+        color: #666;
         line-height: 44px;
     }
     .button{
