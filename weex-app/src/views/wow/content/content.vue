@@ -1,50 +1,54 @@
 <template>
     <wow-view
+        view_use_scroll=""
         :view_header_center_txt="computedTitle">
-        <div class="header">
-            <text class="title"
-                  @appear="handleAppear"
-                  @disappear="handleDisappear"
-            >{{params$.title}}</text>
-            <div class="user">
-                <image
-                    class="image"
-                    :src="params$.author && params$.author.avatar"
-                ></image>
-                <text class="name">{{params$.author && params$.author.name}}</text>
-                <text class="time">{{params$.time}}</text>
+        <scroller class="main">
+            <div class="header">
+                <text class="title"
+                      @appear="handleAppear"
+                      @disappear="handleDisappear"
+                >{{params$.title}}</text>
+                <div class="user">
+                    <image
+                        class="image"
+                        :src="params$.author && params$.author.avatar"
+                    ></image>
+                    <text class="name">{{params$.author && params$.author.name}}</text>
+                    <text class="time">{{params$.time}}</text>
+                </div>
+                <div class="info">
+                    <div class="info-item">
+                        <image class="info-icon" :src="src$.give"></image>
+                        <text class="info-text">{{params$.praise}}</text>
+                    </div>
+                    <div class="info-item">
+                        <image class="info-icon" :src="src$.msg"></image>
+                        <text class="info-text">{{params$.comment}}</text>
+                    </div>
+                    <div class="info-item">
+                        <image class="info-icon" :src="src$.collect"></image>
+                        <text class="info-text">{{params$.collect}}</text>
+                    </div>
+                </div>
             </div>
-            <div class="info">
-                <div class="info-item">
-                    <image class="info-icon" :src="src$.give"></image>
-                    <text class="info-text">{{params$.praise}}</text>
-                </div>
-                <div class="info-item">
-                    <image class="info-icon" :src="src$.msg"></image>
-                    <text class="info-text">{{params$.comment}}</text>
-                </div>
-                <div class="info-item">
-                    <image class="info-icon" :src="src$.collect"></image>
-                    <text class="info-text">{{params$.collect}}</text>
-                </div>
+            <div class="content">
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
+                <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
             </div>
-        </div>
-        <div class="main">
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-            <text class="text">weexPageB是由weexPageA页面push过来的，已经脱离了viewWillAppear的控制（我在xcode里面打的断点，监测，在渲染weexPageB时，viewWillAppear并没有触发），在nativePageB页面pop的weexPageB时，顶部就会出现原生的导航栏。</text>
-        </div>
+        </scroller>
+        <operation-panel></operation-panel>
     </wow-view>
 </template>
 
@@ -53,6 +57,7 @@
     import RouterMixin                  from 'mixins/router.mixin'
     import SourceMixin                  from 'mixins/source.mixin'
     import { filterCutOut }             from 'mixins/filter.mixin'
+    import OperationPanel               from './components/operation-panel.vue'
 
     const srcArr = [
         { key: 'give_active', value: 'give-icon-fc5366.png', },
@@ -93,11 +98,15 @@
         },
         components: {
             WowView,
+            OperationPanel,
         },
     }
 </script>
 
 <style>
+    .main{
+        flex: 1;
+    }
     .header{
         align-items: center;
         padding-top: 60px;
@@ -157,7 +166,7 @@
         font-size: 22px;
         color: #999;
     }
-    .main{
+    .content{
         padding-left: 32px;
         padding-right: 32px;
         padding-bottom: 60px;
