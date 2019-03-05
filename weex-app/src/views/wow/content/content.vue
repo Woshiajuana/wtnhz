@@ -1,5 +1,6 @@
 <template>
     <wow-view
+        @right="actionSheet.is = true"
         :view_header_right_src="src$.more"
         :view_header_center_txt="computedTitle">
         <scroller class="main">
@@ -49,11 +50,17 @@
             </div>
         </scroller>
         <operation-panel></operation-panel>
+        <wow-action-sheet
+            @close="actionSheet.is = false"
+            v-if="actionSheet.is"
+            :action_options="actionSheet.options"
+        ></wow-action-sheet>
     </wow-view>
 </template>
 
 <script>
     import WowView                      from 'wow-weex-ui/lib/wow-view'
+    import WowActionSheet               from 'components/wow-weex-ui/lib/wow-action-sheet'
     import RouterMixin                  from 'mixins/router.mixin'
     import SourceMixin                  from 'mixins/source.mixin'
     import { filterCutOut }             from 'mixins/filter.mixin'
@@ -83,6 +90,14 @@
         data () {
             return {
                 isAppear: true,
+                actionSheet: {
+                    is: false,
+                    options: [
+                        { text: '一键点赞' },
+                        { text: '收藏文章' },
+                        { text: '关注作者' },
+                    ],
+                },
             }
         },
         created () {
@@ -100,6 +115,7 @@
         components: {
             WowView,
             OperationPanel,
+            WowActionSheet,
         },
     }
 </script>

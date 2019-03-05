@@ -2,23 +2,36 @@
     <div class="wrap">
         <image class="image" src="https://img.mukewang.com/5c6d3e4e0001946418720632.jpg"></image>
         <input type="text" v-model="value" class="input" placeholder="说说你的看法..."/>
-        <div class="button">
-            <text class="button-text">发布</text>
+        <div class="button-box">
+            <div class="button sub-button" :style="{visibility: value ? 'visible' : 'hidden'}">
+                <text class="button-text">发布</text>
+            </div>
+            <div class="button" :style="{visibility: value ? 'hidden' : 'visible'}">
+                <image class="icon" :src="src$.more"></image>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import EmitMixin                    from 'wow-weex-ui/mixins/emit.mixin'
+    import SourceMixin                  from 'mixins/source.mixin'
+    const srcArr = [
+        { key: 'more', value: 'more-icon-fc5366.png', },
+    ];
 
     export default {
         mixins: [
-            EmitMixin
+            EmitMixin,
+            SourceMixin,
         ],
         data () {
             return {
                 value: ''
             }
+        },
+        created () {
+            this.sourceGet(srcArr);
         },
         props: {
             data: { default: {} },
@@ -50,15 +63,23 @@
         margin-right: 16px;
         margin-left: 32px;
     }
-    .button{
-        justify-content: center;
-        align-items: center;
-        padding-left: 16px;
-        padding-right: 16px;
+    .button-box{
         margin-right: 16px;
         margin-left: 16px;
+        width: 100px;
         height: 68px;
+    }
+    .button{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        justify-content: center;
+        align-items: center;
         border-radius: 8px;
+    }
+    .sub-button{
         background-color: #fc5366;
     }
     .button:active{
@@ -67,5 +88,9 @@
     .button-text{
         font-size: 28px;
         color: #fff;
+    }
+    .icon{
+        width: 48px;
+        height: 48px;
     }
 </style>
