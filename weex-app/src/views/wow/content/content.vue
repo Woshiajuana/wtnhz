@@ -1,6 +1,6 @@
 <template>
     <wow-view
-        view_use_scroll=""
+        :view_header_right_src="src$.more"
         :view_header_center_txt="computedTitle">
         <scroller class="main">
             <div class="header">
@@ -65,6 +65,7 @@
         { key: 'collect', value: 'collect-icon-999.png', },
         { key: 'collect_active', value: 'collect-icon-fc5366.png', },
         { key: 'msg', value: 'msg-icon-999.png', },
+        { key: 'more', value: 'more-icon-fc5366.png', },
     ];
 
     export default {
@@ -169,7 +170,7 @@
     .content{
         padding-left: 32px;
         padding-right: 32px;
-        padding-bottom: 60px;
+        padding-bottom: 32px;
     }
     .text{
         line-height: 44px;
