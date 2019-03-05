@@ -30,6 +30,7 @@
     import HeadSection                  from './components/head-section.vue'
     import ContentSection               from './components/content-section.vue'
     import CommentSection               from './components/comment-section.vue'
+    import CommentPopup                 from './components/comment-popup.vue'
 
     export default {
         mixins: [
@@ -67,6 +68,7 @@
             OperationPanel,
             ContentSection,
             CommentSection,
+            CommentPopup,
             WowActionSheet,
         },
     }
