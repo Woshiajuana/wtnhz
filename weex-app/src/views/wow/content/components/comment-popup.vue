@@ -1,8 +1,12 @@
 <template>
-    <div class="wrap">
-        <div class="inner">
+    <div class="wrap" @click="emitEvent('null')">
+        <div class="inner" @click="emitEvent('null')">
             <div class="head">
-                <image class="close"></image>
+                <image
+                    class="close"
+                    @click="emitEvent('close')"
+                    :src="src$.close"
+                ></image>
                 <text class="title">5条回复</text>
             </div>
             <scroller class="main">
@@ -51,18 +55,33 @@
                     <text class="prompt-text">没有更多了</text>
                 </div>
             </scroller>
-            <operation-panel></operation-panel>
+            <operation-panel
+                use_more=""
+            ></operation-panel>
         </div>
     </div>
 </template>
 
 <script>
     import OperationPanel               from './operation-panel.vue'
+    import EmitMixin                    from 'mixins/emit.mixin'
+    import SourceMixin                  from 'mixins/source.mixin'
+
+    const srcArr = [
+        { key: 'close', value: 'header-left-close.png', },
+    ];
 
     export default {
+        mixins: [
+            EmitMixin,
+            SourceMixin,
+        ],
+        created () {
+            this.sourceGet(srcArr);
+        },
         components: {
             OperationPanel,
-        }
+        },
     }
 </script>
 
@@ -97,7 +116,6 @@
         width: 48px;
         height: 48px;
         top: 21px;
-        background-color: red;
         justify-content: center;
         align-items: center;
     }

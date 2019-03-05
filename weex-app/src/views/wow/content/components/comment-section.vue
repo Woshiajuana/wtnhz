@@ -4,11 +4,11 @@
             <text class="title">全部评论</text>
         </div>
         <div class="main">
-            <comment-cell></comment-cell>
-            <comment-cell></comment-cell>
-            <comment-cell></comment-cell>
-            <comment-cell></comment-cell>
-            <comment-cell></comment-cell>
+            <comment-cell
+                v-for="(item, index) in 5"
+                :key="index"
+                @popup="emitEvent('popup', $event)"
+            ></comment-cell>
         </div>
         <div class="prompt">
             <text class='prompt-text'>没有更多了</text>
@@ -19,8 +19,13 @@
 <script>
     import WowView                      from 'wow-weex-ui/lib/wow-view'
     import WowEnd                       from 'wow-weex-ui/lib/wow-end'
+    import EmitMixin                    from 'mixins/emit.mixin'
     import CommentCell                  from './comment-cell.vue'
+
     export default {
+        mixins: [
+            EmitMixin,
+        ],
         components: {
             WowEnd,
             CommentCell,

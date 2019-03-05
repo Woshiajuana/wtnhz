@@ -5,10 +5,11 @@
         <div class="button-box">
             <div class="button sub-button"
                  @click="emitEvent('submit')"
-                 :style="{visibility: value ? 'visible' : 'hidden'}">
+                 :style="{visibility: !use_more || value ? 'visible' : 'hidden'}">
                 <text class="button-text">发布</text>
             </div>
             <div class="button"
+                 v-if="use_more"
                  @click="emitEvent('more')"
                  :style="{visibility: value ? 'hidden' : 'visible'}">
                 <image class="icon" :src="src$.more"></image>
@@ -39,6 +40,7 @@
         },
         props: {
             data: { default: {} },
+            use_more: { default: true },
         }
     }
 </script>

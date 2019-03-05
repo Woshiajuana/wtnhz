@@ -25,7 +25,7 @@
             <div class="item">
                 <text class="comment-text">哈哈哈：我心有猛虎我心有猛虎我心有猛虎我心有猛虎1</text>
             </div>
-            <div class="button">
+            <div class="button" @click="emitEvent('popup')">
                 <text class="button-text">查看全部评论</text>
             </div>
         </div>
@@ -33,8 +33,12 @@
 </template>
 
 <script>
-    export default {
+    import EmitMixin                    from 'mixins/emit.mixin'
 
+    export default {
+        mixins: [
+            EmitMixin,
+        ],
     }
 </script>
 

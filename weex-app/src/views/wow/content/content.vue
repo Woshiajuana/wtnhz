@@ -8,7 +8,9 @@
                 :data="params$"
             ></head-section>
             <content-section></content-section>
-            <comment-section></comment-section>
+            <comment-section
+                @popup="objDoubleDeck.is = true"
+            ></comment-section>
         </scroller>
         <operation-panel
             @more="actionSheet.is = true"
@@ -18,7 +20,10 @@
             v-if="actionSheet.is"
             :action_options="actionSheet.options"
         ></wow-action-sheet>
-        <comment-popup></comment-popup>
+        <comment-popup
+            @close="objDoubleDeck.is = false"
+            v-if="objDoubleDeck.is"
+        ></comment-popup>
     </wow-view>
 </template>
 
@@ -55,6 +60,10 @@
                         { text: '关注作者' },
                     ],
                 },
+                objDoubleDeck: {
+                    is: false,
+
+                }
             }
         },
         created () {
