@@ -18,6 +18,7 @@
             v-if="actionSheet.is"
             :action_options="actionSheet.options"
         ></wow-action-sheet>
+        <comment-popup></comment-popup>
     </wow-view>
 </template>
 
