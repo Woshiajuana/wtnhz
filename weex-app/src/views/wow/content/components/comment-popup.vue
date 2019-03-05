@@ -1,6 +1,8 @@
 <template>
     <div class="wrap" @click="emitEvent('null')">
-        <div class="inner" @click="emitEvent('null')">
+        <div class="inner"
+             ref="inner"
+             @click="emitEvent('null')">
             <div class="head">
                 <image
                     class="close"
@@ -66,6 +68,7 @@
     import OperationPanel               from './operation-panel.vue'
     import EmitMixin                    from 'mixins/emit.mixin'
     import SourceMixin                  from 'mixins/source.mixin'
+    import AnimationMixin               from 'mixins/animation.mixin'
 
     const srcArr = [
         { key: 'close', value: 'header-left-close.png', },
@@ -75,9 +78,13 @@
         mixins: [
             EmitMixin,
             SourceMixin,
+            AnimationMixin,
         ],
         created () {
             this.sourceGet(srcArr);
+        },
+        mounted () {
+            this.animationRun(this.$refs.inner);
         },
         components: {
             OperationPanel,
@@ -101,6 +108,7 @@
         background-color: #fff;
         width: 750px;
         height: 1200px;
+        transform: translate(0, 1200px);
     }
     .head{
         height: 90px;
@@ -118,9 +126,6 @@
         top: 21px;
         justify-content: center;
         align-items: center;
-    }
-    .close:active{
-        background-color: #f2f2f2;
     }
     .title{
         font-size: 36px;
