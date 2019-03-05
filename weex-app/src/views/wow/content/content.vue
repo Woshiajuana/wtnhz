@@ -7,8 +7,8 @@
                 @disappear="isAppear = false"
                 :data="params$"
             ></head-section>
-            <content-section
-            ></content-section>
+            <content-section></content-section>
+            <comment-section></comment-section>
         </scroller>
         <operation-panel
             @more="actionSheet.is = true"
@@ -29,6 +29,7 @@
     import OperationPanel               from './components/operation-panel.vue'
     import HeadSection                  from './components/head-section.vue'
     import ContentSection               from './components/content-section.vue'
+    import CommentSection               from './components/comment-section.vue'
 
     export default {
         mixins: [
@@ -65,6 +66,7 @@
             HeadSection,
             OperationPanel,
             ContentSection,
+            CommentSection,
             WowActionSheet,
         },
     }
