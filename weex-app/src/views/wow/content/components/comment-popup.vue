@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap" @click="emitEvent('null')">
+    <div class="wrap" @click="emitEvent('close')">
         <div class="inner"
              ref="inner"
              @click="emitEvent('null')">
