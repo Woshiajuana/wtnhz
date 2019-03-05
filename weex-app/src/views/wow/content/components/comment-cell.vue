@@ -105,6 +105,7 @@
         background-color: #999;
     }
     .comment{
+        margin-top: 8px;
         margin-left: 96px;
         background-color: #f2f2f2;
         padding-left: 32px;
@@ -118,7 +119,6 @@
     }
     .label{
         color: #50b9fe;
-        flex: 1;
     }
     .value{
         color: #333;
