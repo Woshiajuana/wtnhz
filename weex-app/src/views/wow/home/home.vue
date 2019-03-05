@@ -17,6 +17,13 @@
                 :data="item"
             ></item-cell>
         </wow-scroll>
+        <div class="publish"
+             @click="routerPush('wow_publish', item)">
+            <image
+                class="icon"
+                :src="src$.publish"
+            ></image>
+        </div>
     </wow-view>
 </template>
 
@@ -31,6 +38,7 @@
     const srcArr = [
         { key: 'arrow', value: 'triangle-down-ffffff-icon.png', },
         { key: 'search', value: 'search-icon-ffffff.png', },
+        { key: 'publish', value: 'publish-icon-fc5366.png', },
     ];
 
     export default {
@@ -79,7 +87,24 @@
 </script>
 
 <style>
-    .list{
-        flex: 1;
+    .publish{
+        position: fixed;
+        right: 32px;
+        bottom: 32px;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 60px;
+        background-color: #fff;
+        border-color: #fc5366;
+        border-width: 2px;
+    }
+    .publish:active{
+        background-color: #f2f2f2;
+    }
+    .icon{
+        width: 30px;
+        height: 30px;
     }
 </style>
