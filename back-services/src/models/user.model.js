@@ -49,6 +49,20 @@ const Schema = new mongoose.Schema({
         maxlength: 30,
     },
 
+    // 粉丝
+    followers: {
+        type: String,
+        trim: true,
+        default: '0',
+    },
+
+    // 关注
+    following: {
+        type: String,
+        trim: true,
+        default: '0',
+    },
+
     // 注册信息
     create: {
         // 时间
@@ -81,4 +95,4 @@ const Schema = new mongoose.Schema({
 
 export default mongoose.model('User', Schema);
 
-export const select = 'email nickname sex avatar autograph create';
+export const select = 'email nickname sex avatar autograph followers following create';
