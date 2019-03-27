@@ -162,6 +162,10 @@ export default [
                     },
                 ],
             },
+            // 帖子 note
+            {
+                path: '/publish'
+            },
             // 关注
             // {
             //     path: '/follow',
