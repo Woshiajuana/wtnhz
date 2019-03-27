@@ -162,44 +162,64 @@ export default [
                     },
                 ],
             },
-            // 帖子 note
+            // 帖子 post
             {
-                path: '/publish'
+                path: '/post',
+                children: [
+                    {
+                        path: '/publish',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'post',
+                                    method: 'publish',
+                                },
+                            ]
+                        },
+                    },
+                    {
+                        path: '/list',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'post',
+                                    method: 'list',
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        path: '/info',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'post',
+                                    method: 'info',
+                                },
+                            ]
+                        }
+                    },
+                    {
+                        path: '/remove',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'post',
+                                    method: 'remove',
+                                },
+                            ]
+                        }
+                    },
+                ]
             },
-            // 关注
-            // {
-            //     path: '/follow',
-            //     request: {
-            //         post: [
-            //             {
-            //                 controller: 'auth',
-            //                 method: 'check',
-            //             },
-            //             {
-            //                 controller: 'follow',
-            //                 method: 'follow',
-            //             },
-            //         ]
-            //     },
-            //     children: [
-            //         {
-            //             path: '/info',
-            //             request: {
-            //                 post: [
-            //                     {
-            //                         controller: 'auth',
-            //                         method: 'check',
-            //                     },
-            //                     {
-            //                         controller: 'follow',
-            //                         method: 'info',
-            //                     },
-            //                 ]
-            //             },
-            //         },
-            //
-            //     ]
-            // }
         ]
     }
 ]
