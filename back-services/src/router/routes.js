@@ -236,7 +236,29 @@ export default [
                                         },
                                     ]
                                 },
-                            }
+                            },
+                            {
+                                path: '/info',
+                                request: {
+                                    post: [
+                                        {
+                                            controller: 'post',
+                                            method: 'info',
+                                        },
+                                    ]
+                                }
+                            },
+                            {
+                                path: '/list',
+                                request: {
+                                    post: [
+                                        {
+                                            controller: 'post',
+                                            method: 'list',
+                                        },
+                                    ]
+                                }
+                            },
                         ]
                     }
                 ],
