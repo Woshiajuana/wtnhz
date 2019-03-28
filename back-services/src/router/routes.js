@@ -218,7 +218,28 @@ export default [
                             ]
                         }
                     },
-                ]
+
+                    {
+                        path: '/theme',
+                        children: [
+                            {
+                                path: '/create',
+                                request: {
+                                    post: [
+                                        {
+                                            controller: 'auth',
+                                            method: 'check',
+                                        },
+                                        {
+                                            controller: 'post.theme',
+                                            method: 'create',
+                                        },
+                                    ]
+                                },
+                            }
+                        ]
+                    }
+                ],
             },
         ]
     }

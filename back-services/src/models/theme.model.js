@@ -20,4 +20,4 @@ const Schema = new mongoose.Schema({
 
 export default mongoose.model('Theme', Schema);
 
-export const select = 'name';
+export const select = 'name datetime';
