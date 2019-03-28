@@ -36,7 +36,24 @@ export default {
     },
 
     // 列表
-    async list () {
-        
+    async list (options) {
+        let {
+            pageSize,
+            pageIndex,
+        } = options;
+        const total = await ThemeModel.count();
+        const themes = await ThemeModel
+            .find()
+            .sort('-datetime')
+            .skip((pageIndex - 1) * pageSize)
+            .limit(pageSize)
+            .select(select)
+            .lean();
+        return {
+            list: themes,
+            total,
+            pageSize,
+            pageIndex,
+        }
     }
 }

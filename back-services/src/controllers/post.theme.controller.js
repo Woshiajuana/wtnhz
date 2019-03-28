@@ -62,23 +62,30 @@ class Controller {
         try {
             let filterParams = await ctx.check$.testBody((regular) => {
                 return {
-                    name: [
+                    pageIndex: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
                         },
                         {
-                            rule: (value) => {
-                                let len = value.length;
-                                return len >= 2 && len <= 10;
-                            },
-                            prompt: '长度为2~10位',
+                            rule: regular.isNumber,
+                            prompt: '参数格式错误',
+                        },
+                    ],
+                    pageSize: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                        {
+                            rule: regular.isNumber,
+                            prompt: '参数格式错误',
                         },
                     ],
                 }
             });
-            await themeService.create(filterParams);
-            ctx.handle$.success();
+            let result = await themeService.list(filterParams);
+            ctx.handle$.success(result);
         } catch (err) {
             ctx.handle$.error(err);
         }
