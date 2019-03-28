@@ -45,8 +45,8 @@ export default {
         const themes = await ThemeModel
             .find()
             .sort('-datetime')
-            .skip((pageIndex - 1) * pageSize)
-            .limit(pageSize)
+            .skip((+pageIndex - 1) * +pageSize)
+            .limit(+pageSize)
             .select(select)
             .lean();
         return {

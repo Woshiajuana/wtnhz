@@ -242,7 +242,7 @@ export default [
                                 request: {
                                     post: [
                                         {
-                                            controller: 'post',
+                                            controller: 'post.theme',
                                             method: 'info',
                                         },
                                     ]
@@ -253,7 +253,7 @@ export default [
                                 request: {
                                     post: [
                                         {
-                                            controller: 'post',
+                                            controller: 'post.theme',
                                             method: 'list',
                                         },
                                     ]
