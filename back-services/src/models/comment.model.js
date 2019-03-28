@@ -1,26 +1,20 @@
 
-// 帖子表
+
+// 评论表
 
 import mongoose                 from 'mongoose'
 
 const Schema = new mongoose.Schema({
 
-    // 发帖人
-    owner: {
+    // 主题帖
+    post: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-
-    // 主题
-    theme: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Theme'
+        ref: 'Post' //这里要写你指向的数据库表名字
     },
 
     // 内容
     content: {
-        type: String,
-        trim: true,
+
     },
 
     // 创建信息
