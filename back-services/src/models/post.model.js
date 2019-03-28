@@ -6,7 +6,7 @@ import mongoose                 from 'mongoose'
 const Schema = new mongoose.Schema({
 
     // 发帖人
-    owner: {
+    author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
