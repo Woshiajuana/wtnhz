@@ -1,30 +1,14 @@
 
-import codeService          from '../services/code.service'
-import mailService          from '../services/mail.service'
-import userService          from '../services/user.service'
+import themeService         from '../services/theme.service'
 
 class Controller {
 
     // 新增
-    async add (ctx, next) {
+    async create (ctx, next) {
         try {
-            let filterParams;
-            let {
-                email,
-                captcha,
-            } = filterParams = await ctx.check$.testBody((regular) => {
+            let filterParams = await ctx.check$.testBody((regular) => {
                 return {
-                    email: [
-                        {
-                            nonempty: true,
-                            prompt: '缺少必要参数',
-                        },
-                        {
-                            rule: regular.isEmail,
-                            prompt: '参数格式错误',
-                        },
-                    ],
-                    password: [
+                    name: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
@@ -32,21 +16,15 @@ class Controller {
                         {
                             rule: (value) => {
                                 let len = value.length;
-                                return len >= 6 && len <= 32;
+                                return len >= 2 && len <= 10;
                             },
-                            prompt: '密码长度为6~32位',
+                            prompt: '长度为2~10位',
                         },
                     ],
-                    captcha: [],
                 }
             });
-            await userService.firewall(email, captcha);
-            delete filterParams.captcha;
-            let user = await userService.one(filterParams);
-            if (!user) await userService.filterTimes(email, captcha);
-            await userService.clearCaptcha(email);
-            user.token = await userService.token(user._id);
-            ctx.handle$.success(user);
+            await themeService.create(filterParams);
+            ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);
         }
