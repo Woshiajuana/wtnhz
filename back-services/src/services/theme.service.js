@@ -12,17 +12,16 @@ export default {
     async update (options) {
         let query = {};
         options._id && (query._id = options._id);
-        options.email && (query.email = options.email);
         return await ThemeModel.update(query, options, { runValidators: true });
     },
 
     // 删除
     async remove (options) {
-        const user = await UserModel
+        const theme = await ThemeModel
             .findById(options._id);
-        if (!user)
-            throw Error('无此用户');
-        await user.remove();
+        if (!theme)
+            throw Error('无此标签');
+        await theme.remove();
     },
 
     // 查询单个
@@ -30,9 +29,14 @@ export default {
         let key = typeof options === 'object'
             ? 'findOne'
             : 'findById';
-        const user = await UserModel[key](options)
+        const theme = await ThemeModel[key](options)
             .select(select)
             .lean();
-        return user;
+        return theme;
     },
+
+    // 列表
+    async list () {
+        
+    }
 }
