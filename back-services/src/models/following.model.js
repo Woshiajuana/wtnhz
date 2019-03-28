@@ -18,12 +18,9 @@ const Schema = new mongoose.Schema({
     },
 
     // 创建信息
-    create: {
-        // 时间
-        date: {
-            type: Date,
-            default: Date.now,
-        },
+    datetime: {
+        type: Date,
+        default: Date.now,
     },
 
 });

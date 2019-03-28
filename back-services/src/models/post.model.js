@@ -17,19 +17,16 @@ const Schema = new mongoose.Schema({
         ref: 'Theme'
     },
 
-    // 内容
+    // 帖内容
     content: {
         type: String,
         trim: true,
     },
 
     // 创建信息
-    create: {
-        // 时间
-        date: {
-            type: Date,
-            default: Date.now,
-        },
+    datetime: {
+        type: Date,
+        default: Date.now,
     },
 
 });

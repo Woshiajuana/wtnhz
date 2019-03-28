@@ -12,20 +12,35 @@ const Schema = new mongoose.Schema({
         ref: 'Post' //这里要写你指向的数据库表名字
     },
 
-    // 内容
-    content: {
+    // 评论人
+    discussant: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
 
+    // 评论内容
+    content: {
+        type: String,
+        trim: true,
+    },
+
+    // 楼层
+    floor: {
+        type: String,
+        trim: true,
     },
 
     // 创建信息
-    create: {
-        // 时间
-        date: {
-            type: Date,
-            default: Date.now,
-        },
+    datetime: {
+        type: Date,
+        default: Date.now,
     },
+
+    // 回复
+    reply: [
+        { type: mongoose.Schema.Types.ObjectId, ref: 'Node' }
+    ]
 
 });
 
-export default mongoose.model('Post', Schema);
+export default mongoose.model('Comment', Schema);

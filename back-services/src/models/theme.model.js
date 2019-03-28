@@ -12,7 +12,10 @@ const Schema = new mongoose.Schema({
         unique: true,
         trim: true,
     },
-
+    datetime: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 export default mongoose.model('Theme', Schema);
