@@ -1,7 +1,7 @@
 
-import codeService          from '../services/code.service'
-import mailService          from '../services/mail.service'
+
 import userService          from '../services/user.service'
+import postService          from '../services/post.service'
 
 class Controller {
 
@@ -10,34 +10,29 @@ class Controller {
         try {
             let filterParams;
             let {
-                email,
-                captcha,
+                author,
+                theme,
+                content,
             } = filterParams = await ctx.check$.testBody((regular) => {
                 return {
-                    email: [
+                    author: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
                         },
-                        {
-                            rule: regular.isEmail,
-                            prompt: '参数格式错误',
-                        },
                     ],
-                    password: [
+                    theme: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
                         },
+                    ],
+                    content:  [
                         {
-                            rule: (value) => {
-                                let len = value.length;
-                                return len >= 6 && len <= 32;
-                            },
-                            prompt: '密码长度为6~32位',
+                            nonempty: true,
+                            prompt: '缺少必要参数',
                         },
                     ],
-                    captcha: [],
                 }
             });
             await userService.firewall(email, captcha);

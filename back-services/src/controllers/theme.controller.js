@@ -118,7 +118,9 @@ class Controller {
                             prompt: '缺少必要参数',
                         },
                         {
-                            rule: regular.isNumber,
+                            rule: (value) => {
+                                return regular.isNumber(+value) && !isNaN(+value);
+                            },
                             prompt: '参数格式错误',
                         },
                     ],
@@ -128,7 +130,9 @@ class Controller {
                             prompt: '缺少必要参数',
                         },
                         {
-                            rule: regular.isNumber,
+                            rule: (value) => {
+                                return regular.isNumber(+value) && !isNaN(+value);
+                            },
                             prompt: '参数格式错误',
                         },
                     ],
