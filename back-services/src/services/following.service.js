@@ -4,7 +4,7 @@ import FollowingModel, { select, populate }  from '../models/following.model'
 export default {
 
     // 粉丝
-    async cancel (options) {
+    async create (options) {
         await new FollowingModel(options).save();
     },
 
@@ -22,10 +22,11 @@ export default {
         let {
             pageSize,
             pageIndex,
+            _id,
         } = options;
         const total = await FollowingModel.count();
         const list = await FollowingModel
-            .find()
+            .find({ following: _id })
             .sort('-datetime')
             .skip((+pageIndex - 1) * +pageSize)
             .limit(+pageSize)

@@ -9,24 +9,18 @@ class Controller {
     // 关注
     async create (ctx, next) {
         try {
-            let filterParams;
             let {
-                author,
-            } = filterParams = await ctx.check$.testBody((regular) => {
+                _id,
+                id,
+            } = await ctx.check$.testBody((regular) => {
                 return {
-                    post: [
+                    _id: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
                         },
                     ],
-                    author: [
-                        {
-                            nonempty: true,
-                            prompt: '缺少必要参数',
-                        },
-                    ],
-                    content: [
+                    id: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
@@ -34,9 +28,13 @@ class Controller {
                     ],
                 }
             });
-            if (!await userService.one(author))
-                throw '非法操作！';
-            await commentService.create(filterParams);
+            let filterParams = {
+                following: id,
+                follower: _id,
+            };
+            await userService.follow(id);
+            await followerService.create(filterParams);
+            await followingService.create(filterParams);
             ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);
