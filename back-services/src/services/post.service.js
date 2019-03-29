@@ -1,26 +1,26 @@
 
-import ThemeModel, {select} from '../models/theme.model'
+import PostModel, {select}  from '../models/post.model'
 
 export default {
 
     // 创建
     async create (options) {
-        await new ThemeModel(options).save();
+        await new PostModel(options).save();
     },
 
     // 更新
     async update (options) {
         let query = {};
         options._id && (query._id = options._id);
-        return await ThemeModel.update(query, options, { runValidators: true });
+        return await PostModel.update(query, options, { runValidators: true });
     },
 
     // 删除
     async remove (options) {
-        const theme = await ThemeModel
+        const theme = await PostModel
             .findById(options._id);
         if (!theme)
-            throw Error('无此标签');
+            throw Error('无此帖子');
         await theme.remove();
     },
 
@@ -29,7 +29,7 @@ export default {
         let key = typeof options === 'object'
             ? 'findOne'
             : 'findById';
-        const theme = await ThemeModel[key](options)
+        const theme = await PostModel[key](options)
             .select(select)
             .lean();
         return theme;
@@ -41,8 +41,8 @@ export default {
             pageSize,
             pageIndex,
         } = options;
-        const total = await ThemeModel.count();
-        const themes = await ThemeModel
+        const total = await PostModel.count();
+        const themes = await PostModel
             .find()
             .sort('-datetime')
             .skip((+pageIndex - 1) * +pageSize)

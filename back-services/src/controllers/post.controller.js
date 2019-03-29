@@ -2,6 +2,7 @@
 
 import userService          from '../services/user.service'
 import postService          from '../services/post.service'
+import themeService         from '../services/theme.service'
 
 class Controller {
 
@@ -12,7 +13,6 @@ class Controller {
             let {
                 author,
                 theme,
-                content,
             } = filterParams = await ctx.check$.testBody((regular) => {
                 return {
                     author: [
@@ -35,13 +35,12 @@ class Controller {
                     ],
                 }
             });
-            await userService.firewall(email, captcha);
-            delete filterParams.captcha;
-            let user = await userService.one(filterParams);
-            if (!user) await userService.filterTimes(email, captcha);
-            await userService.clearCaptcha(email);
-            user.token = await userService.token(user._id);
-            ctx.handle$.success(user);
+            let user = await userService.one(author);
+            if (!user) throw '非法操作！';
+            let theme = await themeService.one(theme);
+            if (!theme) throw '标签错误！';
+            await postService.create(filterParams);
+            ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);
         }
