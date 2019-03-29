@@ -234,6 +234,8 @@ class Controller {
                             prompt: '参数不能超过30个字符',
                         },
                     ],
+                    followers: [],
+                    following: [],
                 }
             });
             await userService.update(filterParams);

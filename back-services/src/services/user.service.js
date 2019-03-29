@@ -12,8 +12,10 @@ export default {
     async follow (_id, id) {
         let followerUser = await UserModel.findById(_id);
         let followingUser = await UserModel.findById(id);
-        followerUser.following = (+followerUser.following + 1).toString();
-        followingUser.follower = (+followingUser.follower + 1).toString();
+        let following = followerUser.following ? +followerUser.following : 0;
+        let followers = followingUser.followers ? +followingUser.followers : 0;
+        followerUser.following = (following + 1).toString();
+        followingUser.followers = (followers + 1).toString();
         await this.update(followerUser);
         await this.update(followingUser);
     },
@@ -22,8 +24,10 @@ export default {
     async cancelFollow (_id, id) {
         let followerUser = await UserModel.findById(_id);
         let followingUser = await UserModel.findById(id);
-        followerUser.following = (+followerUser.following - 1).toString();
-        followingUser.follower = (+followingUser.follower - 1).toString();
+        let following = followerUser.following ? +followerUser.following : 1;
+        let followers = followingUser.followers ? +followingUser.followers : 1;
+        followerUser.following = (following - 1).toString();
+        followingUser.followers = (followers - 1).toString();
         await this.update(followerUser);
         await this.update(followingUser);
     },
