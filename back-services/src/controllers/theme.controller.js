@@ -45,8 +45,8 @@ class Controller {
                     ],
                 }
             });
-            let theme = await themeService.one(_id);
-            ctx.handle$.success(theme);
+            let data = await themeService.one(_id);
+            ctx.handle$.success(data);
         } catch (err) {
             ctx.handle$.error(err);
         }
@@ -67,8 +67,8 @@ class Controller {
                     ],
                 }
             });
-            let theme = await themeService.remove(_id);
-            ctx.handle$.success(theme);
+            await themeService.remove(_id);
+            ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);
         }
@@ -138,8 +138,8 @@ class Controller {
                     ],
                 }
             });
-            let result = await themeService.list(filterParams);
-            ctx.handle$.success(result);
+            let data = await themeService.list(filterParams);
+            ctx.handle$.success(data);
         } catch (err) {
             ctx.handle$.error(err);
         }
