@@ -21,6 +21,12 @@ class Controller {
                             prompt: '缺少必要参数',
                         },
                     ],
+                    title: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
                     theme: [
                         {
                             nonempty: true,

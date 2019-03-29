@@ -10,6 +10,12 @@ const Schema = new mongoose.Schema({
         ref: 'User'
     },
 
+    // 标题
+    title: {
+        type: String,
+        trim: true,
+    },
+
     // 主题
     theme: {
         type: mongoose.Schema.Types.ObjectId,
@@ -32,9 +38,9 @@ const Schema = new mongoose.Schema({
 
 export default mongoose.model('Post', Schema);
 
-export const select = 'author theme content datetime';
+export const select = 'author title theme content datetime';
 
-export const listSelect = 'author theme datetime';
+export const listSelect = 'author title theme datetime';
 
 export const populate = [
     { path: 'author', select: 'email nickname sex avatar autograph followers following' },

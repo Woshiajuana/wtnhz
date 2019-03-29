@@ -48,7 +48,7 @@ export default {
             .sort('-datetime')
             .skip((+pageIndex - 1) * +pageSize)
             .limit(+pageSize)
-            .select(select)
+            .select(listSelect)
             .populate(populate)
             .lean();
         return {
