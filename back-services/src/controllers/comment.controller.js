@@ -125,6 +125,50 @@ class Controller {
         }
     }
 
+    // 回复
+    async reply (ctx, next) {
+        try {
+            let filterParams;
+            let {
+                author,
+            } = filterParams = await ctx.check$.testBody((regular) => {
+                return {
+                    _id: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
+                    author: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
+                    content: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
+                    datetime: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
+                    reply: [],
+                }
+            });
+            if (!await userService.one(author))
+                throw '非法操作！';
+            await commentService.create(filterParams);
+            ctx.handle$.success();
+        } catch (err) {
+            ctx.handle$.error(err);
+        }
+    }
+
 }
 
 export default new Controller();

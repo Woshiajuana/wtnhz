@@ -324,6 +324,17 @@ export default [
                                     ]
                                 },
                             },
+                            {
+                                path: '/reply',
+                                request: {
+                                    post: [
+                                        {
+                                            controller: 'comment',
+                                            method: 'reply',
+                                        },
+                                    ]
+                                },
+                            },
                         ]
                     }
                 ],
