@@ -161,7 +161,7 @@ class Controller {
             let comment = await commentService.one(id);
             if (!comment)
                 throw '非法操作！';
-            comment.reply.push({
+            comment.reply.unshift({
                 author,
                 content,
                 reply,
