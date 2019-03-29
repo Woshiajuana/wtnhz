@@ -1,5 +1,6 @@
 import _                        from 'lodash'
 import regularUtil              from '../utils/regular.util'
+import tepyUtil                 from '../utils/type.util'
 
 export default () => async (ctx, next) => {
     try {
@@ -11,6 +12,7 @@ export default () => async (ctx, next) => {
         ctx.check$ = {
             regular: {
                 ...regularUtil,
+                ...tepyUtil,
             },
             _errResult: '',
             filterParams: {},
