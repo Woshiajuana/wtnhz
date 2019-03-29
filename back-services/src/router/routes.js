@@ -329,6 +329,10 @@ export default [
                                 request: {
                                     post: [
                                         {
+                                            controller: 'auth',
+                                            method: 'check',
+                                        },
+                                        {
                                             controller: 'comment',
                                             method: 'reply',
                                         },

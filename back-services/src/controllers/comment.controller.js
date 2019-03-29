@@ -153,12 +153,12 @@ class Controller {
                             prompt: '缺少必要参数',
                         },
                     ],
-                    reply: [],
+                    // reply: [],
                 }
             });
             if (!await userService.one(author))
                 throw '非法操作！';
-            let comment = commentService.one(_id);
+            let comment = await commentService.one(_id);
             if (!comment)
                 throw '非法操作！';
             comment.reply.push({
