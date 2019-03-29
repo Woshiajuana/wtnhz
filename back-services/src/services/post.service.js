@@ -1,5 +1,5 @@
 
-import PostModel, { select, populate }    from '../models/post.model'
+import PostModel, { select, populate, listSelect }    from '../models/post.model'
 
 export default {
 
@@ -31,6 +31,7 @@ export default {
             : 'findById';
         const data = await PostModel[key](options)
             .select(select)
+            .populate(populate)
             .lean();
         return data;
     },

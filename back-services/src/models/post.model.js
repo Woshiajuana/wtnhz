@@ -34,6 +34,8 @@ export default mongoose.model('Post', Schema);
 
 export const select = 'author theme content datetime';
 
+export const listSelect = 'author theme datetime';
+
 export const populate = [
     { path: 'author', select: 'email nickname sex avatar autograph followers following' },
     'theme'
