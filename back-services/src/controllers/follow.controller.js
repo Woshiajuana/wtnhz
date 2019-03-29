@@ -46,6 +46,12 @@ class Controller {
         try {
             let filterParams = await ctx.check$.testBody((regular) => {
                 return {
+                    id:  [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
                     pageIndex: [
                         {
                             nonempty: true,
@@ -72,12 +78,11 @@ class Controller {
                     ],
                 }
             });
-            let data = await commentService.list(filterParams);
+            let data = await followingService.list(filterParams);
             ctx.handle$.success(data);
         } catch (err) {
             ctx.handle$.error(err);
         }
-
     }
 
     // 关注列表
@@ -85,6 +90,12 @@ class Controller {
         try {
             let filterParams = await ctx.check$.testBody((regular) => {
                 return {
+                    id:  [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
                     pageIndex: [
                         {
                             nonempty: true,
@@ -111,12 +122,11 @@ class Controller {
                     ],
                 }
             });
-            let data = await commentService.list(filterParams);
+            let data = await followingService.list(filterParams);
             ctx.handle$.success(data);
         } catch (err) {
             ctx.handle$.error(err);
         }
-
     }
 
     // 取消关注
@@ -141,9 +151,13 @@ class Controller {
                     ],
                 }
             });
-            await followerService.remove(_id);
-            await followingService.remove(id);
+            let filterParams = {
+                following: id,
+                follower: _id,
+            };
             await userService.cancelFollow(id);
+            await followerService.remove(filterParams);
+            await followingService.remove(filterParams);
             ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);

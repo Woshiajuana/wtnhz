@@ -11,7 +11,7 @@ export default {
     // 删除
     async remove (options) {
         const data = await FollowingModel
-            .findById(options._id);
+            .find(options);
         if (!data)
             throw Error('无此数据');
         await data.remove();
