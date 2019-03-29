@@ -32,3 +32,5 @@ const Schema = new mongoose.Schema({
 });
 
 export default mongoose.model('Post', Schema);
+
+export const select = 'author theme content datetime';

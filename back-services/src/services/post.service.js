@@ -48,6 +48,7 @@ export default {
             .skip((+pageIndex - 1) * +pageSize)
             .limit(+pageSize)
             .select(select)
+            .populate('theme author')
             .lean();
         return {
             list: themes,
