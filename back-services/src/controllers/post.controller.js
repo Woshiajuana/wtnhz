@@ -35,10 +35,10 @@ class Controller {
                     ],
                 }
             });
-            let user = await userService.one(author);
-            if (!user) throw '非法操作！';
-            let theme = await themeService.one(theme);
-            if (!theme) throw '标签错误！';
+            if (!await userService.one(author))
+                throw '非法操作！';
+            if (!await themeService.one(theme))
+                throw '标签错误！';
             await postService.create(filterParams);
             ctx.handle$.success();
         } catch (err) {
