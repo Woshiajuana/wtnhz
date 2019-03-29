@@ -307,10 +307,6 @@ export default [
                                 request: {
                                     post: [
                                         {
-                                            controller: 'auth',
-                                            method: 'check',
-                                        },
-                                        {
                                             controller: 'comment',
                                             method: 'list',
                                         },
@@ -321,10 +317,6 @@ export default [
                                 path: '/info',
                                 request: {
                                     post: [
-                                        {
-                                            controller: 'auth',
-                                            method: 'check',
-                                        },
                                         {
                                             controller: 'comment',
                                             method: 'info',
