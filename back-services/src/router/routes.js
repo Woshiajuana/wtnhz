@@ -343,6 +343,72 @@ export default [
                     }
                 ],
             },
+            // 关注
+            {
+                path: 'follow',
+                children: [
+                    {
+                        path: '/remove',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'follow',
+                                    method: 'remove',
+                                },
+                            ]
+                        },
+                    },
+                    {
+                        path: '/create',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'follow',
+                                    method: 'create',
+                                },
+                            ]
+                        },
+                    },
+                    {
+                        path: '/followers',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'follow',
+                                    method: 'followers',
+                                },
+                            ]
+                        },
+                    },
+                    {
+                        path: '/following',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'follow',
+                                    method: 'following',
+                                },
+                            ]
+                        },
+                    },
+                ]
+            }
         ]
     }
 ]

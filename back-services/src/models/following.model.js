@@ -26,3 +26,10 @@ const Schema = new mongoose.Schema({
 });
 
 export default mongoose.model('Following', Schema);
+
+export const select = 'following follower datetime';
+
+export const populate = [
+    { path: 'following', select: 'email nickname sex avatar autograph followers following' },
+    { path: 'follower', select: 'email nickname sex avatar autograph followers following' },
+];
