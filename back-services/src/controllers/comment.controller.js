@@ -85,10 +85,10 @@ class Controller {
     async info (ctx, next) {
         try {
             let {
-                _id,
+                id,
             } = await ctx.check$.testBody((regular) => {
                 return {
-                    _id: [
+                    id: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
@@ -96,7 +96,7 @@ class Controller {
                     ],
                 }
             });
-            let data = await commentService.one(_id);
+            let data = await commentService.one(id);
             ctx.handle$.success(data);
         } catch (err) {
             ctx.handle$.error(err);
@@ -107,10 +107,10 @@ class Controller {
     async remove (ctx, next) {
         try {
             let {
-                _id,
+                id,
             } = await ctx.check$.testBody((regular) => {
                 return {
-                    _id: [
+                    id: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
@@ -118,7 +118,7 @@ class Controller {
                     ],
                 }
             });
-            await commentService.remove(_id);
+            await commentService.remove(id);
             ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);
@@ -132,10 +132,10 @@ class Controller {
                 author,
                 content,
                 reply,
-                _id,
+                id,
             } = await ctx.check$.testBody((regular) => {
                 return {
-                    _id: [
+                    id: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
@@ -153,12 +153,12 @@ class Controller {
                             prompt: '缺少必要参数',
                         },
                     ],
-                    // reply: [],
+                    reply: [],
                 }
             });
             if (!await userService.one(author))
                 throw '非法操作！';
-            let comment = await commentService.one(_id);
+            let comment = await commentService.one(id);
             if (!comment)
                 throw '非法操作！';
             comment.reply.push({

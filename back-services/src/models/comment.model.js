@@ -72,4 +72,6 @@ export const select = 'post author floor content theme reply datetime';
 export const populate = [
     { path: 'post', select: 'title theme' },
     { path: 'author', select: 'email nickname sex avatar autograph followers following' },
+    { path: 'reply.author', select: 'email nickname sex avatar autograph followers following' },
+    { path: 'reply.reply', select: 'email nickname sex avatar autograph followers following' },
 ];
