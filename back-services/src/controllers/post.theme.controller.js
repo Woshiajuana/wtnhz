@@ -33,25 +33,20 @@ class Controller {
     // 查看
     async info (ctx, next) {
         try {
-            let filterParams = await ctx.check$.testBody((regular) => {
+            let {
+                _id,
+            } = await ctx.check$.testBody((regular) => {
                 return {
-                    name: [
+                    _id: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
                         },
-                        {
-                            rule: (value) => {
-                                let len = value.length;
-                                return len >= 2 && len <= 10;
-                            },
-                            prompt: '长度为2~10位',
-                        },
                     ],
                 }
             });
-            await themeService.create(filterParams);
-            ctx.handle$.success();
+            let theme = await themeService.one(_id);
+            ctx.handle$.success(theme);
         } catch (err) {
             ctx.handle$.error(err);
         }
