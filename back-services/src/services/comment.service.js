@@ -50,5 +50,12 @@ export default {
             pageSize,
             pageIndex,
         }
-    }
+    },
+
+    // 评论回复
+    async update (options) {
+        let query = {};
+        options._id && (query._id = options._id);
+        return await CommentModel.update(query, options, { runValidators: true });
+    },
 }

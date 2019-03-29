@@ -128,10 +128,12 @@ class Controller {
     // 回复
     async reply (ctx, next) {
         try {
-            let filterParams;
             let {
                 author,
-            } = filterParams = await ctx.check$.testBody((regular) => {
+                content,
+                reply,
+                _id,
+            } = await ctx.check$.testBody((regular) => {
                 return {
                     _id: [
                         {
@@ -151,18 +153,20 @@ class Controller {
                             prompt: '缺少必要参数',
                         },
                     ],
-                    datetime: [
-                        {
-                            nonempty: true,
-                            prompt: '缺少必要参数',
-                        },
-                    ],
                     reply: [],
                 }
             });
             if (!await userService.one(author))
                 throw '非法操作！';
-            await commentService.create(filterParams);
+            let comment = commentService.one(_id);
+            if (!comment)
+                throw '非法操作！';
+            comment.reply.push({
+                author,
+                content,
+                reply,
+            });
+            await commentService.update(comment);
             ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);
