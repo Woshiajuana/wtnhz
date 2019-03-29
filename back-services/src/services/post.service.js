@@ -1,5 +1,5 @@
 
-import PostModel, {select}  from '../models/post.model'
+import PostModel, { select, populate }    from '../models/post.model'
 
 export default {
 
@@ -48,7 +48,7 @@ export default {
             .skip((+pageIndex - 1) * +pageSize)
             .limit(+pageSize)
             .select(select)
-            .populate('theme author')
+            .populate(populate)
             .lean();
         return {
             list: themes,
