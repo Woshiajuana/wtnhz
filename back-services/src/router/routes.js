@@ -231,7 +231,7 @@ export default [
                                             method: 'check',
                                         },
                                         {
-                                            controller: 'post.theme',
+                                            controller: 'theme',
                                             method: 'create',
                                         },
                                     ]
@@ -242,8 +242,30 @@ export default [
                                 request: {
                                     post: [
                                         {
-                                            controller: 'post.theme',
+                                            controller: 'theme',
                                             method: 'info',
+                                        },
+                                    ]
+                                }
+                            },
+                            {
+                                path: '/update',
+                                request: {
+                                    post: [
+                                        {
+                                            controller: 'theme',
+                                            method: 'update',
+                                        },
+                                    ]
+                                }
+                            },
+                            {
+                                path: '/remove',
+                                request: {
+                                    post: [
+                                        {
+                                            controller: 'theme',
+                                            method: 'remove',
                                         },
                                     ]
                                 }
@@ -253,7 +275,7 @@ export default [
                                 request: {
                                     post: [
                                         {
-                                            controller: 'post.theme',
+                                            controller: 'theme',
                                             method: 'list',
                                         },
                                     ]
