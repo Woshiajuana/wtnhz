@@ -8,6 +8,26 @@ import commonUtil           from '../utils/common.util'
 
 export default {
 
+    // 关注
+    async follow ({_id, id}) {
+        let followerUser = await UserModel.findById(_id);
+        let followingUser = await UserModel.findById(id);
+        followerUser.following = (+followerUser.following + 1).toString();
+        followingUser.follower = (+followingUser.follower + 1).toString();
+        await this.update(followerUser);
+        await this.update(followingUser);
+    },
+
+    // 取消关注
+    async cancelFollow ({_id, id}) {
+        let followerUser = await UserModel.findById(_id);
+        let followingUser = await UserModel.findById(id);
+        followerUser.following = (+followerUser.following - 1).toString();
+        followingUser.follower = (+followingUser.follower - 1).toString();
+        await this.update(followerUser);
+        await this.update(followingUser);
+    },
+
     // 创建
     async create (options) {
         await new UserModel(options).save();

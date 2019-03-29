@@ -5,13 +5,14 @@ export default {
 
     // 粉丝
     async create (options) {
+        const data = await FollowerModel.find(options);
+        if (data) throw '已关注';
         await new FollowerModel(options).save();
     },
 
     // 删除
     async remove (options) {
-        const data = await FollowerModel
-            .find(options);
+        const data = await FollowerModel.find(options);
         if (!data)
             throw Error('无此数据');
         await data.remove();

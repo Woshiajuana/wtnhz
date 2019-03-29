@@ -32,7 +32,7 @@ class Controller {
                 following: id,
                 follower: _id,
             };
-            await userService.follow(id);
+            await userService.follow(filterParams);
             await followerService.create(filterParams);
             await followingService.create(filterParams);
             ctx.handle$.success();
@@ -155,7 +155,7 @@ class Controller {
                 following: id,
                 follower: _id,
             };
-            await userService.cancelFollow(id);
+            await userService.cancelFollow(filterParams);
             await followerService.remove(filterParams);
             await followingService.remove(filterParams);
             ctx.handle$.success();
