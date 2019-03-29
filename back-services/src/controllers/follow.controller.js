@@ -2,7 +2,7 @@
 
 import userService          from '../services/user.service'
 import followerService      from '../services/follower.service'
-import followingService     from '../services/following.service '
+import followingService     from '../services/following.service'
 
 class Controller {
 
@@ -25,6 +25,12 @@ class Controller {
                             nonempty: true,
                             prompt: '缺少必要参数',
                         },
+                        {
+                            rule: (value, data) => {
+                                return value !== data._id;
+                            },
+                            prompt: '不能关注自己',
+                        },
                     ],
                 }
             });
@@ -32,9 +38,9 @@ class Controller {
                 following: id,
                 follower: _id,
             };
-            await userService.follow(filterParams);
             await followerService.create(filterParams);
             await followingService.create(filterParams);
+            await userService.follow(_id, id);
             ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);
@@ -155,9 +161,9 @@ class Controller {
                 following: id,
                 follower: _id,
             };
-            await userService.cancelFollow(filterParams);
             await followerService.remove(filterParams);
             await followingService.remove(filterParams);
+            await userService.cancelFollow(_id, id);
             ctx.handle$.success();
         } catch (err) {
             ctx.handle$.error(err);

@@ -9,7 +9,7 @@ import commonUtil           from '../utils/common.util'
 export default {
 
     // 关注
-    async follow ({_id, id}) {
+    async follow (_id, id) {
         let followerUser = await UserModel.findById(_id);
         let followingUser = await UserModel.findById(id);
         followerUser.following = (+followerUser.following + 1).toString();
@@ -19,7 +19,7 @@ export default {
     },
 
     // 取消关注
-    async cancelFollow ({_id, id}) {
+    async cancelFollow (_id, id) {
         let followerUser = await UserModel.findById(_id);
         let followingUser = await UserModel.findById(id);
         followerUser.following = (+followerUser.following - 1).toString();

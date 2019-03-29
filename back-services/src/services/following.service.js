@@ -6,7 +6,7 @@ export default {
     // 粉丝
     async create (options) {
         const data = await FollowingModel.find(options);
-        if (data) throw '已关注';
+        if (data.length) throw '已关注';
         await new FollowingModel(options).save();
     },
 

@@ -345,7 +345,7 @@ export default [
             },
             // 关注
             {
-                path: 'follow',
+                path: '/follow',
                 children: [
                     {
                         path: '/remove',
