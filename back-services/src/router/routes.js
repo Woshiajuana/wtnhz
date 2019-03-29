@@ -282,6 +282,57 @@ export default [
                                 }
                             },
                         ]
+                    },
+
+                    {
+                        path: '/comment',
+                        children: [
+                            {
+                                path: '/publish',
+                                request: {
+                                    post: [
+                                        {
+                                            controller: 'auth',
+                                            method: 'check',
+                                        },
+                                        {
+                                            controller: 'comment',
+                                            method: 'publish',
+                                        },
+                                    ]
+                                },
+                            },
+                            {
+                                path: '/list',
+                                request: {
+                                    post: [
+                                        {
+                                            controller: 'auth',
+                                            method: 'check',
+                                        },
+                                        {
+                                            controller: 'comment',
+                                            method: 'list',
+                                        },
+                                    ]
+                                },
+                            },
+                            {
+                                path: '/info',
+                                request: {
+                                    post: [
+                                        {
+                                            controller: 'auth',
+                                            method: 'check',
+                                        },
+                                        {
+                                            controller: 'comment',
+                                            method: 'info',
+                                        },
+                                    ]
+                                },
+                            },
+                        ]
                     }
                 ],
             },

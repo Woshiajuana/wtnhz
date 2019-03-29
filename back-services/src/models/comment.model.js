@@ -66,3 +66,10 @@ const Schema = new mongoose.Schema({
 });
 
 export default mongoose.model('Comment', Schema);
+
+export const select = 'post author floor content theme reply datetime';
+
+export const populate = [
+    { path: 'post', select: 'title theme' },
+    { path: 'author', select: 'email nickname sex avatar autograph followers following' },
+];
