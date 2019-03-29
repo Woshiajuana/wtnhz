@@ -17,11 +17,11 @@ export default {
 
     // 删除
     async remove (options) {
-        const theme = await PostModel
+        const data = await PostModel
             .findById(options._id);
-        if (!theme)
+        if (!data)
             throw Error('无此帖子');
-        await theme.remove();
+        await data.remove();
     },
 
     // 查询单个
@@ -29,10 +29,10 @@ export default {
         let key = typeof options === 'object'
             ? 'findOne'
             : 'findById';
-        const theme = await PostModel[key](options)
+        const data = await PostModel[key](options)
             .select(select)
             .lean();
-        return theme;
+        return data;
     },
 
     // 列表
@@ -42,7 +42,7 @@ export default {
             pageIndex,
         } = options;
         const total = await PostModel.count();
-        const themes = await PostModel
+        const list = await PostModel
             .find()
             .sort('-datetime')
             .skip((+pageIndex - 1) * +pageSize)
@@ -51,7 +51,7 @@ export default {
             .populate(populate)
             .lean();
         return {
-            list: themes,
+            list,
             total,
             pageSize,
             pageIndex,
