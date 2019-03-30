@@ -63,8 +63,8 @@
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
     import UserService                  from 'services/user.service'
+    import InputBox                     from 'components/input-box.vue'
     import Mixin                        from './login.mixin'
-    import InputBox                     from './components/input-box.vue'
 
     const srcArr = [
         { key: 'def', value: 'default-head-icon.png?8', },

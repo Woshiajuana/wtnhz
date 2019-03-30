@@ -46,8 +46,8 @@
     import Dialogs                      from 'plugins/dialogs.plugin'
     import VerifyUtil                   from 'utils/verify.util'
     import ExtractUtil                  from 'utils/extract.util'
+    import InputBox                     from 'components/input-box.vue'
     import Mixin                        from './forgot.mixin'
-    import InputBox                     from './components/input-box.vue'
     import HeadSection                  from './components/head-section.vue'
 
     export default {
