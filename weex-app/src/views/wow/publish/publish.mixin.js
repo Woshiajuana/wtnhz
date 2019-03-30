@@ -2,66 +2,30 @@
 const data = () => {
     return {
         objInput$: {
-            // 邮箱
-            email: {
+            // 标题
+            title: {
                 value: '',
-                label: '邮箱',
+                label: '标题',
                 type: 'text',
-                placeholder: '请输入邮箱',
+                placeholder: '加个标题呦...',
                 use: [
                     {
                         nonempty: true,
-                        prompt: '请输入邮箱',
-                    },
-                    {
-                        rule: RegularUtil.isEmail,
-                        prompt: '邮箱输入错误',
+                        prompt: '请输入标题',
                     },
                 ],
             },
             // 验证码
-            code: {
+            content: {
                 value: '',
-                label: '验证码',
-                type: 'tel',
-                placeholder: '请输入验证码',
+                label: '内容',
+                type: 'text',
+                placeholder: '来吧，尽情的发挥吧...',
                 use: [
                     {
                         nonempty: true,
-                        prompt: '请输入验证码',
+                        prompt: '请输入内容',
                     },
-                ],
-            },
-            // 密码
-            password: {
-                value: '111111',
-                label: '密码',
-                type: 'password',
-                placeholder: '请输入密码',
-                use: [
-                    {
-                        nonempty: true,
-                        prompt: '请输入密码',
-                    },
-                ],
-            },
-            // 确认密码
-            rePassword: {
-                value: '111111',
-                label: '确认密码',
-                type: 'password',
-                placeholder: '请确认密码',
-                use: [
-                    {
-                        nonempty: true,
-                        prompt: '请确认密码',
-                    },
-                    {
-                        rule: (value, data) => {
-                            return value === data.password.value;
-                        },
-                        prompt: '两次密码不一致',
-                    }
                 ],
             },
         },
