@@ -12,10 +12,13 @@
                 v-if="item.mold === 'input'"
                 type="text"
                 class="input"
+                @input="handleInput(item, $event)"
                 placeholder-color="#dedede"
                 :placeholder="item.placeholder"
             />
-            <template v-else-if="item.mold === 'select'">
+            <div class="box"
+                 @click="routerPush('wow_publish_theme')"
+                 v-else-if="item.mold === 'select'">
                 <text
                     class="input"
                     :class="[!item.value && 'input-placeholder']"
@@ -23,11 +26,12 @@
                 <wow-arrow
                     :arrow_style="{ borderColor: '#dedede' }"
                 ></wow-arrow>
-            </template>
+            </div>
             <textarea
                 v-else-if="item.mold === 'textarea'"
                 class="content"
                 :row="3"
+                @input="handleInput(item, $event)"
                 placeholder-color="#dedede"
                 :placeholder="item.placeholder"
             ></textarea>
@@ -40,6 +44,7 @@
     import WowArrow                     from 'wow-weex-ui/lib/wow-arrow'
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
+    import RouterMixin                  from 'mixins/router.mixin'
     import Mixin                        from './publish.mixin'
 
     const srcArr = [
@@ -51,6 +56,7 @@
             Mixin,
             InputMixin,
             SourceMixin,
+            RouterMixin,
         ],
         created () {
             this.sourceGet(srcArr);
@@ -88,6 +94,14 @@
         color: #333;
         line-height: 1.5;
         height: 300px;
+    }
+    .box{
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+    }
+    .box:active{
+        background-color: #f2f2f2;
     }
     .textarea-box{
         border-bottom-width: 0;
