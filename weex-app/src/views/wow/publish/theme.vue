@@ -25,6 +25,9 @@
     import WowScroll                    from 'wow-weex-ui/lib/wow-scroll'
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
+    import Http                         from 'plugins/http.plugin'
+    import Dialogs                      from 'plugins/dialogs.plugin'
+    import Api                          from 'config/api.config'
     import Mixin                        from './publish.mixin'
 
     const srcArr = [
@@ -39,20 +42,42 @@
         ],
         data () {
             return {
-                arrList: 10,
+                arrList: [],
+                pageIndex: 1,
+                pageSize: 10
             }
         },
         created () {
             this.sourceGet(srcArr);
+            this.reqThemeList();
         },
         methods: {
             handleRefresh (callback) {
-                this.arrList = 10;
-                callback && callback();
+                this.pageIndex = 1;
+                this.reqThemeList(callback);
             },
             handleLoading (callback) {
-                this.arrList += 10;
-                callback && callback();
+                this.pageIndex++;
+                this.reqThemeList(callback);
+            },
+            reqThemeList (callback) {
+                let options = {
+                    pageIndex: this.pageIndex,
+                    pageSize: this.pageSize,
+                };
+                Http(Api.reqThemeList, options, {
+                    loading: !callback,
+                }).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    this.arrList = this.pageIndex === 1
+                        ? data
+                        : [...this.arrList, ...data];
+                }).catch((err) => {
+                    Dialogs.toast(err);
+                }).finally(() => {
+                    callback && callback();
+                })
             },
         },
         components: {
@@ -63,35 +88,3 @@
         },
     }
 </script>
-
-<style>
-    .input-box{
-        margin-top: 30px;
-        margin-right: 32px;
-        margin-left: 32px;
-        border-bottom-width: 1px;
-        border-color: #f2f2f2;
-        flex-direction: row;
-        align-items: center;
-    }
-    .input{
-        flex: 1;
-        height: 90px;
-        font-size: 28px;
-        color: #333;
-        line-height: 90px;
-    }
-    .input-placeholder{
-        color: #dedede;
-    }
-    .content{
-        flex: 1;
-        font-size: 28px;
-        color: #333;
-        line-height: 1.5;
-        height: 300px;
-    }
-    .textarea-box{
-        border-bottom-width: 0;
-    }
-</style>

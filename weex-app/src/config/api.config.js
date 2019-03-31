@@ -23,5 +23,16 @@ export default {
     doUpdateUserInfo: '/app/user/update',
 
     // 获取用户信息
-    reqUserInfo: '/app/user/info'
+    reqUserInfo: '/app/user/info',
+
+    // 获取主题列表
+    reqThemeList: '/app/post/theme/list',
+
+    // 发布文章
+    doPostPublish: '/app/post/publish',
+
+    // 获取文章列表
+    reqPostPublish: '/app/post/list',
+
+    
 }

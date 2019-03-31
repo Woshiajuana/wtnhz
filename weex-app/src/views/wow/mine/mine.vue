@@ -51,7 +51,6 @@
         methods: {
             handleViewAppear () {
                 this.userReq();
-                this.userReq();
             }
         },
         components: {
