@@ -84,6 +84,7 @@
                 Http(Api.doPostPublish, options).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
+                    Dialogs.toast('发布成功');
                     Router.pop();
                 }).catch((err) => {
                     Dialogs.toast(err);

@@ -11,11 +11,11 @@ class Controller {
         try {
             let filterParams;
             let {
-                author,
+                _id,
                 theme,
             } = filterParams = await ctx.check$.testBody((regular) => {
                 return {
-                    author: [
+                    _id: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
@@ -41,10 +41,12 @@ class Controller {
                     ],
                 }
             });
-            if (!await userService.one(author))
+            if (!await userService.one(_id))
                 throw '非法操作！';
             if (!await themeService.one(theme))
                 throw '标签错误！';
+            filterParams.author = filterParams._id;
+            delete filterParams._id;
             await postService.create(filterParams);
             ctx.handle$.success();
         } catch (err) {

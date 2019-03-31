@@ -32,6 +32,10 @@
     import WowScroll                    from 'wow-weex-ui/lib/wow-scroll'
     import SourceMixin                  from 'mixins/source.mixin'
     import RouterMixin                  from 'mixins/router.mixin'
+    import Http                         from 'plugins/http.plugin'
+    import Dialogs                      from 'plugins/dialogs.plugin'
+    import Router                       from 'plugins/router.plugin'
+    import Api                          from 'config/api.config'
     import HeadSection                  from './components/head-section.vue'
     import ItemCell                     from './components/item-cell.vue'
 
@@ -48,33 +52,42 @@
         ],
         data () {
             return {
-                arrList: [
-                    {
-                        title: '基础开发基础开发基础开发基础开发基础开发基础开发基础开发基础开发',
-                        time: '2019-02-28 16:11',
-                        type: ['JS', 'HTML', 'CSS'],
-                        praise: 999,
-                        comment: 999,
-                        collect: 999,
-                        author: {
-                            name: 'Woshiajuana',
-                            avatar: 'https://img.mukewang.com/5c6d3e4e0001946418720632.jpg',
-                        }
-                    }
-                ],
+                arrList: [],
+                pageIndex: 1,
+                pageSize: 10
             }
         },
         created () {
             this.sourceGet(srcArr);
+            this.reqPostList();
         },
         methods: {
             handleRefresh (callback) {
-                this.arrList = 10;
-                callback && callback();
+                this.pageIndex = 1;
+                this.reqPostList(callback);
             },
             handleLoading (callback) {
-                this.arrList += 10;
-                callback && callback();
+                this.pageIndex++;
+                this.reqPostList(callback);
+            },
+            reqPostList (callback) {
+                let options = {
+                    pageIndex: this.pageIndex,
+                    pageSize: this.pageSize,
+                };
+                Http(Api.reqPostList, options, {
+                    loading: !callback,
+                }).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    this.arrList = this.pageIndex === 1
+                        ? data.list
+                        : [...this.arrList, ...data.list];
+                }).catch((err) => {
+                    Dialogs.toast(err);
+                }).finally(() => {
+                    callback && callback();
+                })
             },
         },
         components: {

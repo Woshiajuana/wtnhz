@@ -8,8 +8,8 @@
                         :src="data.author && data.author.avatar"
                     ></image>
                     <div class="head-con">
-                        <text class="name">{{data.author && data.author.name}}</text>
-                        <text class="time">{{data.time}}</text>
+                        <text class="name">{{data.author && data.author.nickname}}</text>
+                        <text class="time">{{data.datetime}}</text>
                     </div>
                 </div>
             </div>

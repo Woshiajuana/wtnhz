@@ -35,7 +35,7 @@ export default {
     reqPostInfo: '/app/post/info',
 
     // 获取文章列表
-    reqPostPublish: '/app/post/list',
+    reqPostList: '/app/post/list',
 
 
 }

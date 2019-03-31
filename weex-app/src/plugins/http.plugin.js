@@ -2,6 +2,7 @@
 import Loading                          from 'plugins/loading.plugin'
 import EnvConfig                        from 'config/env.config'
 import UserService                      from 'services/user.service'
+import Dialogs                      from 'plugins/dialogs.plugin'
 
 const Stream = weex.requireModule('stream');
 
