@@ -1,6 +1,11 @@
 
 const data = () => {
     return {
+        objHidden$: {
+            theme: {
+                value: '',
+            }
+        },
         objInput$: {
             // 标题
             title: {

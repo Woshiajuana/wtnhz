@@ -1,6 +1,7 @@
 <template>
     <wow-view
         view_use_scroll=""
+        @right="handlePublish"
         view_header_right_txt="发布"
         :view_header_right_txt_style="{color: '#fc5366'}"
         :view_header_left_src="src$.close">
@@ -45,6 +46,13 @@
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
     import RouterMixin                  from 'mixins/router.mixin'
+    import ChannelMixin                 from 'mixins/channel.mixin'
+    import Http                         from 'plugins/http.plugin'
+    import Dialogs                      from 'plugins/dialogs.plugin'
+    import Router                       from 'plugins/router.plugin'
+    import Api                          from 'config/api.config'
+    import VerifyUtil                   from 'utils/verify.util'
+    import ExtractUtil                  from 'utils/extract.util'
     import Mixin                        from './publish.mixin'
 
     const srcArr = [
@@ -57,9 +65,30 @@
             InputMixin,
             SourceMixin,
             RouterMixin,
+            ChannelMixin,
         ],
         created () {
             this.sourceGet(srcArr);
+            this.channelAdd(this.channel$.EVENT.$$POST_THEME, this.channelThemeHandle.bind(this));
+        },
+        methods: {
+            channelThemeHandle (item) {
+                let { _id, name } = item;
+                this.objInput$.themeName.value = name;
+                this.objHidden$.theme.value = _id;
+            },
+            handlePublish () {
+                if (VerifyUtil.multiple(this.objInput$))
+                    return null;
+                let options = ExtractUtil.input(this.objInput$, this.objHidden$);
+                Http(Api.doPostPublish, options).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    Router.pop();
+                }).catch((err) => {
+                    Dialogs.toast(err);
+                });
+            },
         },
         components: {
             WowView,

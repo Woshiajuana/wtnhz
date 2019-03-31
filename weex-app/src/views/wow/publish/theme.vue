@@ -7,10 +7,12 @@
         <wow-scroll
             @refresh="handleRefresh"
             @loading="handleLoading">
-            <cell>
+            <cell
+                v-for="(item, index) in arrList"
+                :key="index">
                 <wow-input-cell
-                    v-for="(item, index) in arrList"
-                    :key="index"
+                    @click="handleSelect(item)"
+                    :input_label_txt="item.name"
                     input_use_right=""
                 ></wow-input-cell>
             </cell>
@@ -25,8 +27,10 @@
     import WowScroll                    from 'wow-weex-ui/lib/wow-scroll'
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
+    import ChannelMixin                 from 'mixins/channel.mixin'
     import Http                         from 'plugins/http.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
+    import Router                       from 'plugins/router.plugin'
     import Api                          from 'config/api.config'
     import Mixin                        from './publish.mixin'
 
@@ -39,6 +43,7 @@
             Mixin,
             InputMixin,
             SourceMixin,
+            ChannelMixin,
         ],
         data () {
             return {
@@ -52,6 +57,10 @@
             this.reqThemeList();
         },
         methods: {
+            handleSelect (item) {
+                this.channelPost(this.channel$.EVENT.$$POST_THEME, item);
+                Router.pop();
+            },
             handleRefresh (callback) {
                 this.pageIndex = 1;
                 this.reqThemeList(callback);
@@ -71,8 +80,8 @@
                     if (code !== '0000')
                         throw msg;
                     this.arrList = this.pageIndex === 1
-                        ? data
-                        : [...this.arrList, ...data];
+                        ? data.list
+                        : [...this.arrList, ...data.list];
                 }).catch((err) => {
                     Dialogs.toast(err);
                 }).finally(() => {

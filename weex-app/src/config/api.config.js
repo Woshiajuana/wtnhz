@@ -31,8 +31,11 @@ export default {
     // 发布文章
     doPostPublish: '/app/post/publish',
 
+    // 文章详情
+    reqPostInfo: '/app/post/info',
+
     // 获取文章列表
     reqPostPublish: '/app/post/list',
 
-    
+
 }
