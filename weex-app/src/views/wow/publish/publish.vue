@@ -1,26 +1,37 @@
 <template>
     <wow-view
         view_use_scroll=""
+        view_header_right_txt="发布"
+        :view_header_right_txt_style="{color: '#fc5366'}"
         :view_header_left_src="src$.close">
-        <div class="input-box">
+        <div class="input-box"
+             :class="[item.mold === 'textarea' && 'textarea-box']"
+             v-for="(item, key) in objInput$"
+             :key="key">
             <input
+                v-if="item.mold === 'input'"
                 type="text"
                 class="input"
                 placeholder-color="#dedede"
-                placeholder="加个标题呦..."
+                :placeholder="item.placeholder"
             />
-        </div>
-        <div class="input-box">
-            <text class="input input-placeholder">别忘了选择主题...</text>
-            <wow-arrow></wow-arrow>
-        </div>
-        <scroller class="inner">
+            <template v-else-if="item.mold === 'select'">
+                <text
+                    class="input"
+                    :class="[!item.value && 'input-placeholder']"
+                >{{item.value || item.placeholder}}</text>
+                <wow-arrow
+                    :arrow_style="{ borderColor: '#dedede' }"
+                ></wow-arrow>
+            </template>
             <textarea
+                v-else-if="item.mold === 'textarea'"
                 class="content"
+                :row="3"
                 placeholder-color="#dedede"
-                placeholder="来吧，尽情的发挥吧..."
+                :placeholder="item.placeholder"
             ></textarea>
-        </scroller>
+        </div>
     </wow-view>
 </template>
 
@@ -71,17 +82,14 @@
     .input-placeholder{
         color: #dedede;
     }
-    .inner{
-        flex: 1;
-        padding-left: 32px;
-        padding-right: 32px;
-        margin-top: 30px;
-    }
     .content{
+        flex: 1;
         font-size: 28px;
         color: #333;
         line-height: 1.5;
         height: 300px;
-        background-color: #f2f2f2;
+    }
+    .textarea-box{
+        border-bottom-width: 0;
     }
 </style>
