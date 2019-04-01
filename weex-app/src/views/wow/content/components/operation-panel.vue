@@ -3,7 +3,7 @@
         <input type="text" v-model="value" class="input" placeholder="说说你的看法..."/>
         <div class="button-box">
             <div class="button sub-button"
-                 @click="emitEvent('submit')"
+                 @click="emitEvent('submit', value)"
                  :style="{visibility: !use_more || value ? 'visible' : 'hidden'}">
                 <text class="button-text">发布</text>
             </div>
