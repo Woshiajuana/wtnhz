@@ -9,21 +9,21 @@
                 class="image"
                 :src="data.author && data.author.avatar"
             ></image>
-            <text class="name">{{data.author && data.author.name}}</text>
+            <text class="name">{{data.author && data.author.nickname}}</text>
             <text class="time">{{data.time}}</text>
         </div>
         <div class="info">
             <div class="info-item">
                 <image class="info-icon" :src="src$.give"></image>
-                <text class="info-text">{{data.praise}}</text>
+                <text class="info-text">{{data.praise || '---'}}</text>
             </div>
             <div class="info-item">
                 <image class="info-icon" :src="src$.msg"></image>
-                <text class="info-text">{{data.comment}}</text>
+                <text class="info-text">{{data.comment || '---'}}</text>
             </div>
             <div class="info-item">
                 <image class="info-icon" :src="src$.collect"></image>
-                <text class="info-text">{{data.collect}}</text>
+                <text class="info-text">{{data.collect || '---'}}</text>
             </div>
         </div>
     </div>

@@ -8,7 +8,9 @@
                 @disappear="isAppear = false"
                 :data="params$"
             ></head-section>
-            <content-section></content-section>
+            <content-section
+                :data="params$.content"
+            ></content-section>
             <comment-section
                 @popup="objDoubleDeck.is = true"
             ></comment-section>
@@ -33,6 +35,9 @@
     import WowActionSheet               from 'components/wow-weex-ui/lib/wow-action-sheet'
     import RouterMixin                  from 'mixins/router.mixin'
     import { filterCutOut }             from 'mixins/filter.mixin'
+    import Http                         from 'plugins/http.plugin'
+    import Dialogs                      from 'plugins/dialogs.plugin'
+    import Api                          from 'config/api.config'
     import OperationPanel               from './components/operation-panel.vue'
     import HeadSection                  from './components/head-section.vue'
     import ContentSection               from './components/content-section.vue'
@@ -63,15 +68,28 @@
                 },
                 objDoubleDeck: {
                     is: false,
-
-                }
+                },
             }
         },
         created () {
             this.routerGetParams();
+            this.reqPostInfo();
         },
         methods: {
-
+            reqPostInfo () {
+                Http(Api.reqPostInfo, {
+                    id: this.params$._id,
+                }).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    this.params$ = {
+                        ...this.params$,
+                        ...data,
+                    };
+                }).catch((err) => {
+                    Dialogs.toast(err);
+                })
+            },
         },
         components: {
             WowView,

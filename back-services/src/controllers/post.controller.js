@@ -97,10 +97,10 @@ class Controller {
     async info (ctx, next) {
         try {
             let {
-                _id,
+                id,
             } = await ctx.check$.testBody((regular) => {
                 return {
-                    _id: [
+                    id: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
@@ -108,7 +108,7 @@ class Controller {
                     ],
                 }
             });
-            let data = await postService.one(_id);
+            let data = await postService.one(id);
             ctx.handle$.success(data);
         } catch (err) {
             ctx.handle$.error(err);
