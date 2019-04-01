@@ -47,7 +47,7 @@
                 this.emitEvent('submit', {
                     value: this.value,
                     callback: () => {
-                        this.value = 0;
+                        this.value = '';
                     },
                 })
             }
