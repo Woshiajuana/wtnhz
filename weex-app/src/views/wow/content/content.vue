@@ -1,6 +1,6 @@
 <template>
     <wow-view
-        :view_header_wrap_style="{borderBottomWidth: isAppear ? 0 : 1}"
+        :view_header_wrap_style="{ borderBottomWidth: isAppear ? 0 : 1 }"
         :view_header_center_txt="computedTitle">
         <scroller class="main">
             <head-section
@@ -69,16 +69,30 @@
                 objDoubleDeck: {
                     is: false,
                 },
+
+                objComment: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    total: 0,
+                    list: [],
+                },
             }
         },
         created () {
+            // 获取URL参数
             this.routerGetParams();
+            // 获取文章内容
             this.reqPostInfo();
+            // 获取文章评论
+            this.reqPostCommentList();
         },
         methods: {
+            // 获取文章内容
             reqPostInfo () {
                 Http(Api.reqPostInfo, {
                     id: this.params$._id,
+                }, {
+                    useToken: false,
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
@@ -86,6 +100,30 @@
                         ...this.params$,
                         ...data,
                     };
+                }).catch((err) => {
+                    Dialogs.toast(err);
+                })
+            }, // 获取文章评论
+            reqPostCommentList () {
+                let {
+                    pageIndex,
+                    pageSize,
+                    list,
+                } = this.objComment;
+                Http(Api.reqPostCommentList, {
+                    pageIndex,
+                    pageSize,
+                    post: this.params$._id,
+                }, {
+                    useToken: false,
+                }).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    if (pageIndex === 1) {
+                        return this.objComment = data;
+                    } else {
+                        this.objComment.list = [...list, ...data.list];
+                    }
                 }).catch((err) => {
                     Dialogs.toast(err);
                 })

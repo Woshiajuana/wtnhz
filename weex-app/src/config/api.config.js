@@ -37,5 +37,10 @@ export default {
     // 获取文章列表
     reqPostList: '/app/post/list',
 
+    // 评论文章
+    doPostCommentPublish: '/app/post/comment/publish',
+
+    // 评论列表
+    reqPostCommentList: '/app/post/comment/list',
 
 }
