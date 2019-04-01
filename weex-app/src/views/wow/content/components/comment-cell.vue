@@ -1,7 +1,7 @@
 <template>
     <div class="wrap">
         <div class="user">
-            <image class="image"></image>
+            <image class="image" :src="data.author && data.author.avatar"></image>
             <div class="info">
                 <div class="top">
                     <text class="name">{{data.author && data.author.nickname}}</text>
