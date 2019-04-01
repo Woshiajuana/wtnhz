@@ -7,6 +7,13 @@
         <wow-scroll
             @refresh="handleRefresh"
             @loading="handleLoading">
+            <cell v-if="params$.from === 'home'">
+                <wow-input-cell
+                    @click="handleSelect({name: '全部', _id: ''})"
+                    input_label_txt="全部"
+                    input_use_right=""
+                ></wow-input-cell>
+            </cell>
             <cell
                 v-for="(item, index) in arrList"
                 :key="index">
@@ -28,6 +35,7 @@
     import SourceMixin                  from 'mixins/source.mixin'
     import InputMixin                   from 'mixins/input.mixin'
     import ChannelMixin                 from 'mixins/channel.mixin'
+    import RouterMixin                  from 'mixins/router.mixin'
     import Http                         from 'plugins/http.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
     import Router                       from 'plugins/router.plugin'
@@ -42,6 +50,7 @@
         mixins: [
             Mixin,
             InputMixin,
+            RouterMixin,
             SourceMixin,
             ChannelMixin,
         ],
@@ -54,11 +63,16 @@
         },
         created () {
             this.sourceGet(srcArr);
+            this.routerGetParams();
             this.reqThemeList();
         },
         methods: {
             handleSelect (item) {
-                this.channelPost(this.channel$.EVENT.$$POST_THEME, item);
+                let { from } = this.params$;
+                let event = from === 'home'
+                    ? this.channel$.EVENT.$$HOME_THEME
+                    : this.channel$.EVENT.$$POST_THEME;
+                this.channelPost(event, item);
                 Router.pop();
             },
             handleRefresh (callback) {
@@ -76,6 +90,7 @@
                 };
                 Http(Api.reqThemeList, options, {
                     loading: !callback,
+                    useToken: false,
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;

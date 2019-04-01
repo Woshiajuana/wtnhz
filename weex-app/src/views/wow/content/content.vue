@@ -1,5 +1,6 @@
 <template>
     <wow-view
+        :view_header_wrap_style="{borderBottomWidth: isAppear ? 0 : 1}"
         :view_header_center_txt="computedTitle">
         <scroller class="main">
             <head-section

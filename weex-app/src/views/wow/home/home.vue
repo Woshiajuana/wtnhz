@@ -1,10 +1,13 @@
 <template>
     <wow-view
+        @viewappear="handleViewAppear"
         view_use_scroll=""
         view_use_header=""
         :view_style="{backgroundColor: '#f2f2f2'}"
         view_header_left_src="">
         <head-section
+            :user="user$"
+            :theme="objTheme"
             slot="view-header"
         ></head-section>
         <wow-scroll
@@ -17,13 +20,6 @@
                 :data="item"
             ></item-cell>
         </wow-scroll>
-        <div class="publish"
-             @click="routerPush('wow_publish', item)">
-            <image
-                class="icon"
-                :src="src$.publish"
-            ></image>
-        </div>
     </wow-view>
 </template>
 
@@ -32,6 +28,8 @@
     import WowScroll                    from 'wow-weex-ui/lib/wow-scroll'
     import SourceMixin                  from 'mixins/source.mixin'
     import RouterMixin                  from 'mixins/router.mixin'
+    import UserMixin                    from 'mixins/user.mixin'
+    import ChannelMixin                 from 'mixins/channel.mixin'
     import Http                         from 'plugins/http.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
     import Router                       from 'plugins/router.plugin'
@@ -42,26 +40,37 @@
     const srcArr = [
         { key: 'arrow', value: 'triangle-down-ffffff-icon.png', },
         { key: 'search', value: 'search-icon-ffffff.png', },
-        { key: 'publish', value: 'publish-icon-fc5366.png', },
     ];
 
     export default {
         mixins: [
+            UserMixin,
             SourceMixin,
             RouterMixin,
+            ChannelMixin,
         ],
         data () {
             return {
                 arrList: [],
                 pageIndex: 1,
-                pageSize: 10
+                pageSize: 10,
+                objCondition: {},
+                objTheme: { name: '全部' },
             }
         },
         created () {
             this.sourceGet(srcArr);
-            this.reqPostList();
+            this.handleRefresh(true);
+            this.channelAdd(this.channel$.EVENT.$$HOME_THEME, this.channelThemeHandle.bind(this));
         },
         methods: {
+            channelThemeHandle (item) {
+                this.objTheme = item;
+                this.objCondition = { theme: item._id };
+            },
+            handleViewAppear () {
+                this.userGet();
+            },
             handleRefresh (callback) {
                 this.pageIndex = 1;
                 this.reqPostList(callback);
@@ -77,6 +86,7 @@
                 };
                 Http(Api.reqPostList, options, {
                     loading: !callback,
+                    useToken: false,
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
@@ -86,7 +96,7 @@
                 }).catch((err) => {
                     Dialogs.toast(err);
                 }).finally(() => {
-                    callback && callback();
+                    typeof callback === 'function' && callback();
                 })
             },
         },
@@ -98,26 +108,3 @@
         },
     }
 </script>
-
-<style>
-    .publish{
-        position: fixed;
-        right: 32px;
-        bottom: 32px;
-        justify-content: center;
-        align-items: center;
-        width: 60px;
-        height: 60px;
-        border-radius: 60px;
-        background-color: #fff;
-        border-color: #fc5366;
-        border-width: 2px;
-    }
-    .publish:active{
-        background-color: #f2f2f2;
-    }
-    .icon{
-        width: 30px;
-        height: 30px;
-    }
-</style>

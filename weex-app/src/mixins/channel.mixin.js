@@ -9,6 +9,7 @@ const data = () => {
             EVENT: {
                 $$USER_EXIT: '$$USER_EXIT', // 用户退出
                 $$POST_THEME: '$$POST_THEME', // 选择主题
+                $$HOME_THEME: '$$HOME_THEME', // 选择主题
             },
             _registered: []
         },
