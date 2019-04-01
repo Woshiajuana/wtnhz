@@ -5,7 +5,7 @@
         </div>
         <div class="main">
             <comment-cell
-                v-for="(item, index) in 5"
+                v-for="(item, index) in data.list"
                 :key="index"
                 @popup="emitEvent('popup', $event)"
             ></comment-cell>
@@ -26,6 +26,7 @@
         mixins: [
             EmitMixin,
         ],
+        props: { data: { default: {} } },
         components: {
             WowEnd,
             CommentCell,

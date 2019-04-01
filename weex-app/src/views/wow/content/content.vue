@@ -12,6 +12,7 @@
                 :data="params$.content"
             ></content-section>
             <comment-section
+                :data="objComment"
                 @popup="objDoubleDeck.is = true"
             ></comment-section>
         </scroller>
