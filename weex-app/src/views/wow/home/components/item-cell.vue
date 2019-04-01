@@ -16,10 +16,8 @@
             <div class="center" @click="emitEvent('click')">
                 <text class="title">{{data.title}}</text>
                 <div class="type">
-                    <div class="type-item"
-                         v-for="(item, index) in data.type"
-                         :key="index">
-                        <text class="type-text">{{item}}</text>
+                    <div class="type-item">
+                        <text class="type-text">{{data.theme && data.theme.name}}</text>
                     </div>
                 </div>
             </div>
@@ -133,14 +131,15 @@
         justify-content: center;
         padding-left: 10px;
         padding-right: 10px;
-        border-color: #dedede;
-        border-width: 1px;
+        /*border-color: #dedede;*/
+        background-color: #999;
+        /*border-width: 1px;*/
         border-radius: 8px;
         margin-right: 8px;
     }
     .type-text{
         font-size: 20px;
-        color: #999;
+        color: #fff;
     }
     .info{
         margin-top: 20px;
