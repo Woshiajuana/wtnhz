@@ -7,6 +7,8 @@
             <comment-cell
                 v-for="(item, index) in data.list"
                 :key="index"
+                :data="item"
+                :index="index"
                 @popup="emitEvent('popup', $event)"
             ></comment-cell>
         </div>

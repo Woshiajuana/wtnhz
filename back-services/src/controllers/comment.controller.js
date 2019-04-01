@@ -10,16 +10,16 @@ class Controller {
         try {
             let filterParams;
             let {
-                author,
+                _id,
             } = filterParams = await ctx.check$.testBody((regular) => {
                 return {
-                    post: [
+                    _id: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
                         },
                     ],
-                    author: [
+                    post: [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
@@ -33,8 +33,10 @@ class Controller {
                     ],
                 }
             });
-            if (!await userService.one(author))
+            if (!await userService.one(_id))
                 throw '非法操作！';
+            filterParams.author = filterParams._id;
+            delete filterParams._id;
             await commentService.create(filterParams);
             ctx.handle$.success();
         } catch (err) {

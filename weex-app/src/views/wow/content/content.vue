@@ -132,26 +132,16 @@
                 })
             },
             // 发布评论
-            handleSubmit (content) {
-                let {
-                    pageIndex,
-                    pageSize,
-                    list,
-                } = this.objComment;
-                Http(Api.reqPostCommentList, {
-                    pageIndex,
-                    pageSize,
+            handleSubmit ({value, callback}) {
+                Http(Api.doPostCommentPublish, {
                     post: this.params$._id,
-                }, {
-                    useToken: false,
+                    content: value,
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
-                    if (pageIndex === 1) {
-                        return this.objComment = data;
-                    } else {
-                        this.objComment.list = [...list, ...data.list];
-                    }
+                    this.pageIndex = 1;
+                    this.reqPostCommentList();
+                    callback();
                 }).catch((err) => {
                     Dialogs.toast(err);
                 })

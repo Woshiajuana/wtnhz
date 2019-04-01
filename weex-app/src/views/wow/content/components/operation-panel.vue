@@ -1,9 +1,14 @@
 <template>
     <div class="wrap">
-        <input type="text" v-model="value" class="input" placeholder="说说你的看法..."/>
+        <input
+            type="text"
+            v-model="value"
+            class="input"
+            placeholder="说说你的看法..."
+        />
         <div class="button-box">
             <div class="button sub-button"
-                 @click="emitEvent('submit', value)"
+                 @click="handleSubmit"
                  :style="{visibility: !use_more || value ? 'visible' : 'hidden'}">
                 <text class="button-text">发布</text>
             </div>
@@ -36,6 +41,16 @@
         },
         created () {
             this.sourceGet(srcArr);
+        },
+        methods: {
+            handleSubmit () {
+                this.emitEvent('submit', {
+                    value: this.value,
+                    callback: () => {
+                        this.value = 0;
+                    },
+                })
+            }
         },
         props: {
             data: { default: {} },

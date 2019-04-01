@@ -4,29 +4,23 @@
             <image class="image"></image>
             <div class="info">
                 <div class="top">
-                    <text class="name">我心有猛虎</text>
+                    <text class="name">{{data.author && data.author.nickname}}</text>
                 </div>
                 <div class="bottom">
-                    <text class="prompt number">第1楼</text>
+                    <text class="prompt number">第{{index + 1}}楼</text>
                     <div class="bar"><div class="bar-inner"></div></div>
-                    <text class="prompt">2019-03-05</text>
+                    <text class="prompt">{{data.datetime}}</text>
                     <div class="bar"><div class="bar-inner"></div></div>
                     <text class="prompt">上海市浦东新区</text>
                 </div>
             </div>
         </div>
         <div class="content">
-            <text class="text">哈哈 我心有猛虎我心有猛虎我心有猛虎我心有猛虎</text>
+            <text class="text">{{data.content}}</text>
         </div>
-        <div class="comment">
-            <div class="item">
-                <text class="comment-text">哈哈哈：哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</text>
-            </div>
-            <div class="item">
-                <text class="comment-text">哈哈哈：我心有猛虎我心有猛虎我心有猛虎我心有猛虎1</text>
-            </div>
-            <div class="button" @click="emitEvent('popup')">
-                <text class="button-text">查看全部评论</text>
+        <div class="comment" v-if="data.reply.length">
+            <div class="item" v-for="(item, i) in data.reply">
+                <text class="comment-text">{{item.author && item.author.nickname}}：{{item.content}} {{item.datetime}}</text>
             </div>
         </div>
     </div>
@@ -39,6 +33,10 @@
         mixins: [
             EmitMixin,
         ],
+        props: {
+            data: { default: {} },
+            index: { default: 0 },
+        }
     }
 </script>
 
