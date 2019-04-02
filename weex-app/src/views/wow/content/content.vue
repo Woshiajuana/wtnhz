@@ -119,7 +119,8 @@
                     return null;
                 if (list.length % 10 === 0)
                     pageIndex++;
-                Dialogs.toast(pageIndex);
+                if (total < 10)
+                    pageIndex = 1;
                 Http(Api.reqPostCommentList, {
                     pageIndex,
                     pageSize,
