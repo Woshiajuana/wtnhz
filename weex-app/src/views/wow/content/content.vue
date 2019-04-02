@@ -86,6 +86,8 @@
             this.routerGetParams();
             // 获取文章内容
             this.reqPostInfo();
+            // 获取评论列表
+            this.reqPostCommentList();
         },
         methods: {
             // 获取文章内容
@@ -113,15 +115,18 @@
                     list,
                     total,
                 } = this.objComment;
-                if (pageIndex !== 0 && total === 0)
+                if (pageIndex !== 0 && total === list.length)
                     return null;
-                pageIndex++;
+                if (list.length % 10 === 0)
+                    pageIndex++;
+                Dialogs.toast(pageIndex);
                 Http(Api.reqPostCommentList, {
                     pageIndex,
                     pageSize,
                     post: this.params$._id,
                 }, {
                     useToken: false,
+                    loading: false,
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
@@ -130,10 +135,22 @@
                     } else {
                         this.objComment.pageIndex = data.pageIndex;
                         this.objComment.total = data.total;
-                        this.objComment.list = [...list, ...data.list];
+                        this.commentFilter(data.list);
                     }
                 }).catch((err) => {
                     Dialogs.toast(err);
+                })
+            },
+            commentFilter (data) {
+                data.forEach((item) => {
+                    let type = true;
+                    for (let i = 0; i < this.objComment.list.length; i++) {
+                        if (item._id === this.objComment.list[i]._id) {
+                            type = false;
+                            break;
+                        }
+                    }
+                    if (type) this.objComment.list.push(item);
                 })
             },
             // 发布评论
@@ -144,7 +161,7 @@
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
-                    this.pageIndex = 1;
+                    this.objComment.total++;
                     this.reqPostCommentList();
                     callback();
                 }).catch((err) => {
