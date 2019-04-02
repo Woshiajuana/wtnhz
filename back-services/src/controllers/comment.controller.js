@@ -49,6 +49,12 @@ class Controller {
         try {
             let filterParams = await ctx.check$.testBody((regular) => {
                 return {
+                    post: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
                     pageIndex: [
                         {
                             nonempty: true,

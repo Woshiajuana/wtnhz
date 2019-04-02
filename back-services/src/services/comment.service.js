@@ -34,11 +34,12 @@ export default {
         let {
             pageSize,
             pageIndex,
+            post,
         } = options;
-        const total = await CommentModel.count();
+        const total = await CommentModel.count({post});
         const list = await CommentModel
-            .find()
-            .sort('-datetime')
+            .find({post})
+            .sort('datetime')
             .skip((+pageIndex - 1) * +pageSize)
             .limit(+pageSize)
             .select(select)
