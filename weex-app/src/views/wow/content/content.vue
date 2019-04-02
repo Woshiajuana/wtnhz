@@ -12,6 +12,7 @@
                 :data="params$.content"
             ></content-section>
             <comment-section
+                @appear="reqPostCommentList"
                 :data="objComment"
                 @popup="objDoubleDeck.is = true"
             ></comment-section>
@@ -73,7 +74,7 @@
                 },
 
                 objComment: {
-                    pageIndex: 1,
+                    pageIndex: 0,
                     pageSize: 10,
                     total: 0,
                     list: [],
@@ -85,8 +86,6 @@
             this.routerGetParams();
             // 获取文章内容
             this.reqPostInfo();
-            // 获取文章评论
-            this.reqPostCommentList();
         },
         methods: {
             // 获取文章内容
@@ -112,7 +111,11 @@
                     pageIndex,
                     pageSize,
                     list,
+                    total,
                 } = this.objComment;
+                if (pageIndex !== 0 && total === 0)
+                    return null;
+                pageIndex++;
                 Http(Api.reqPostCommentList, {
                     pageIndex,
                     pageSize,
@@ -125,6 +128,8 @@
                     if (pageIndex === 1) {
                         return this.objComment = data;
                     } else {
+                        this.objComment.pageIndex = data.pageIndex;
+                        this.objComment.total = data.total;
                         this.objComment.list = [...list, ...data.list];
                     }
                 }).catch((err) => {

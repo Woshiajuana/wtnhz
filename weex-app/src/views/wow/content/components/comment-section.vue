@@ -12,8 +12,10 @@
                 @popup="emitEvent('popup', $event)"
             ></comment-cell>
         </div>
-        <div class="prompt">
-            <text class='prompt-text'>没有更多了</text>
+        <div class="prompt"
+             @appear="emitEvent('appear')"
+             @disappear="emitEvent('disappear')">
+            <text class='prompt-text'>{{computedPrompt}}</text>
         </div>
     </div>
 </template>
@@ -28,7 +30,19 @@
         mixins: [
             EmitMixin,
         ],
-        props: { data: { default: {} } },
+        computed: {
+            computedPrompt () {
+                let { total, list } = this.data;
+                if (!total || !list)
+                    return '赶紧来抢个沙发吧...';
+                return total === list.length
+                    ? '没有更多了...'
+                    : '正在加载...';
+            }
+        },
+        props: {
+            data: { default: {} },
+        },
         components: {
             WowEnd,
             CommentCell,
