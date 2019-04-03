@@ -223,6 +223,8 @@
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
+                    this.actionSheet.is = false;
+                    this.reqFollowRelation();
                     Dialogs.toast('操作成功');
                 }).catch((err) => {
                     Dialogs.toast(err);
