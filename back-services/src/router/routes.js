@@ -407,6 +407,21 @@ export default [
                             ]
                         },
                     },
+                    {
+                        path: '/relation',
+                        request: {
+                            post: [
+                                {
+                                    controller: 'auth',
+                                    method: 'check',
+                                },
+                                {
+                                    controller: 'follow',
+                                    method: 'relation',
+                                },
+                            ]
+                        },
+                    },
                 ]
             }
         ]

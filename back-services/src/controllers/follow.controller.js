@@ -6,6 +6,37 @@ import followingService     from '../services/following.service'
 
 class Controller {
 
+    // 关系
+    async relation (ctx, next) {
+        try {
+            let {
+                _id,
+                id,
+            } = await ctx.check$.testBody((regular) => {
+                return {
+                    _id: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
+                    id: [
+                        {
+                            nonempty: true,
+                            prompt: '缺少必要参数',
+                        },
+                    ],
+                }
+            });
+            let follower = await followerService.info({ following: id, follower: _id});
+            let following = await followingService.info({ following: _id, follower: id});
+            ctx.handle$.success({ follower, following, });
+        } catch (err) {
+            ctx.handle$.error(err);
+        }
+    }
+
+
     // 关注
     async create (ctx, next) {
         try {

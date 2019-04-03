@@ -4,6 +4,11 @@ import FollowerModel, { select, populate }   from '../models/follower.model'
 export default {
 
     // 粉丝
+    async info (options) {
+        return await FollowerModel.find(options);
+    },
+
+    // 粉丝
     async create (options) {
         const data = await FollowerModel.find(options);
         if (data.length) throw '已关注';

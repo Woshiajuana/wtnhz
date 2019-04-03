@@ -43,4 +43,19 @@ export default {
     // 评论列表
     reqPostCommentList: '/app/post/comment/list',
 
+    // 关注
+    doFollowCreate: '/app/follow/create',
+
+    // 取消关注
+    doFollowRemove: '/app/follow/remove',
+
+    // 查询粉丝
+    reqFollowRelation: '/app/follow/relation',
+
+    // 粉丝列表
+    reqFollowersList: '/app/follow/followers',
+
+    // 关注列表
+    reqFollowingList: '/app/follow/following',
+
 }
