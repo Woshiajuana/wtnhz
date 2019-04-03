@@ -19,9 +19,10 @@
         </scroller>
         <operation-panel
             @submit="handleSubmit"
-            @more="actionSheet.is = true"
+            @more="handleMore"
         ></operation-panel>
         <wow-action-sheet
+            @change="handleChange"
             @close="actionSheet.is = false"
             v-if="actionSheet.is"
             :action_options="actionSheet.options"
@@ -38,6 +39,8 @@
     import WowActionSheet               from 'components/wow-weex-ui/lib/wow-action-sheet'
     import RouterMixin                  from 'mixins/router.mixin'
     import { filterCutOut }             from 'mixins/filter.mixin'
+    import UserMixin                    from 'mixins/user.mixin'
+    import UserService                  from 'services/user.service'
     import Http                         from 'plugins/http.plugin'
     import Dialogs                      from 'plugins/dialogs.plugin'
     import Api                          from 'config/api.config'
@@ -50,6 +53,7 @@
     export default {
         mixins: [
             RouterMixin,
+            UserMixin,
         ],
         computed: {
             computedTitle () {
@@ -63,11 +67,12 @@
                 isAppear: true,
                 actionSheet: {
                     is: false,
-                    options: [
-                        { text: '一键点赞' },
-                        { text: '收藏文章' },
-                        { text: '关注作者' },
-                    ],
+                    options: {
+                        yjdz: { text: '一键点赞' },
+                        scwz: { text: '收藏文章' },
+                        gzzz: { text: '关注作者' },
+                        qxgz: { text: '取消关注' },
+                    },
                 },
                 objDoubleDeck: {
                     is: false,
@@ -82,14 +87,24 @@
             }
         },
         created () {
+            // 获取用户信息
+            this.userGet();
             // 获取URL参数
             this.routerGetParams();
             // 获取文章内容
             this.reqPostInfo();
             // 获取评论列表
             this.reqPostCommentList();
+            // 查询关系
+            this.reqFollowRelation();
         },
         methods: {
+            // 更多操作
+            handleMore () {
+                if (!this.user$)
+                    return UserService.login();
+                this.actionSheet.is = true;
+            },
             // 获取文章内容
             reqPostInfo () {
                 Http(Api.reqPostInfo, {
@@ -142,6 +157,7 @@
                     Dialogs.toast(err);
                 })
             },
+            // 过滤数据
             commentFilter (data) {
                 data.forEach((item) => {
                     let type = true;
@@ -165,6 +181,49 @@
                     this.objComment.total++;
                     this.reqPostCommentList();
                     callback();
+                }).catch((err) => {
+                    Dialogs.toast(err);
+                })
+            },
+            // 操作
+            handleChange ({text}) {
+                if (text === '关注作者')
+                    return this.doFollow(true);
+                if (text === '取消关注')
+                    return this.doFollow(false);
+            },
+            // 获取与该文章作者的关系
+            reqFollowRelation () {
+                if (this.user$._id === this.params$.author._id) {
+                    delete this.actionSheet.options.gzzz;
+                    delete this.actionSheet.options.qxgz;
+                    delete this.actionSheet.options.scwz;
+                    return null;
+                }
+                Http(Api.reqFollowRelation, {
+                    id: this.params$.author._id,
+                }).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    let { following } = data;
+                    following
+                        ? delete this.actionSheet.options.gzzz
+                        : delete this.actionSheet.options.qxgz;
+                }).catch((err) => {
+                    Dialogs.toast(err);
+                })
+            },
+            // 关注 or 取消关注
+            doFollow (type) {
+                let url = type
+                    ? Api.doFollowCreate
+                    : Api.doFollowRemove;
+                Http(url, {
+                    id: this.params$.author._id,
+                }).then(({code, data, msg}) => {
+                    if (code !== '0000')
+                        throw msg;
+                    Dialogs.toast('操作成功');
                 }).catch((err) => {
                     Dialogs.toast(err);
                 })

@@ -5,7 +5,8 @@ export default {
 
     // 粉丝
     async info (options) {
-        return await FollowingModel.find(options);
+        let data = await FollowingModel.find(options);
+        return data[0];
     },
 
     // 粉丝
