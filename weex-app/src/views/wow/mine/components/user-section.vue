@@ -28,7 +28,7 @@
             </div>
             <div class="item">
                 <text class="label">粉丝</text>
-                <text class="value">{{user.follower || '---'}}</text>
+                <text class="value">{{user.followers || '---'}}</text>
             </div>
             <div class="item last-item">
                 <text class="label">积分</text>
