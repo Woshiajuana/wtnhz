@@ -22,11 +22,11 @@
             </div>
         </div>
         <div class="section user-number">
-            <div class="item">
+            <div class="item" @click="routerPush('wow_mine_follow', { title: '我的关注', type: 'wdgz' })">
                 <text class="label">关注</text>
                 <text class="value">{{user.following || '---'}}</text>
             </div>
-            <div class="item">
+            <div class="item" @click="routerPush('wow_mine_follow', { title: '我的粉丝', type: 'wdfs' })">
                 <text class="label">粉丝</text>
                 <text class="value">{{user.followers || '---'}}</text>
             </div>
