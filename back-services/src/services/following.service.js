@@ -1,5 +1,6 @@
 
 import FollowingModel, { select, populate }  from '../models/following.model'
+import mongoose                              from 'mongoose'
 
 export default {
 
@@ -17,12 +18,14 @@ export default {
     },
 
     // 删除
-    async remove (options) {
-        const data = await FollowingModel
-            .find(options);
-        if (!data)
+    async remove (following, follower) {
+        const data = await FollowingModel.find({
+            follower: mongoose.Types.ObjectId(follower),
+            following: mongoose.Types.ObjectId(following),
+        });
+        if (!data[0])
             throw Error('无此数据');
-        await data.remove();
+        await data[0].remove();
     },
 
     // 列表

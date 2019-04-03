@@ -205,8 +205,8 @@
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
-                    let { following } = data;
-                    following
+                    let { follower } = data;
+                    follower
                         ? delete this.actionSheet.options.gzzz
                         : delete this.actionSheet.options.qxgz;
                 }).catch((err) => {

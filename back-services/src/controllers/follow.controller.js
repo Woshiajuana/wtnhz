@@ -192,8 +192,8 @@ class Controller {
                 following: id,
                 follower: _id,
             };
-            await followerService.remove(filterParams);
-            await followingService.remove(filterParams);
+            await followerService.remove(_id, id);
+            await followingService.remove(id, _id);
             await userService.cancelFollow(_id, id);
             ctx.handle$.success();
         } catch (err) {
