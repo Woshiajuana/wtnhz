@@ -1,29 +1,31 @@
 <template>
     <wow-view
+        view_use_scroll=""
         :view_style="{backgroundColor: '#f2f2f2'}"
         :view_header_center_txt="params$.title">
-        <wow-scroll
-            @refresh="handleRefresh"
-            @loading="handleLoading">
-            <cell class="cell"
-                  v-for="(user, index) in arrList"
-                  :key="index">
-                <image class="avatar"></image>
-                <div class="info">
-                    <div class="top">
-                        <text class="name">{{user.nickname || user.email}}</text>
-                        <image
-                            class="sex"
-                            :src="user.sex === '0' ? src$.woman : src$.man"
-                        ></image>
-                    </div>
-                    <div class="bottom">
-                        <text class="autograph">{{user.autograph || '这个家伙什么都没留下~~~'}}</text>
-                    </div>
-                </div>
-                <wow-arrow></wow-arrow>
-            </cell>
-        </wow-scroll>
+        <text>{{arrList}}</text>
+        <!--<wow-scroll-->
+            <!--@refresh="handleRefresh"-->
+            <!--@loading="handleLoading">-->
+            <!--<cell class="cell"-->
+                  <!--v-for="(user, index) in arrList"-->
+                  <!--:key="index">-->
+                <!--<image class="avatar"></image>-->
+                <!--<div class="info">-->
+                    <!--<div class="top">-->
+                        <!--<text class="name">{{user.nickname || user.email}}</text>-->
+                        <!--<image-->
+                            <!--class="sex"-->
+                            <!--:src="user.sex === '0' ? src$.woman : src$.man"-->
+                        <!--&gt;</image>-->
+                    <!--</div>-->
+                    <!--<div class="bottom">-->
+                        <!--<text class="autograph">{{user.autograph || '这个家伙什么都没留下~~~'}}</text>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<wow-arrow></wow-arrow>-->
+            <!--</cell>-->
+        <!--</wow-scroll>-->
     </wow-view>
 </template>
 
@@ -59,24 +61,31 @@
             this.sourceGet(srcArr);
             // 获取url参数
             this.routerGetParams();
+            // 获取数据
+            this.handleRefresh();
         },
         methods: {
             handleRefresh (callback) {
                 this.pageIndex = 1;
-                this.reqThemeList(callback);
+                this.reqFollowList(callback);
             },
             handleLoading (callback) {
                 this.pageIndex++;
-                this.reqThemeList(callback);
+                this.reqFollowList(callback);
             },
-            reqThemeList (callback) {
+            reqFollowList (callback) {
                 let options = {
                     pageIndex: this.pageIndex,
                     pageSize: this.pageSize,
                 };
-                Http(Api.reqThemeList, options, {
+                let {
+                    type,
+                } = this.params$;
+                let url = type === 'wdgz'
+                    ? Api.reqFollowingList
+                    : Api.reqFollowersList;
+                Http(url, options, {
                     loading: !callback,
-                    useToken: false,
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;

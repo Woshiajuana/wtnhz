@@ -83,7 +83,7 @@ class Controller {
         try {
             let filterParams = await ctx.check$.testBody((regular) => {
                 return {
-                    id:  [
+                    _id:  [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',
@@ -115,7 +115,7 @@ class Controller {
                     ],
                 }
             });
-            let data = await followingService.list(filterParams);
+            let data = await followerService.list(filterParams);
             ctx.handle$.success(data);
         } catch (err) {
             ctx.handle$.error(err);
@@ -127,7 +127,7 @@ class Controller {
         try {
             let filterParams = await ctx.check$.testBody((regular) => {
                 return {
-                    id:  [
+                    _id:  [
                         {
                             nonempty: true,
                             prompt: '缺少必要参数',

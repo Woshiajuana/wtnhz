@@ -37,7 +37,7 @@ export default {
         } = options;
         const total = await FollowingModel.count();
         const list = await FollowingModel
-            .find({ following: _id })
+            .find({ following: mongoose.Types.ObjectId(_id) })
             .sort('-datetime')
             .skip((+pageIndex - 1) * +pageSize)
             .limit(+pageSize)
