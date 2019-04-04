@@ -2,30 +2,30 @@
     <wow-view
         view_use_scroll=""
         :view_style="{backgroundColor: '#f2f2f2'}"
+        :view_header_wrap_style="{borderBottomWidth: 1}"
         :view_header_center_txt="params$.title">
-        <text>{{arrList}}</text>
-        <!--<wow-scroll-->
-            <!--@refresh="handleRefresh"-->
-            <!--@loading="handleLoading">-->
-            <!--<cell class="cell"-->
-                  <!--v-for="(user, index) in arrList"-->
-                  <!--:key="index">-->
-                <!--<image class="avatar"></image>-->
-                <!--<div class="info">-->
-                    <!--<div class="top">-->
-                        <!--<text class="name">{{user.nickname || user.email}}</text>-->
-                        <!--<image-->
-                            <!--class="sex"-->
-                            <!--:src="user.sex === '0' ? src$.woman : src$.man"-->
-                        <!--&gt;</image>-->
-                    <!--</div>-->
-                    <!--<div class="bottom">-->
-                        <!--<text class="autograph">{{user.autograph || '这个家伙什么都没留下~~~'}}</text>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<wow-arrow></wow-arrow>-->
-            <!--</cell>-->
-        <!--</wow-scroll>-->
+        <wow-scroll
+            @refresh="handleRefresh"
+            @loading="handleLoading">
+            <cell class="cell"
+                  v-for="(user, index) in arrList"
+                  :key="index">
+                <image class="avatar" :src="user.avatar"></image>
+                <div class="info">
+                    <div class="top">
+                        <text class="name">{{user.nickname || user.email}}</text>
+                        <image
+                            class="sex"
+                            :src="user.sex === '0' ? src$.woman : src$.man"
+                        ></image>
+                    </div>
+                    <div class="bottom">
+                        <text class="autograph">{{user.autograph || '这个家伙什么都没留下~~~'}}</text>
+                    </div>
+                </div>
+                <wow-arrow></wow-arrow>
+            </cell>
+        </wow-scroll>
     </wow-view>
 </template>
 
@@ -84,14 +84,21 @@
                 let url = type === 'wdgz'
                     ? Api.reqFollowingList
                     : Api.reqFollowersList;
+                let key = type === 'wdgz'
+                    ? 'following'
+                    : 'follower';
                 Http(url, options, {
                     loading: !callback,
                 }).then(({code, data, msg}) => {
                     if (code !== '0000')
                         throw msg;
+                    let arr = [];
+                    data.list.forEach((item) => {
+                        arr.push(item[key])
+                    });
                     this.arrList = this.pageIndex === 1
-                        ? data.list
-                        : [...this.arrList, ...data.list];
+                        ? arr
+                        : [...this.arrList, ...arr];
                 }).catch((err) => {
                     Dialogs.toast(err);
                 }).finally(() => {
@@ -108,48 +115,48 @@
 </script>
 
 <style>
-    .wrap{
-        margin-top: 20px;
-        border-top-width: 1px;
-        border-color: #dedede;
-    }
-    .avatar-wrap{
-        margin-bottom: 20px;
-    }
-    .avatar{
-        margin-right: 32px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        width: 120px;
-        height: 120px;
-        border-radius: 120px;
-    }
-    .textarea-wrap{
+    .cell{
+        padding-top: 32px;
+        padding-bottom: 32px;
         padding-left: 32px;
         padding-right: 32px;
-        padding-bottom: 26px;
-        border-bottom-width: 1px;
-        border-color: #dedede;
+        flex-direction: row;
+        align-items: center;
         background-color: #fff;
     }
-    .textarea-label{
-        height: 100px;
-        flex-direction: row;
-        align-items: center;
+    .cell:active{
+        background-color: #fcfcfc;
     }
-    .textarea-label-text{
-        font-size: 32px;
-        color: #333;
+    .avatar{
+        width: 120px;
+        height: 120px;
+        margin-right: 32px;
+        border-radius: 120px;
     }
-    .textarea-value{
+    .info{
         flex: 1;
-        height: 132px;
-        font-size: 32px;
-        color: #333;
-        line-height: 44px;
     }
-    .input-right{
+    .top{
         flex-direction: row;
         align-items: center;
+        height: 60px;
+    }
+    .name{
+        font-size: 36px;
+        color: #333;
+        margin-right: 16px;
+    }
+    .sex{
+        width: 30px;
+        height: 30px;
+    }
+    .bottom{
+        height: 44px;
+        flex-direction: row;
+        align-items: center;
+    }
+    .autograph{
+        color: #999;
+        font-size: 24px;
     }
 </style>
