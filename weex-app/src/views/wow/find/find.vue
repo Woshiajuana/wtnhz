@@ -5,8 +5,9 @@
         <div class="table">
             <div class="table-head">
                 <div class="table-td">0</div>
-                <scroller class="table-head-content" scroll-direction="horizontal">
-                    <div class="table-td" ref="t1">1</div>
+                <scroller class="table-head-content"
+                     scroll-direction="horizontal">
+                    <div ref="t1" class="table-td">1</div>
                     <div class="table-td">2</div>
                     <div class="table-td">3</div>
                     <div class="table-td">4</div>
@@ -45,8 +46,8 @@
                         <div class="table-tr">0</div>
                     </div>
                     <scroller class="fr"
-                              :offset-accuracy="1"
                               @scroll="handleScroll"
+                              :offset-accuracy="1"
                               scroll-direction="horizontal">
                         <div class="table-body-content">
                             <div class="table-tr">
@@ -345,7 +346,7 @@
 
 <script>
     import WowView                      from 'wow-weex-ui/lib/wow-view'
-
+    const dom = weex.requireModule('dom') || {};
     export default {
         data () {
             return {
@@ -355,10 +356,17 @@
         created () {
             this.x = 1
         },
+        mounted () {
+        },
         methods: {
             handleScroll (event) {
                 let { x, y } = event.contentOffset;
                 this.x = x;
+
+                dom.scrollToElement(this.$refs.t1, {
+                    offset: -x ,
+                    animated: false
+                });
             }
         },
         components: {
