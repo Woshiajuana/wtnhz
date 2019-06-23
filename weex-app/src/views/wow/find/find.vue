@@ -1,12 +1,12 @@
 <template>
     <wow-view
         view_use_scroll=""
-        view_header_center_txt="测试">
+        :view_header_center_txt="x">
         <div class="table">
             <div class="table-head">
                 <div class="table-td">0</div>
                 <scroller class="table-head-content" scroll-direction="horizontal">
-                    <div class="table-td">1</div>
+                    <div class="table-td" ref="t1">1</div>
                     <div class="table-td">2</div>
                     <div class="table-td">3</div>
                     <div class="table-td">4</div>
@@ -17,7 +17,7 @@
                     <div class="table-td">9</div>
                 </scroller>
             </div>
-            <scroller>
+            <scroller  @scroll="handleScroll">
                 <div class="table-body">
                     <div class="table-label">
                         <div class="table-tr">1</div>
@@ -44,7 +44,10 @@
                         <div class="table-tr">9</div>
                         <div class="table-tr">0</div>
                     </div>
-                    <scroller class="fr" scroll-direction="horizontal">
+                    <scroller class="fr"
+                              :offset-accuracy="1"
+                              @scroll="handleScroll"
+                              scroll-direction="horizontal">
                         <div class="table-body-content">
                             <div class="table-tr">
                                 <div class="table-td">1</div>
@@ -344,6 +347,20 @@
     import WowView                      from 'wow-weex-ui/lib/wow-view'
 
     export default {
+        data () {
+            return {
+                x: 0,
+            }
+        },
+        created () {
+            this.x = 1
+        },
+        methods: {
+            handleScroll (event) {
+                let { x, y } = event.contentOffset;
+                this.x = x;
+            }
+        },
         components: {
             WowView,
         },
