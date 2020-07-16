@@ -33,7 +33,7 @@
     "fs-extra": "^5.0.0",
     "fs-promise": "^2.0.3",
     "is-buffer": "^2.0.2",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "micro": "^9.1.4",
     "serve": "^4.0.1",
     "uglify-js": "^2.8.5",
