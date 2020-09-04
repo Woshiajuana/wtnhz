@@ -38,7 +38,7 @@
     "jquery": "^3.3.1",
     "jquery-browserify": "^1.8.1",
     "jquery-mousewheel": "^3.1.13",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.13.1",
     "postcss-loader": "^2.1.0",
     "sass-loader": "^6.0.6",
     "serve": "^9.4.2",
